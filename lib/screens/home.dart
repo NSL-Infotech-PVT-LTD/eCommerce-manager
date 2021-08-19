@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Helper/userData.dart';
+import 'package:funfy_scanner/Models/ApiCaller.dart';
+import 'package:funfy_scanner/screens/pastTicketsList.dart';
+import 'package:funfy_scanner/screens/profilePage.dart';
+import 'package:funfy_scanner/screens/profileScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -27,15 +34,25 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
+          //Qr code Scanner
           QRData(),
-          Center(
-            child: Image.asset(
-              "assets/images/camera.png",
-              color: Colors.black,
-              height: 100,
-            ),
-          ),
-          Center(child: Text("show Tickets")),
+          //shown Past Tickets List
+          PastTicketsList(),
+          //Profile Screen
+          Profilepage(),
+          // Center(
+          //   child: ElevatedButton(
+          //     onPressed: () {
+          //       UserData.getUserToken("USERTOKEN").then((value) {
+          //         print("===Logout=======>$value");
+          //         ApiCaller()
+          //             .logout("$value")
+          //             .whenComplete(() => Get.toNamed(Routes.signInScreen));
+          //       });
+          //     },
+          //     child: Text("LogOut"),
+          //   ),
+          // ),
         ],
       ),
       bottomNavigationBar: Container(

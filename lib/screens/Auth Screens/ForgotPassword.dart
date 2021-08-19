@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
-
+import 'package:funfy_scanner/Models/forgotPasswordModel.dart';
+import 'package:flash/flash.dart';
 import 'package:funfy_scanner/screens/home.dart';
+import 'package:get/get.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -15,15 +19,13 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+
   final _formkey = GlobalKey<FormState>();
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery
-        .of(context)
-        .size;
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black87,
       body: SingleChildScrollView(
@@ -38,9 +40,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: screenSize.height,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/BG_2.png"),
-                    )),
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/images/BG_2.png"),
+                )),
               ),
               Container(
                 width: screenSize.width,
@@ -62,9 +64,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     width: 87.99,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage("assets/images/LOGO.png"),
-                        )),
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/LOGO.png"),
+                    )),
                   ),
                   SizedBox(height: screenSize.height * 0.05),
                   Container(
@@ -126,22 +128,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             ),
                           ),
                         ),
+                        //email Field
                         Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
+                          width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(
                               horizontal: 30, vertical: 10),
                           child: TextFormField(
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>
-                            (value!.isEmpty)
+                            validator: (value) => (value!.isEmpty)
                                 ? "Please enter a valid email !"
                                 : null,
                             style: TextStyle(
@@ -152,9 +147,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             decoration: InputDecoration(
                               fillColor: Color(0xff434343),
                               filled: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.01,
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.01,
+                              ),
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: Color(0xff707070))),
+                                      BorderSide(color: Color(0xff707070))),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.grey,
@@ -169,67 +170,65 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  //Sign In
-                  InkWell(
-                    onTap: () {
-                      if (_formkey.currentState!.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        ApiCaller()
-                            .doLogin(
-                          context: context,
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          deviceType: "dsfds",
-                          deviceToken: "dsfdsfdsf",
+                  //Submit Button
+                  _isLoading
+                      ? CircularProgressIndicator(
+                          color: Color(0xffFF5349),
                         )
-                            .then(
-                              (userCredential) {
-                            print(
-                                "=>${userCredential!.data!.token.toString()}");
-                            return UserData.setUserToken(
-                              key: "USERTOKEN",
-                              value: userCredential.data!.token.toString(),
-                            ).whenComplete(
-                                  () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
+                      : InkWell(
+                          onTap: () {
+                            if (_formkey.currentState!.validate()) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              print(_emailController.text);
+
+                              ApiCaller()
+                                  .changeUserPassword(
+                                      _emailController.text, context, (){
+                                        setState(() {
+                                          _isLoading=false;
+                                        });
+                                        Get.back();
+                              })
+                                  .then((value) {
+                                print((value as ForgotPaswordModal)
+                                    .data!
+                                    .message);
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  behavior: SnackBarBehavior.fixed,
+                                    content: Text(
+                                        "${(value).data!.message}")));
+                              }).then((value) {
                                 setState(() {
                                   _isLoading = false;
                                 });
-                              },
-                            );
+                                Get.toNamed(Routes.signInScreen);
+                              });
+                            }
                           },
-                        );
-                      }
-                    },
-                    child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: 45,
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Color(0xffFF5349),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Color(0xffFF5349),
-                          )),
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontFamily: FontsDisPlay.dmSantsMedium,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 45,
+                            margin: EdgeInsets.symmetric(horizontal: 30),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Color(0xffFF5349),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: Color(0xffFF5349),
+                                )),
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontFamily: FontsDisPlay.dmSantsMedium,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

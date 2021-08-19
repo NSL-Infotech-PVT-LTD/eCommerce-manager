@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
-import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
-import 'package:funfy_scanner/screens/home.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,13 +18,15 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () {
       UserData.getUserToken("USERTOKEN").then((_token) {
         if (_token == null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => SignIn()),
-          );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => SignIn()),
+          // );
+          Get.toNamed(Routes.signInScreen);
         } else {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home()));
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (context) => Home()));
+          Get.toNamed(Routes.homeScreen);
         }
       });
 
@@ -67,8 +69,8 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset(
                   "assets/images/LOGO.png",
-                  height: 200,
-                  width: 200,
+                  height: 204.69,
+                  width: 154.99,
                   fit: BoxFit.cover,
                 ),
                 // Spacer(),
@@ -89,10 +91,11 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset(
                   "assets/images/scanner.png",
-                  height: 84.75,
+                  height: 90.75,
                   width: 78,
                   fit: BoxFit.cover,
                 ),
+                SizedBox(height: screenSize.height * 0.03),
                 // SizedBox(height: 10),
                 // Text(
                 //   "SCANNER",
@@ -102,7 +105,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 //     fontSize: 18,
                 //   ),
                 // ),
-                SizedBox(height: screenSize.height * 0.05)
               ],
             ),
           )

@@ -3,6 +3,9 @@ import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
 import 'package:funfy_scanner/screens/home.dart';
+import 'package:funfy_scanner/screens/pastTicketsList.dart';
+import 'package:funfy_scanner/screens/profilePage.dart';
+import 'package:funfy_scanner/screens/profileScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/screens/splash_Screen.dart';
 import 'package:funfy_scanner/screens/ticket_Screen.dart';
@@ -19,42 +22,58 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FunFY',
-
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-initialRoute: Routes.splashScreen,
-
+      initialRoute: Routes.splashScreen,
       getPages: [
         GetPage(
           name: Routes.splashScreen,
           page: () => SplashScreen(),
-          transition: Transition.leftToRightWithFade,
-          transitionDuration: Duration(milliseconds: 500),
+          transition: Transition.zoom,
+          transitionDuration: Duration(milliseconds: 2000),
+          curve: Curves.bounceIn,
         ),
         GetPage(
           name: Routes.signInScreen,
           page: () => SignIn(),
-          transition: Transition.leftToRightWithFade,
-          transitionDuration: Duration(milliseconds: 500),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 1000),
         ),
         GetPage(
           name: Routes.homeScreen,
           page: () => Home(),
-          transition: Transition.leftToRightWithFade,
-          transitionDuration: Duration(milliseconds: 500),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 1500),
         ),
         GetPage(
           name: Routes.qrCodeScannerScreen,
           page: () => QRData(),
-          transition: Transition.leftToRightWithFade,
-          transitionDuration: Duration(milliseconds: 500),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 2000),
+        ),
+        GetPage(
+          name: Routes.qrCodeScannerScreen,
+          page: () => PastTicketsList(),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 2000),
+        ),
+        GetPage(
+          name: Routes.qrCodeScannerScreen,
+          page: () => Profilepage(),
+          transition: Transition.upToDown,
+          transitionDuration: Duration(milliseconds: 2000),
         ),
         GetPage(
           name: Routes.ticketScreen,
-          page: () => QRData(),
+          page: () => TicketScreen(),
           transition: Transition.downToUp,
+          transitionDuration: Duration(milliseconds: 1200),
+        ),
+        GetPage(
+          name: Routes.forgotScreen,
+          page: () => ForgotPassword(),
+          transition: Transition.rightToLeftWithFade,
           transitionDuration: Duration(milliseconds: 500),
         ),
       ],

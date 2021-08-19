@@ -3,19 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class TicketScreen extends StatelessWidget {
-  // final Barcode? scannedData;
+class TicketScreen extends StatefulWidget {
+  // Barcode _data;
 
   const TicketScreen({
     Key? key,
-    // required this.scannedData,
   }) : super(key: key);
+
+  @override
+  _TicketScreenState createState() => _TicketScreenState();
+}
+
+class _TicketScreenState extends State<TicketScreen> {
+  Object? get argument => null;
+
+  @override
+  void initState() {
+    super.initState();
+    print(argument);
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final scannedData = Get.arguments as Barcode;
+
     return Scaffold(
       backgroundColor: Color(0xffFF5349),
       appBar: AppBar(
@@ -94,7 +109,7 @@ class TicketScreen extends StatelessWidget {
                         width: 5,
                         height: 5,
                         decoration: BoxDecoration(
-                          color:Color(0xff3E332B) ,
+                          color: Color(0xff3E332B),
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -107,14 +122,6 @@ class TicketScreen extends StatelessWidget {
                           fontFamily: FontsDisPlay.dmSantsMedium,
                         ),
                       ),
-
-                      // Text(
-                      //   ".",
-                      //   style: TextStyle(
-                      //     color: Colors.black,
-                      //     fontSize: 40,
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(height: 65),
@@ -127,6 +134,7 @@ class TicketScreen extends StatelessWidget {
                   SizedBox(height: 8),
                   //Ratting Icons
                   RatingBar.builder(
+                    ignoreGestures: true,
                     initialRating: 3,
                     minRating: 1,
                     direction: Axis.horizontal,
@@ -138,10 +146,10 @@ class TicketScreen extends StatelessWidget {
                       Icons.star,
                       color: Colors.amber,
                     ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                      // return null;
+                    onRatingUpdate: (ratting) {
+                      print(ratting);
                     },
+                    updateOnDrag: true,
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -158,9 +166,26 @@ class TicketScreen extends StatelessWidget {
                     children: [
                       buildTicketTile("Time", "08.30 PM"),
                       buildTicketTile("Date", "25 June 2021"),
+                      // Text(
+                      //   argument.toString(),
+                      //   style: TextStyle(
+                      //     color: Colors.black,
+                      //   ),
+                      // ),
                       SizedBox(width: 10),
                     ],
                   ),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       print((scannedData).code);
+                  //     },
+                  //     child: Text("Clicked Button")),
+                  // Text(
+                  //   argument!["data"],
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

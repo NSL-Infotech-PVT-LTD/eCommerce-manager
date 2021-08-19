@@ -14,4 +14,9 @@ class UserData {
 
     return pref.getString(key);
   }
+
+  static Future clearData() async {
+    final pref = await SharedPreferences.getInstance();
+      await pref.clear();
+  }
 }

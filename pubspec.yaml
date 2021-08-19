@@ -37,6 +37,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   flutter_spinkit: ^5.0.0
   get: ^4.3.8
+  flash: ^2.0.1
 
 
 dev_dependencies:
@@ -58,6 +59,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/editPen.png
+    - assets/images/logout.png
 
 
 

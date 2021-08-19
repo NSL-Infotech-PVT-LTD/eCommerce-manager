@@ -111,3 +111,90 @@ buildTicketTile(String type, String value) {
     ],
   );
 }
+
+//PastTicketsListTile
+buildPastTicketsListTile(Size screenSize) {
+  return Column(
+    children: [
+      Container(
+        height: screenSize.height * 0.15,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 18),
+              width: screenSize.width * 0.10,
+              height: screenSize.height * 0.10,
+              decoration: BoxDecoration(
+                color: Colors.pink,
+                shape: BoxShape.circle,
+              ),
+            ),
+            SizedBox(width: screenSize.width * 0.03),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Pack \"La havanna\" ",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: screenSize.height * 0.010),
+                  Text(
+                    "order Delivered on 24 July \,",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                  SizedBox(height: screenSize.height * 0.010),
+                  Text(
+                    "Thursday , 08:30 PM",
+                    style: TextStyle(color: Colors.grey, fontSize: 11),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: screenSize.width * 0.0010),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.black87,
+                      side: BorderSide(
+                        color: Colors.redAccent,
+                        width: 2,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Order Details",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      Container(
+        width: screenSize.width,
+        height: 2,
+        color: Colors.grey,
+      ),
+    ],
+  );
+}

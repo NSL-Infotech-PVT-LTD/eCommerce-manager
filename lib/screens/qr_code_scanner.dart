@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
-import 'package:funfy_scanner/screens/ticket_Screen.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
+
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -20,23 +22,25 @@ class QRData extends StatefulWidget {
 class _QRDataState extends State<QRData> {
   Barcode? data;
   PanelController _panelController = PanelController();
+  QRViewController? controller;
 
 //for QR View
   _qrViewCreate(QRViewController controller) {
-    _controller = controller;
+    this.controller = controller;
     controller.scannedDataStream.listen((scannedData) {
-      print("=>${scannedData.code}");
-      data = scannedData;
+      print("====>>><<<<${scannedData.code}");
+      setState(() {
+        data = scannedData;
+      });
     }).onData((data) {
       _panelController.open();
-      //Navigate to Ticket Screen
-      Timer(Duration(seconds: 2), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TicketScreen(),
-          ),
+      // Navigate to Ticket Screen
+      Timer(Duration(seconds: 1), () {
+        Get.toNamed(
+          Routes.ticketScreen,
+          arguments: data,
         );
+        print("===>>>>>$data");
         _panelController.close();
       });
     });
@@ -46,15 +50,15 @@ class _QRDataState extends State<QRData> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      _controller!.resumeCamera();
+      _controller?.resumeCamera();
     } else if (Platform.isIOS) {
-      _controller!.resumeCamera();
+      _controller?.resumeCamera();
     }
   }
 
   @override
   void dispose() {
-    _controller!.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -155,7 +159,7 @@ class _QRDataState extends State<QRData> {
                     Expanded(
                         child: Center(
                       child: (data != null)
-                          ? Text("Data is :=) ${data!.code}")
+                          ? Text("Data is :=) ${data?.code}")
                           : Text(""),
                     )),
                     SizedBox(height: 15),

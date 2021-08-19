@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/home.dart';
-
+import 'package:get/get.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -140,8 +141,7 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                             Container(
-
-                             // width: MediaQuery.of(context).size.width,
+                              // width: MediaQuery.of(context).size.width,
                               //alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
@@ -160,7 +160,14 @@ class _SignInState extends State<SignIn> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.01, horizontal: MediaQuery.of(context).size.width * 0.01,),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.01,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.010,
+                                  ),
                                   fillColor: Color(0xff434343),
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(
@@ -196,7 +203,8 @@ class _SignInState extends State<SignIn> {
                             Container(
                               //width: MediaQuery.of(context).size.width,
                               //alignment: Alignment.center,
-                              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 10),
                               //decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
                               child: TextFormField(
                                 controller: _passwordController,
@@ -212,7 +220,14 @@ class _SignInState extends State<SignIn> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.01, horizontal: MediaQuery.of(context).size.width * 0.01,),
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.01,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.01,
+                                  ),
                                   fillColor: Color(0xff434343),
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(
@@ -275,33 +290,29 @@ class _SignInState extends State<SignIn> {
                                     )
                                         .then(
                                       (userCredential) {
-                                        print("=2>${userCredential!.data!.token
-                                            .toString()}");
+                                        print(
+                                            "=2>${userCredential!.data!.token.toString()}");
                                         return UserData.setUserToken(
-                                         key:  "USERTOKEN",
-                                        value:   userCredential.data!.token
+                                          key: "USERTOKEN",
+                                          value: userCredential.data!.token
                                               .toString(),
                                         ).whenComplete(
                                           () {
-
                                             setState(() {
                                               _isLoading = false;
                                             });
 
-
-                                            UserData.getUserToken("USERTOKEN").then((value){
+                                            UserData.getUserToken("USERTOKEN")
+                                                .then((value) {
                                               print("==========>$value");
 
-                                              Navigator.of(context)
-                                                  .pushReplacement(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Home()));
-
+                                              // Navigator.of(context)
+                                              //     .pushReplacement(
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) =>
+                                              //             Home()));
+                                              Get.toNamed(Routes.homeScreen);
                                             });
-
-
-
                                           },
                                         );
                                       },
@@ -338,10 +349,7 @@ class _SignInState extends State<SignIn> {
                               UserData.getUserToken("USERTOKEN"),
                             );
 
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ForgotPassword()));
+                            Get.toNamed(Routes.forgotScreen);
                           },
                           child: Text(
                             "Forgot Password?",
