@@ -2,13 +2,13 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class TicketScreen extends StatefulWidget {
-  // Barcode _data;
-
   const TicketScreen({
     Key? key,
   }) : super(key: key);
@@ -18,18 +18,28 @@ class TicketScreen extends StatefulWidget {
 }
 
 class _TicketScreenState extends State<TicketScreen> {
-  Object? get argument => null;
-
-  @override
-  void initState() {
-    super.initState();
-    print(argument);
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final scannedData = Get.arguments as Barcode;
+    final scannedData = (Get.arguments) as GetScannedDataModal;
+    List? timeStamp = [];
+    String forTime;
+    String forDate;
+    //get DataTime
+    timeStamp = scannedData.data!.data?[1].fiestaDetail!.timestamp
+        .toString()
+        .split(" ");
+    print(scannedData.data!.data?[1].fiestaDetail!.timestamp.toString());
+    forTime = timeStamp!.first.toString();
+    forDate = timeStamp[1].toString();
+    print("$forDate DatAndTime $forTime");
+    //get Ratting
+    final rattingGet = scannedData.data!.data![1].fiestaDetail!.clubRating;
+    final clubRatting = rattingGet == null ? 0 : rattingGet;
+    //get Price
+    final price = scannedData.data!.data![1].totalPrice;
+
+    //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
 
     return Scaffold(
       backgroundColor: Color(0xffFF5349),
@@ -78,7 +88,7 @@ class _TicketScreenState extends State<TicketScreen> {
                     ),
                   ),
                   SizedBox(height: 15),
-                  Text("Gary F. Adams",
+                  Text("${scannedData.data!.data![1].userDetail!.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontFamily: FontsDisPlay.dmSantsBold,
@@ -92,7 +102,7 @@ class _TicketScreenState extends State<TicketScreen> {
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "\€ 24.99",
+                        "\€ $price",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: Color(0xff3E332B),
@@ -125,7 +135,8 @@ class _TicketScreenState extends State<TicketScreen> {
                     ],
                   ),
                   SizedBox(height: 65),
-                  Text("Teartlo Barcelo`",
+                  Text(
+                      "${scannedData.data!.data![1].fiestaDetail!.clubDetail!.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 30,
@@ -135,8 +146,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   //Ratting Icons
                   RatingBar.builder(
                     ignoreGestures: true,
-                    initialRating: 3,
-                    minRating: 1,
+                    initialRating: double.parse(clubRatting.toString()),
                     direction: Axis.horizontal,
                     allowHalfRating: true,
                     itemCount: 5,
@@ -155,8 +165,16 @@ class _TicketScreenState extends State<TicketScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildTicketTile("Order ID", "EBP1267OEC"),
-                      buildTicketTile("Check In Type", "Ticket"),
+                      buildTicketTile(
+                          "Order ID",
+                          scannedData
+                              .data!.data![1].fiestaBookingItems!.ticketPrice
+                              .toString()),
+                      buildTicketTile(
+                          "Check In Type",
+                          scannedData
+                              .data!.data![1].fiestaBookingItems!.ticketType
+                              .toString()),
                       SizedBox(width: 10),
                     ],
                   ),
@@ -164,8 +182,8 @@ class _TicketScreenState extends State<TicketScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildTicketTile("Time", "08.30 PM"),
-                      buildTicketTile("Date", "25 June 2021"),
+                      buildTicketTile("Time", forDate),
+                      buildTicketTile("Date", forTime),
                       // Text(
                       //   argument.toString(),
                       //   style: TextStyle(
@@ -177,11 +195,12 @@ class _TicketScreenState extends State<TicketScreen> {
                   ),
                   // ElevatedButton(
                   //     onPressed: () {
-                  //       print((scannedData).code);
+                  //       print(
+                  //           "Ticket Acrren  ==============>>${scannedData.data!.id}");
                   //     },
                   //     child: Text("Clicked Button")),
                   // Text(
-                  //   argument!["data"],
+                  //   scannedData.code,
                   //   style: TextStyle(
                   //     color: Colors.black,
                   //   ),

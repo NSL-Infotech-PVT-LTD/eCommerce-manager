@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Helper/userData.dart';
+import 'package:funfy_scanner/Models/ApiCaller.dart';
+import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -19,31 +23,91 @@ class QRData extends StatefulWidget {
   _QRDataState createState() => _QRDataState();
 }
 
+int count = 0;
+
 class _QRDataState extends State<QRData> {
   Barcode? data;
   PanelController _panelController = PanelController();
   QRViewController? controller;
+  bool _isLoading = false;
+
+  String _loadingS = "Loading...";
 
 //for QR View
   _qrViewCreate(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scannedData) {
+      controller.pauseCamera();
       print("====>>><<<<${scannedData.code}");
       setState(() {
         data = scannedData;
+
+
+        if (data!.code != null && data!.code != "") {
+          controller.resumeCamera();
+
+          _panelController.open();
+          UserData.getUserToken("USERTOKEN").then((userToken) {
+            print(userToken);
+            print("Scanned Data ===========>${data!.code}");
+            ApiCaller()
+                .getScannedData(data!.code, userToken, context)
+                .then((dataById) {
+                  print(
+                    "Qr scannned  ${dataById?.code}"
+                  );
+              if (dataById==null) {
+                print(
+                    "Qr scannned IN condituion  ${dataById?.code.toString()}"
+                );
+                _panelController.close();
+
+                 showDialog<void>(
+                  context: context,
+                  barrierDismissible: false, // user must tap button!
+                  builder: (BuildContext context) {
+                    return CupertinoAlertDialog(
+                      title: Text('Login Error'),
+                      content: Text('Please enter the valid email !'),
+                      actions: <Widget>[
+                        // CupertinoDialogAction(
+                        //   child: Text('Don\'t Allow'),
+                        //   onPressed: () {
+                        //     Navigator.of(context).pop();
+                        //   },
+                        // ),
+                        CupertinoDialogAction(
+                            child: Text('Ok'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                print(
+                    "Scanned  Data Modal bla vlascdsxv ============>${dataById.code}");
+                _panelController.close();
+                // controller.dispose();
+
+                Get.toNamed(
+                  Routes.ticketScreen,
+                  arguments: dataById,
+                  // arguments: data.code,
+                );
+              }
+            });
+          });
+        }
       });
-    }).onData((data) {
-      _panelController.open();
-      // Navigate to Ticket Screen
-      Timer(Duration(seconds: 1), () {
-        Get.toNamed(
-          Routes.ticketScreen,
-          arguments: data,
-        );
-        print("===>>>>>$data");
+    }).onDone(
+      () {
         _panelController.close();
-      });
-    });
+
+        // Navigate to Ticket Screen
+      },
+    );
   }
 
   @override

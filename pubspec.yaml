@@ -38,6 +38,9 @@ dependencies:
   flutter_spinkit: ^5.0.0
   get: ^4.3.8
   flash: ^2.0.1
+  intl: ^0.17.0
+  cached_network_image: ^3.1.0
+  shimmer: ^2.0.0
 
 
 dev_dependencies:
@@ -61,6 +64,7 @@ flutter:
     - assets/images/
     - assets/images/editPen.png
     - assets/images/logout.png
+    - assets/images/defaultImage.png
 
 
 

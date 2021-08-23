@@ -31,6 +31,12 @@ class _SignInState extends State<SignIn> {
     });
   }
 
+  getInitialState() {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -287,6 +293,7 @@ class _SignInState extends State<SignIn> {
                                       password: _passwordController.text,
                                       deviceType: "dsfds",
                                       deviceToken: "dsfdsfdsf",
+                                      setInitialState: getInitialState,
                                     )
                                         .then(
                                       (userCredential) {
@@ -311,7 +318,7 @@ class _SignInState extends State<SignIn> {
                                               //     MaterialPageRoute(
                                               //         builder: (context) =>
                                               //             Home()));
-                                              Get.toNamed(Routes.homeScreen);
+                                              Get.offNamed(Routes.homeScreen);
                                             });
                                           },
                                         );

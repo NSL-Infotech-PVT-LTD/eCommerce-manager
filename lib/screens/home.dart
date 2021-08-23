@@ -5,10 +5,13 @@ import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
+import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
+import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/profilePage.dart';
 import 'package:funfy_scanner/screens/profileScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
+import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
@@ -21,38 +24,89 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController? _tabController;
   int? index;
+  bool _isLoading = false;
+  late GetUserProfileModal userAddData = GetUserProfileModal();
+  BookingListModal getBookingData = BookingListModal();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    getUserData();
+    getBookingList();
+  }
+
+  //for Booking List Screen
+  getBookingList() {
+    UserData.getUserToken("USERTOKEN").then((userToken) {
+      print(userToken);
+      ApiCaller().getBookingList(userToken).then((getBookingListData) {
+        print(getBookingListData);
+        // print(
+        //     "Booking List Data=====>>>${(getBookingListData as BookingListModal).data!.data![0].totalPrice}");
+        setState(() {
+          getBookingData = getBookingListData;
+          print(getBookingData.data!.data![1].totalPrice);
+        });
+      });
+    });
+  }
+
+//for Profile Screen
+  getUserData() {
+    setState(() {
+      _isLoading = true;
+    });
+    UserData.getUserToken("USERTOKEN").then((userToken) {
+      ApiCaller().getUserProfile(userToken, context).then((userData) {
+        // print((userData as GetUserProfileModal).data!.email);
+        setState(() {
+          userAddData = (userData);
+          _isLoading = false;
+        });
+      });
+    });
+  }
+
+// logout User
+  logoutmethod() {
+    setState(() {
+      _isLoading = true;
+    });
+    UserData.getUserToken("USERTOKEN").then(
+      (token) => ApiCaller().logout(token).then(
+        (value) {
+          setState(() {
+            _isLoading = false;
+          });
+          return Get.toNamed(Routes.signInScreen);
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
           //Qr code Scanner
           QRData(),
           //shown Past Tickets List
-          PastTicketsList(),
+          PastTicketsList(
+            showBookingList: getBookingData,
+          ),
           //Profile Screen
-          Profilepage(),
-          // Center(
-          //   child: ElevatedButton(
-          //     onPressed: () {
-          //       UserData.getUserToken("USERTOKEN").then((value) {
-          //         print("===Logout=======>$value");
-          //         ApiCaller()
-          //             .logout("$value")
-          //             .whenComplete(() => Get.toNamed(Routes.signInScreen));
-          //       });
-          //     },
-          //     child: Text("LogOut"),
-          //   ),
-          // ),
+          buildProfileScreen(
+            _isLoading,
+            userAddData,
+            size,
+            context,
+            logoutmethod,
+          ),
         ],
       ),
       bottomNavigationBar: Container(

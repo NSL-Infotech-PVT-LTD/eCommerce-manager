@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
       initialRoute: Routes.splashScreen,
       getPages: [
         GetPage(
@@ -44,26 +45,26 @@ class MyApp extends StatelessWidget {
           name: Routes.homeScreen,
           page: () => Home(),
           transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 1500),
+          transitionDuration: Duration(milliseconds: 800),
         ),
-        GetPage(
-          name: Routes.qrCodeScannerScreen,
-          page: () => QRData(),
-          transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 2000),
-        ),
-        GetPage(
-          name: Routes.qrCodeScannerScreen,
-          page: () => PastTicketsList(),
-          transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 2000),
-        ),
-        GetPage(
-          name: Routes.qrCodeScannerScreen,
-          page: () => Profilepage(),
-          transition: Transition.upToDown,
-          transitionDuration: Duration(milliseconds: 2000),
-        ),
+        // GetPage(
+        //   name: Routes.qrCodeScannerScreen,
+        //   page: () => QRData(),
+        //   transition: Transition.rightToLeftWithFade,
+        //   transitionDuration: Duration(milliseconds: 1500),
+        // ),
+        // GetPage(
+        //   name: Routes.qrCodeScannerScreen,
+        //   page: () => PastTicketsList(),
+        //   transition: Transition.rightToLeftWithFade,
+        //   transitionDuration: Duration(milliseconds: 1500),
+        // ),
+        // GetPage(
+        //   name: Routes.qrCodeScannerScreen,
+        //   page: () => Profilepage(),
+        //   transition: Transition.upToDown,
+        //   transitionDuration: Duration(milliseconds: 1500),
+        // ),
         GetPage(
           name: Routes.ticketScreen,
           page: () => TicketScreen(),

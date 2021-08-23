@@ -22,11 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
           //   context,
           //   MaterialPageRoute(builder: (context) => SignIn()),
           // );
-          Get.toNamed(Routes.signInScreen);
+          Get.offNamed(Routes.signInScreen);
         } else {
           // Navigator.pushReplacement(
           //     context, MaterialPageRoute(builder: (context) => Home()));
-          Get.toNamed(Routes.homeScreen);
+          Get.offNamed(Routes.homeScreen);
         }
       });
 
