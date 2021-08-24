@@ -2,11 +2,11 @@ import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
-import 'package:funfy_scanner/Models/getScannedDataModal.dart';
+import 'package:funfy_scanner/Models/bookingListModal.dart';
+// import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({
@@ -21,23 +21,27 @@ class _TicketScreenState extends State<TicketScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final scannedData = (Get.arguments) as GetScannedDataModal;
+    print("vikas1" + Get.arguments.toJson().toString());
+    DataUser scannedData = (Get.arguments);
+print("vikas2" + scannedData.toJson().toString());
+
+
     List? timeStamp = [];
     String forTime;
     String forDate;
     //get DataTime
-    timeStamp = scannedData.data!.data?[1].fiestaDetail!.timestamp
+    timeStamp = scannedData.fiestaDetail!.timestamp     //.data?[1].fiestaDetail!.timestamp
         .toString()
         .split(" ");
-    print(scannedData.data!.data?[1].fiestaDetail!.timestamp.toString());
-    forTime = timeStamp!.first.toString();
+    print(scannedData.fiestaDetail!.timestamp.toString());
+    forTime = timeStamp.first.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
     //get Ratting
-    final rattingGet = scannedData.data!.data![1].fiestaDetail!.clubRating;
+    final rattingGet = scannedData.fiestaDetail!.clubRating;
     final clubRatting = rattingGet == null ? 0 : rattingGet;
     //get Price
-    final price = scannedData.data!.data![1].totalPrice;
+    final price = scannedData.fiestaDetail!.ticketPrice;
 
     //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
 
@@ -88,7 +92,7 @@ class _TicketScreenState extends State<TicketScreen> {
                     ),
                   ),
                   SizedBox(height: 15),
-                  Text("${scannedData.data!.data![1].userDetail!.name}",
+                  Text("${scannedData.userDetail!.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontFamily: FontsDisPlay.dmSantsBold,
@@ -136,7 +140,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   ),
                   SizedBox(height: 65),
                   Text(
-                      "${scannedData.data!.data![1].fiestaDetail!.clubDetail!.name}",
+                      "${scannedData.fiestaDetail!.clubDetail!.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 30,
@@ -167,13 +171,11 @@ class _TicketScreenState extends State<TicketScreen> {
                     children: [
                       buildTicketTile(
                           "Order ID",
-                          scannedData
-                              .data!.data![1].fiestaBookingItems!.ticketPrice
+                          scannedData.fiestaDetail!.ticketPrice
                               .toString()),
                       buildTicketTile(
                           "Check In Type",
-                          scannedData
-                              .data!.data![1].fiestaBookingItems!.ticketType
+                          scannedData.fiestaBookingItems!.ticketType
                               .toString()),
                       SizedBox(width: 10),
                     ],

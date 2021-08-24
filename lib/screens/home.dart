@@ -41,12 +41,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
       ApiCaller().getBookingList(userToken).then((getBookingListData) {
-        print(getBookingListData);
-        // print(
-        //     "Booking List Data=====>>>${(getBookingListData as BookingListModal).data!.data![0].totalPrice}");
+        print("vikas " + getBookingListData.toString());
+        print("Booking List Data=====>>>${(getBookingListData as BookingListModal).data?.data![1].totalPrice.toString()}");
         setState(() {
           getBookingData = getBookingListData;
-          print(getBookingData.data!.data![1].totalPrice);
+          // print(getBookingData.data!.data![1].userDetail!.name.toString());
         });
       });
     });

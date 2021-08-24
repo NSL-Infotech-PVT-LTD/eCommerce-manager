@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(Duration(seconds: 3), () {
       UserData.getUserToken("USERTOKEN").then((_token) {
+        print("$_token jdfkjskfj");
         if (_token == null) {
           // Navigator.pushReplacement(
           //   context,

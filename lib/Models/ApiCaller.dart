@@ -196,29 +196,43 @@ class ApiCaller {
     }
     print("==========${response.body}");
   }
-
-//Get Scanned Data
-  Future getScannedData(
-    String id,
-    String userToken,
-    BuildContext context,
-  ) async {
+  Future<GetScanData> getScannedData(String id, String userToken,) async {
     Map<String, dynamic> data = {
       "booking_id": id,
     };
-    final response = await http.post(
-      Uri.parse(baseUrl + getById),
+    final response = await http.post( Uri.parse(baseUrl + getById),
       headers: {
         "Authorization": "Bearer " + userToken,
       },
-      body: data,
-    );
-    print(" In Api Caller =========${response.body}");
-    if (response.statusCode == 200) {
-      return GetScannedDataModal.fromJson(json.decode(response.body));
-    } else {
-      return null;
-    }
-    // print("===============================>>>>${response.body}");
+        body: data);
+    // print(jsonEncode(params));
+    final jsonData = json.decode(response.body);
+    var map = Map<String, dynamic>.from(jsonData);
+    return GetScanData.fromJson(map);
   }
+//Get Scanned Data
+//   Future<GetScanData> getScannedData(String id, String userToken, BuildContext context,
+//   ) async {
+//     Map<String, dynamic> data = {
+//       "booking_id": id,
+//     };
+//     final response = await http.post(
+//       Uri.parse(baseUrl + getById),
+//       headers: {
+//         "Authorization": "Bearer " + userToken,
+//       },
+//       body: data,
+//     );
+//     print(" In Api Caller =========${json.decode(response.body)}");
+//     final jsonData = json.decode(response.body);
+//     var map = Map<String,dynamic>.from(jsonData);
+//     return GetScanData.fromJson(map);//BookingListModal.fromJson(json.decode(response.body));
+//     // if (response.statusCode == 200) {
+//     //   return DataUser.fromJson(json.decode(response.body));
+//     // } else {
+//     //     return DataUser.fromJson(json.decode(response.body));
+//     // }
+//     //
+//     // print("===============================>>>>${response.body}");
+//   }
 }

@@ -7,6 +7,9 @@ import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
+import 'package:funfy_scanner/Models/bookingListModal.dart';
+
+// import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 
 import 'package:get/get.dart';
@@ -42,27 +45,24 @@ class _QRDataState extends State<QRData> {
       setState(() {
         data = scannedData;
 
-
-        if (data!.code != null && data!.code != "") {
+        if (data!.code.isNotEmpty && data!.code != "") {
           controller.resumeCamera();
 
           _panelController.open();
           UserData.getUserToken("USERTOKEN").then((userToken) {
             print(userToken);
-            print("Scanned Data ===========>${data!.code}");
             ApiCaller()
-                .getScannedData(data!.code, userToken, context)
+                .getScannedData(
+              data!.code,
+              userToken,
+            )
                 .then((dataById) {
-                  print(
-                    "Qr scannned  ${dataById?.code}"
-                  );
-              if (dataById==null) {
-                print(
-                    "Qr scannned IN condituion  ${dataById?.code.toString()}"
-                );
+              print("fkhfskh $dataById");
+              _panelController.close();
+              if (dataById == null) {
+                // print("Qr scannned IN condituion  ${dataById.code.toString()}");
                 _panelController.close();
-
-                 showDialog<void>(
+                showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
@@ -70,12 +70,6 @@ class _QRDataState extends State<QRData> {
                       title: Text('Login Error'),
                       content: Text('Please enter the valid email !'),
                       actions: <Widget>[
-                        // CupertinoDialogAction(
-                        //   child: Text('Don\'t Allow'),
-                        //   onPressed: () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        // ),
                         CupertinoDialogAction(
                             child: Text('Ok'),
                             onPressed: () {
@@ -86,16 +80,43 @@ class _QRDataState extends State<QRData> {
                   },
                 );
               } else {
-                print(
-                    "Scanned  Data Modal bla vlascdsxv ============>${dataById.code}");
-                _panelController.close();
-                // controller.dispose();
+                print("dfjsghfj ${dataById.toJson()}");
 
-                Get.toNamed(
-                  Routes.ticketScreen,
-                  arguments: dataById,
-                  // arguments: data.code,
-                );
+                if (dataById.data != null &&
+                    dataById.data!.currentPage != null &&
+                    dataById.data!.data!.length > 0) {
+                  print("dfjsghfj ${dataById.data!.data!.first.toJson()}");
+
+                  DataUser datauser = dataById.data!.data!.first;
+                  _panelController.close();
+                  // controller.dispose();
+
+                  Get.toNamed(
+                    Routes.ticketScreen,
+                    arguments: datauser,
+                    // arguments: data.code,
+                  );
+                } else {
+                  print("dfjsghfj ${dataById.toJson()}");
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text('Login Error'),
+                        content: Text('Please enter the valid email !'),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                              child: Text('Ok'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              }),
+                        ],
+                      );
+                    },
+                  );
+                  print("data not found");
+                }
               }
             });
           });

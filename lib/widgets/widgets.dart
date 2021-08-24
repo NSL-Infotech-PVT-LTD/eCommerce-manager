@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
+import 'package:get/get.dart';
 
 //for textField
 buildCustomTextField(
@@ -114,9 +116,11 @@ buildTicketTile(String type, String value) {
 }
 
 //PastTicketsListTile
-buildPastTicketsListTile(Size screenSize) {
+buildPastTicketsListTile(
+    Size screenSize, String name, String date, String time, getData) {
   return Column(
     children: [
+      SizedBox(height: screenSize.height * 0.040),
       Container(
         height: screenSize.height * 0.15,
         child: Row(
@@ -139,7 +143,7 @@ buildPastTicketsListTile(Size screenSize) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pack \"La havanna\" ",
+                    "$name ",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
@@ -148,16 +152,16 @@ buildPastTicketsListTile(Size screenSize) {
                   ),
                   SizedBox(height: screenSize.height * 0.010),
                   Text(
-                    "order Delivered on 24 July \,",
+                    "order Delivered on $date\,",
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                   SizedBox(height: screenSize.height * 0.010),
                   Text(
-                    "Thursday , 08:30 PM",
-                    style: TextStyle(color: Colors.grey, fontSize: 11),
+                    "Thursday , $time",
+                    style: TextStyle(color: Colors.grey, fontSize: 10),
                   ),
                 ],
               ),
@@ -176,7 +180,12 @@ buildPastTicketsListTile(Size screenSize) {
                         width: 2,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(
+                        Routes.ticketScreen,
+                        arguments: getData,
+                      );
+                    },
                     child: Text(
                       "Order Details",
                       style: TextStyle(
@@ -416,43 +425,43 @@ buildProfileScreen(
 }
 
 //show BookigList
-buildBookingList(Size screeSize ) {
-return  Column(
-  children: [
-    //Custom AppBar
-
-    Container(
-      height: screeSize.height * 0.18,
-      width: screeSize.width,
-      decoration: BoxDecoration(
-        color: Colors.redAccent,
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(15),
-          bottomLeft: Radius.circular(15),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 18.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: screeSize.height * 0.05),
-            SizedBox(height: screeSize.height * 0.03),
-            Text(
-              "Scanned List",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    SizedBox(height: screeSize.height * 0.040),
-// List Tile
-    buildPastTicketsListTile(screeSize),
-  ],
-);
-}
+// buildBookingList(Size screeSize ) {
+// return  Column(
+//   children: [
+//     //Custom AppBar
+//
+//       // Container(
+//       //   height: screeSize.height * 0.18,
+//       //   width: screeSize.width,
+//       //   decoration: BoxDecoration(
+//       //     color: Colors.redAccent,
+//       //     borderRadius: BorderRadius.only(
+//       //       bottomRight: Radius.circular(15),
+//       //       bottomLeft: Radius.circular(15),
+//       //     ),
+//       //   ),
+//       //   child: Padding(
+//       //     padding: const EdgeInsets.only(left: 18.0),
+//       //     child: Column(
+//       //       crossAxisAlignment: CrossAxisAlignment.start,
+//       //       children: [
+//       //         SizedBox(height: screeSize.height * 0.05),
+//       //         SizedBox(height: screeSize.height * 0.03),
+//       //         // Text(
+//       //         //   "Scanned List",
+//       //         //   style: TextStyle(
+//       //         //     color: Colors.white,
+//       //         //     fontWeight: FontWeight.w900,
+//       //         //     fontSize: 20,
+//       //         //   ),
+//       //         // ),
+//       //       ],
+//       //     ),
+//       //   ),
+//       // ),
+//
+// // List Tile
+//     buildPastTicketsListTile(screeSize),
+//   ],
+// );
+// }
