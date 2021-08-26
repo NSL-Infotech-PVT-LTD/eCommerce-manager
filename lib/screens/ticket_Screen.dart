@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
+
 // import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
-
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({
@@ -23,16 +24,16 @@ class _TicketScreenState extends State<TicketScreen> {
     final screenSize = MediaQuery.of(context).size;
     print("vikas1" + Get.arguments.toJson().toString());
     DataUser scannedData = (Get.arguments);
-print("vikas2" + scannedData.toJson().toString());
-
+    print("vikas2" + scannedData.toJson().toString());
 
     List? timeStamp = [];
     String forTime;
     String forDate;
     //get DataTime
-    timeStamp = scannedData.fiestaDetail!.timestamp     //.data?[1].fiestaDetail!.timestamp
-        .toString()
-        .split(" ");
+    timeStamp =
+        scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+            .toString()
+            .split(" ");
     print(scannedData.fiestaDetail!.timestamp.toString());
     forTime = timeStamp.first.toString();
     forDate = timeStamp[1].toString();
@@ -84,7 +85,7 @@ print("vikas2" + scannedData.toJson().toString());
                     ],
                   ),
                   Text(
-                    "Booking Name",
+                    AppTranslation.of(context)!.text("bookingName"),
                     style: TextStyle(
                       color: Colors.grey,
                       fontFamily: FontsDisPlay.dmSantsRegular,
@@ -129,7 +130,7 @@ print("vikas2" + scannedData.toJson().toString());
                       ),
                       SizedBox(width: 8),
                       Text(
-                        "2 person(s) ",
+                        AppTranslation.of(context)!.text("2 person"),
                         style: TextStyle(
                           fontSize: 17,
                           color: Color(0xff3E332B),
@@ -139,8 +140,7 @@ print("vikas2" + scannedData.toJson().toString());
                     ],
                   ),
                   SizedBox(height: 65),
-                  Text(
-                      "${scannedData.fiestaDetail!.clubDetail!.name}",
+                  Text("${scannedData.fiestaDetail!.clubDetail!.name}",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 30,
@@ -170,11 +170,10 @@ print("vikas2" + scannedData.toJson().toString());
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       buildTicketTile(
-                          "Order ID",
-                          scannedData.fiestaDetail!.ticketPrice
-                              .toString()),
+                          AppTranslation.of(context)!.text("orderId"),
+                          scannedData.fiestaDetail!.ticketPrice.toString()),
                       buildTicketTile(
-                          "Check In Type",
+                          AppTranslation.of(context)!.text("check In Type"),
                           scannedData.fiestaBookingItems!.ticketType
                               .toString()),
                       SizedBox(width: 10),
@@ -184,8 +183,10 @@ print("vikas2" + scannedData.toJson().toString());
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildTicketTile("Time", forDate),
-                      buildTicketTile("Date", forTime),
+                      buildTicketTile(
+                          AppTranslation.of(context)!.text("time"), forDate),
+                      buildTicketTile(
+                          AppTranslation.of(context)!.text("date"), forTime),
                       // Text(
                       //   argument.toString(),
                       //   style: TextStyle(

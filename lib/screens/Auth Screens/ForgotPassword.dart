@@ -7,6 +7,7 @@ import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/forgotPasswordModel.dart';
 import 'package:flash/flash.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/home.dart';
 import 'package:get/get.dart';
 
@@ -76,7 +77,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Forgot Password",
+                          AppTranslation.of(context)!.text("forgotpassword"),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color(0xffF5F5F5),
@@ -88,7 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Row(
                           children: [
                             Text(
-                              "welcome to",
+                              AppTranslation.of(context)!.text("welcome"),
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontSize: 18,
@@ -97,7 +98,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               ),
                             ),
                             Text(
-                              " Funfy party app",
+                              AppTranslation.of(context)!
+                                  .text("funfy party app"),
                               style: TextStyle(
                                 color: Color(0xffFFFFFF),
                                 fontSize: 18,
@@ -121,7 +123,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         Padding(
                           padding: EdgeInsets.only(left: 33),
                           child: Text(
-                            "Email",
+                            AppTranslation.of(context)!.text("email"),
                             style: TextStyle(
                               color: Color(0xffDBDBDB),
                               fontSize: 12,
@@ -183,22 +185,21 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               });
                               print(_emailController.text);
 
-                              ApiCaller()
-                                  .changeUserPassword(
-                                      _emailController.text, context, (){
-                                        setState(() {
-                                          _isLoading=false;
-                                        });
-                                        Get.back();
-                              })
-                                  .then((value) {
+                              ApiCaller().changeUserPassword(
+                                  _emailController.text, context, () {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                Get.back();
+                              }).then((value) {
                                 print((value as ForgotPaswordModal)
                                     .data!
                                     .message);
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  behavior: SnackBarBehavior.fixed,
-                                    content: Text(
-                                        "${(value).data!.message}")));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        behavior: SnackBarBehavior.fixed,
+                                        content:
+                                            Text("${(value).data!.message}")));
                               }).then((value) {
                                 setState(() {
                                   _isLoading = false;
@@ -219,7 +220,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   color: Color(0xffFF5349),
                                 )),
                             child: Text(
-                              "Submit",
+                              AppTranslation.of(context)!.text("submit"),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -234,7 +235,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Remember your password? ",
+                        AppTranslation.of(context)!
+                            .text("remember your password?"),
                         style: TextStyle(
                           color: Color(0xff434343),
                         ),
@@ -244,7 +246,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           Navigator.pop(context);
                         },
                         child: Text(
-                          "BACK TO SIGN IN ",
+                          AppTranslation.of(context)!.text("backtoSignIn"),
                           style: TextStyle(
                             color: Color(0xffFFFFFF),
                             fontWeight: FontWeight.w900,

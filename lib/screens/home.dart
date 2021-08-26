@@ -7,12 +7,14 @@ import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/profilePage.dart';
 import 'package:funfy_scanner/screens/profileScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   late GetUserProfileModal userAddData = GetUserProfileModal();
   BookingListModal getBookingData = BookingListModal();
+  PanelController? _panelController = PanelController();
 
   @override
   void initState() {
@@ -41,11 +44,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
       ApiCaller().getBookingList(userToken).then((getBookingListData) {
-        print("vikas " + getBookingListData.toString());
-        print("Booking List Data=====>>>${(getBookingListData as BookingListModal).data?.data![1].totalPrice.toString()}");
         setState(() {
           getBookingData = getBookingListData;
-          // print(getBookingData.data!.data![1].userDetail!.name.toString());
+          print(getBookingData.data!.data![1].userDetail!.name.toString());
         });
       });
     });
@@ -99,13 +100,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             showBookingList: getBookingData,
           ),
           //Profile Screen
-          buildProfileScreen(
-            _isLoading,
-            userAddData,
-            size,
-            context,
-            logoutmethod,
-          ),
+          buildProfileScreen(_isLoading, userAddData, size, context,
+              logoutmethod, _panelController!),
         ],
       ),
       bottomNavigationBar: Container(
@@ -131,7 +127,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     color: index == 0 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                   ),
                   Text(
-                    "Qr Code",
+                    AppTranslation.of(context)!.text("qrcode"),
                     style: TextStyle(
                       color: index == 0 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                       fontFamily: index == 0
@@ -151,7 +147,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     color: index == 1 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                   ),
                   Text(
-                    "Past Tickets",
+                    AppTranslation.of(context)!.text("pastTickets"),
                     style: TextStyle(
                       color: index == 1 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                       fontFamily: index == 1
@@ -171,7 +167,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     color: index == 2 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                   ),
                   Text(
-                    "Profile",
+                    AppTranslation.of(context)!.text("profile"),
                     style: TextStyle(
                       color: index == 2 ? Color(0xffFFFFFF) : Color(0xffC5C5C5),
                       fontFamily: index == 2

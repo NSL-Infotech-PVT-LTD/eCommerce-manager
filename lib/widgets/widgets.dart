@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
+import 'package:funfy_scanner/localization/ChangeLangugage.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
+import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
 import 'package:get/get.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //for textField
 buildCustomTextField(
@@ -216,6 +220,7 @@ buildProfileScreen(
   Size size,
   BuildContext context,
   VoidCallback _logoutFunc,
+  PanelController _panelController,
 ) {
   final userImage = userAddData.data?.image;
   print(userImage);
@@ -352,21 +357,27 @@ buildProfileScreen(
 //Languages
               centerlistItem(
                   context: context,
-                  title: "languages",
+                  title: AppTranslation.of(context)!.text("lang"),
 // rightIconImage: ,
                   leftIconImage: "assets/images/expand.png",
-                  onTapfunc: () {}),
+                  onTapfunc: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeLanguageScreen(),
+                        ));
+                  }),
 //Help
               centerlistItem(
                   context: context,
-                  title: "Help",
+                  title: AppTranslation.of(context)!.text("help"),
 // Help: ,
                   leftIconImage: "assets/images/expand.png",
                   onTapfunc: () {}),
 //Contact Us
               centerlistItem(
                   context: context,
-                  title: "Contact Us",
+                  title: AppTranslation.of(context)!.text("contact"),
 // rightIconImage: ,
                   leftIconImage: "assets/images/expand.png",
                   onTapfunc: () {}),
@@ -405,7 +416,7 @@ buildProfileScreen(
                             ),
                             SizedBox(width: size.width * 0.090),
                             Text(
-                              "Log Out",
+                              AppTranslation.of(context)!.text("logout"),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

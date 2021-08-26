@@ -7,6 +7,7 @@ import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/home.dart';
 import 'package:get/get.dart';
@@ -91,7 +92,7 @@ class _SignInState extends State<SignIn> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Sign In",
+                      AppTranslation.of(context)!.text("signIn"),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xffF5F5F5),
@@ -103,7 +104,7 @@ class _SignInState extends State<SignIn> {
                       Row(
                         children: [
                           Text(
-                            "welcome to",
+                            AppTranslation.of(context)!.text("welcome"),
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontSize: 18,
@@ -112,7 +113,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           Text(
-                            " Funfy party app",
+                            AppTranslation.of(context)!.text("funfy party app"),
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontSize: 18,
@@ -139,7 +140,7 @@ class _SignInState extends State<SignIn> {
                             Padding(
                               padding: EdgeInsets.only(left: 33),
                               child: Text(
-                                "Email",
+                                  AppTranslation.of(context)!.text("email"),
                                 style: TextStyle(
                                   color: Color(0xffDBDBDB),
                                   fontSize: 12,
@@ -199,7 +200,7 @@ class _SignInState extends State<SignIn> {
                             Padding(
                               padding: EdgeInsets.only(left: 33),
                               child: Text(
-                                "password",
+                                  AppTranslation.of(context)!.text("password"),
                                 style: TextStyle(
                                   color: Color(0xffDBDBDB),
                                   fontSize: 12,
@@ -338,7 +339,7 @@ class _SignInState extends State<SignIn> {
                                         color: Color(0xffFF5349),
                                       )),
                                   child: Text(
-                                    "Sign In",
+                                    AppTranslation.of(context)!.text("signIn"),
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -359,7 +360,7 @@ class _SignInState extends State<SignIn> {
                             Get.toNamed(Routes.forgotScreen);
                           },
                           child: Text(
-                            "Forgot Password?",
+                            AppTranslation.of(context)!.text("forgotPassword"),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: FontsDisPlay.dmSantsMedium,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/localization/Application.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
 import 'package:funfy_scanner/screens/home.dart';
@@ -10,13 +11,30 @@ import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/screens/splash_Screen.dart';
 import 'package:funfy_scanner/screens/ticket_Screen.dart';
 import 'package:get/get.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'localization/appTranslationDelegate.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  AppTranslationsDelegate? _newLocaleDelegate;
+
+  @override
+  void initState() {
+    _newLocaleDelegate = AppTranslationsDelegate(newlocale: null);
+    application.onLocaleChanged = onLocaleChange;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -26,6 +44,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
+      localizationsDelegates: [
+
+        _newLocaleDelegate!,
+        const AppTranslationsDelegate(),
+        // _newLocaleDelegate as AppTranslationsDelegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+
+      supportedLocales: application.supportedLocales(),
       initialRoute: Routes.splashScreen,
       getPages: [
         GetPage(
@@ -79,5 +108,11 @@ class MyApp extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void onLocaleChange(Locale locale) {
+    setState(() {
+      _newLocaleDelegate = AppTranslationsDelegate(newlocale: locale);
+    });
   }
 }

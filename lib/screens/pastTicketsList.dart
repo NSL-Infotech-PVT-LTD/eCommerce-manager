@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 
 class PastTicketsList extends StatefulWidget {
@@ -22,7 +23,8 @@ class _PastTicketsListState extends State<PastTicketsList> {
 
   @override
   Widget build(BuildContext context) {
-    print("=============?${widget.showBookingList.data?.data?[1].fiestaBookingItems!.quantity}");
+    print(
+        "=============?${widget.showBookingList.data?.data?[1].fiestaBookingItems!.quantity}");
     final screeSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -30,7 +32,7 @@ class _PastTicketsListState extends State<PastTicketsList> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text(
-          "Scanned List",
+          AppTranslation.of(context)!.text("scanned List"),
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
@@ -50,7 +52,8 @@ class _PastTicketsListState extends State<PastTicketsList> {
       body: ListView.builder(
           itemCount: widget.showBookingList.data?.data!.length,
           itemBuilder: (context, index) {
-            final data = widget.showBookingList.data?.data?[index = index == 0 ? 1 : index];
+            final data = widget
+                .showBookingList.data?.data?[index = index == 0 ? 1 : index];
             var userName = data!.userDetail?.name;
             timeStamp = data.fiestaDetail!.timestamp!.toString().split(" ");
             print("Date And Time is ====>${timeStamp.toString()}");

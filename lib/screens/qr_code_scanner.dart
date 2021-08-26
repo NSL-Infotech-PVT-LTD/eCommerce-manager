@@ -11,6 +11,7 @@ import 'package:funfy_scanner/Models/bookingListModal.dart';
 
 // import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/Models/getScannedDataModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -198,7 +199,7 @@ class _QRDataState extends State<QRData> {
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                     Text(
-                      "Scan QR Code",
+                      AppTranslation.of(context)!.text("scan QR Code"),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
@@ -211,7 +212,7 @@ class _QRDataState extends State<QRData> {
                       children: [
                         SizedBox(height: 5),
                         Text(
-                          "Scan the booked Qr code from",
+                          AppTranslation.of(context)!.text("scan the booked Qr code from"),
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: FontsDisPlay.robotoLight,
@@ -220,7 +221,7 @@ class _QRDataState extends State<QRData> {
                         ),
                         SizedBox(height: 3),
                         Text(
-                          "customer Booking details.",
+                          AppTranslation.of(context)!.text("Customer Booking details."),
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: FontsDisPlay.robotoLight,
