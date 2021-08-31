@@ -42,14 +42,7 @@ class _PastTicketsListState extends State<PastTicketsList> {
         ),
       ),
       backgroundColor: Colors.black87,
-      // body:buildBookingList(screeSize),
-      // body: widget.showBookingList.data?.data != null
-      // ? Center(
-      //     child: Text("Nothing to Show !",
-      //         style: TextStyle(
-      //           color: Colors.white,
-      //         )))
-      // :
+
       body: SafeArea(
         child: Container(
             height: screenSize.height,
@@ -63,8 +56,9 @@ class _PastTicketsListState extends State<PastTicketsList> {
                       final clubTitle = widget.clubList.data?.data![index].name;
                       final clubDesc =
                           widget.clubList.data?.data![index].description;
+                      final clunLocation=widget.clubList.data?.data![index].location;
                       final clubID = widget.clubList.data?.data![index].id;
-                      print("PAsr Ticket is ${clubID}");
+                      print("PAsr Ticket is ${clunLocation}");
                       return InkWell(
                         onTap: () {
                           // Get.toNamed(

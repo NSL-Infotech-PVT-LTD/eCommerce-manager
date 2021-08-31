@@ -41,8 +41,9 @@ class _TicketScreenState extends State<TicketScreen> {
     //get Ratting
     final rattingGet = scannedData.fiestaDetail!.clubRating;
     final clubRatting = rattingGet == null ? 0 : rattingGet;
+    print("GoogleMap${clubRatting}");
     //get Price
-    final price = scannedData.fiestaDetail!.ticketPrice;
+    final price = scannedData.fiestaBookingItems!.ticketPrice ??0;
 
     //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
 
@@ -77,13 +78,14 @@ class _TicketScreenState extends State<TicketScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Image.asset("assets/images/expand.png"),
-                      SizedBox(width: 10),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: [
+                  //     Image.asset("assets/images/expand.png"),
+                  //     SizedBox(width: 10),
+                  //   ],
+                  // ),
+                  SizedBox(height: screenSize.height * 0.0010),
                   Text(
                     AppTranslation.of(context)!.text("bookingName"),
                     style: TextStyle(
@@ -95,10 +97,10 @@ class _TicketScreenState extends State<TicketScreen> {
                   SizedBox(height: 15),
                   Text("${scannedData.userDetail!.name}",
                       style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontFamily: FontsDisPlay.dmSantsBold,
-                        fontSize: 30,
-                      )),
+                          fontWeight: FontWeight.w900,
+                          fontFamily: FontsDisPlay.dmSantsBold,
+                          fontSize: 30,
+                          color: Color(0xff3E332B))),
                   SizedBox(height: 15),
                   Row(
                     children: [
@@ -145,12 +147,13 @@ class _TicketScreenState extends State<TicketScreen> {
                         fontWeight: FontWeight.w500,
                         fontSize: 30,
                         fontFamily: FontsDisPlay.dmSantsBold,
+                        color: Color(0xff3E332B),
                       )),
                   SizedBox(height: 8),
                   //Ratting Icons
                   RatingBar.builder(
                     ignoreGestures: true,
-                    initialRating: double.parse(clubRatting.toString()),
+                    initialRating: clubRatting.toDouble(),
                     direction: Axis.horizontal,
                     allowHalfRating: true,
                     itemCount: 5,
@@ -160,6 +163,7 @@ class _TicketScreenState extends State<TicketScreen> {
                       Icons.star,
                       color: Colors.amber,
                     ),
+                    unratedColor: Colors.grey,
                     onRatingUpdate: (ratting) {
                       print(ratting);
                     },
@@ -171,11 +175,12 @@ class _TicketScreenState extends State<TicketScreen> {
                     children: [
                       buildTicketTile(
                           AppTranslation.of(context)!.text("orderId"),
-                          scannedData.fiestaDetail?.ticketPrice?.toString()??"null"),
-
+                          scannedData.id.toString()),
                       buildTicketTile(
                           AppTranslation.of(context)!.text("check In Type"),
-                          scannedData.fiestaBookingItems?.ticketType?.toString() ?? "null"),
+                          scannedData.fiestaBookingItems?.ticketType
+                                  .toString() ??
+                              ""),
                       SizedBox(width: 10),
                     ],
                   ),
@@ -213,7 +218,7 @@ class _TicketScreenState extends State<TicketScreen> {
             ),
             //circles for decoration
             Padding(
-              padding: const EdgeInsets.only(top: 180),
+              padding: const EdgeInsets.only(top: 150),
               child: Container(
                 width: screenSize.width,
                 height: 55,

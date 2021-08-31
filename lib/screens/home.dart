@@ -51,7 +51,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         setState(() {
           clubList = getClubList;
         });
-        print("Ddecdsvxcvxc${clubList.data!.data![0].description}");
+        print("Ddecdsvxcvxc${clubList.data!.data![0].location}");
       });
     });
   }
@@ -155,6 +155,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         color: Color(0xff3E332B),
         child: TabBar(
             indicatorColor: Colors.transparent,
+
             onTap: (value) {
               setState(() {
                 index = value;

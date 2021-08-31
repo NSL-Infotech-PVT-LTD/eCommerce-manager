@@ -39,10 +39,11 @@ class _ClubListState extends State<ClubList> {
                   itemBuilder: (context, index) {
                     final image = widget.clubList!.data?.data![index].image;
                     final clubTitle = widget.clubList?.data?.data![index].name;
+                    final  clubLocation =widget.clubList?.data?.data![index].location;
                     final clubDesc =
                         widget.clubList?.data?.data![index].description;
                     final clubID = widget.clubList?.data?.data![index].id;
-                    print("Club ID is ${clubID}");
+                    print("Club ID is ${clubLocation}");
                     return InkWell(
                       onTap: () {
                         Get.toNamed(
@@ -56,7 +57,7 @@ class _ClubListState extends State<ClubList> {
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(image.toString()),
                           ),
-                          title: Text(clubTitle.toString()),
+                          title: Text( ""),
                           subtitle: Text(
                             clubDesc.toString(),
                             overflow: TextOverflow.ellipsis,

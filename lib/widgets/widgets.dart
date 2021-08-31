@@ -110,6 +110,7 @@ buildTicketTile(String type, String value) {
           fontSize: 18,
           fontWeight: FontWeight.w900,
           fontFamily: FontsDisPlay.dmSantsBold,
+          color: Color(0xff3E332B),
         ),
       ),
       SizedBox(height: 3),

@@ -178,7 +178,7 @@ class _SignInState extends State<SignIn> {
                                             0.01,
                                     horizontal:
                                         MediaQuery.of(context).size.width *
-                                            0.010,
+                                            0.020,
                                   ),
                                   fillColor: Color(0xff434343),
                                   filled: true,
@@ -238,8 +238,9 @@ class _SignInState extends State<SignIn> {
                                             0.01,
                                     horizontal:
                                         MediaQuery.of(context).size.width *
-                                            0.01,
+                                            0.020,
                                   ),
+
                                   fillColor: Color(0xff434343),
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(

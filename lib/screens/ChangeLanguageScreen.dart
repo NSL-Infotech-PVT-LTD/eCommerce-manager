@@ -155,7 +155,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 3),
+                          padding: const EdgeInsets.only(left: 10,right: 5),
                           child: Row(
                             children: [
                               const Text('English',
@@ -189,7 +189,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                           color: Colors.grey,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 3),
+                          padding: const EdgeInsets.only(left: 10,right: 5),
                           child: Row(
                             children: [
                               const Text('Spanish',
