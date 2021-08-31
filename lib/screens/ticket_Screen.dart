@@ -24,7 +24,7 @@ class _TicketScreenState extends State<TicketScreen> {
     final screenSize = MediaQuery.of(context).size;
     print("vikas1" + Get.arguments.toJson().toString());
     DataUser scannedData = (Get.arguments);
-    print("vikas2" + scannedData.toJson().toString());
+    print("vikas2" + scannedData.userDetail!.name.toString());
 
     List? timeStamp = [];
     String forTime;
@@ -34,7 +34,7 @@ class _TicketScreenState extends State<TicketScreen> {
         scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
             .toString()
             .split(" ");
-    print(scannedData.fiestaDetail!.timestamp.toString());
+    print(scannedData.fiestaDetail?.timestamp.toString());
     forTime = timeStamp.first.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
@@ -171,11 +171,11 @@ class _TicketScreenState extends State<TicketScreen> {
                     children: [
                       buildTicketTile(
                           AppTranslation.of(context)!.text("orderId"),
-                          scannedData.fiestaDetail!.ticketPrice.toString()),
+                          scannedData.fiestaDetail?.ticketPrice?.toString()??"null"),
+
                       buildTicketTile(
                           AppTranslation.of(context)!.text("check In Type"),
-                          scannedData.fiestaBookingItems!.ticketType
-                              .toString()),
+                          scannedData.fiestaBookingItems?.ticketType?.toString() ?? "null"),
                       SizedBox(width: 10),
                     ],
                   ),

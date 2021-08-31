@@ -19,20 +19,15 @@ class _SplashScreenState extends State<SplashScreen> {
       UserData.getUserToken("USERTOKEN").then((_token) {
         print("$_token jdfkjskfj");
         if (_token == null) {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => SignIn()),
-          // );
+
           Get.offNamed(Routes.signInScreen);
         } else {
-          // Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => Home()));
+
           Get.offNamed(Routes.homeScreen);
         }
       });
 
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => SignIn()));
+
     });
     super.initState();
   }

@@ -21,8 +21,6 @@ final _qrKey = GlobalKey(debugLabel: "QR");
 QRViewController? _controller;
 
 class QRData extends StatefulWidget {
-  const QRData({Key? key}) : super(key: key);
-
   @override
   _QRDataState createState() => _QRDataState();
 }
@@ -33,22 +31,16 @@ class _QRDataState extends State<QRData> {
   Barcode? data;
   PanelController _panelController = PanelController();
   QRViewController? controller;
-  bool _isLoading = false;
+  final clubId = Get.arguments;
 
-  String _loadingS = "Loading...";
-
-//for QR View
   _qrViewCreate(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scannedData) {
       controller.pauseCamera();
-      print("====>>><<<<${scannedData.code}");
       setState(() {
         data = scannedData;
-
         if (data!.code.isNotEmpty && data!.code != "") {
           controller.resumeCamera();
-
           _panelController.open();
           UserData.getUserToken("USERTOKEN").then((userToken) {
             print(userToken);
@@ -56,21 +48,19 @@ class _QRDataState extends State<QRData> {
                 .getScannedData(
               data!.code,
               userToken,
-            )
-                .then((dataById) {
-              print("fkhfskh $dataById");
+              clubId.toString(),
+            ).then((dataById) {
               _panelController.close();
               if (dataById == null) {
-                // print("Qr scannned IN condituion  ${dataById.code.toString()}");
-                _panelController.close();
-                showDialog<void>(
+                return showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
                     return CupertinoAlertDialog(
-                      title: Text('Login Error'),
-                      content: Text('Please enter the valid email !'),
+                      title: Text('WARNING'),
+                      content: Text('Please scan valid QR code !'),
                       actions: <Widget>[
+
                         CupertinoDialogAction(
                             child: Text('Ok'),
                             onPressed: () {
@@ -80,44 +70,15 @@ class _QRDataState extends State<QRData> {
                     );
                   },
                 );
+
               } else {
-                print("dfjsghfj ${dataById.toJson()}");
+                DataUser datauser = dataById.data?.data?.first;
 
-                if (dataById.data != null &&
-                    dataById.data!.currentPage != null &&
-                    dataById.data!.data!.length > 0) {
-                  print("dfjsghfj ${dataById.data!.data!.first.toJson()}");
-
-                  DataUser datauser = dataById.data!.data!.first;
-                  _panelController.close();
-                  // controller.dispose();
-
-                  Get.toNamed(
-                    Routes.ticketScreen,
-                    arguments: datauser,
-                    // arguments: data.code,
-                  );
-                } else {
-                  print("dfjsghfj ${dataById.toJson()}");
-                  showDialog<void>(
-                    context: context,
-                    barrierDismissible: false, // user must tap button!
-                    builder: (BuildContext context) {
-                      return CupertinoAlertDialog(
-                        title: Text('Login Error'),
-                        content: Text('Please enter the valid email !'),
-                        actions: <Widget>[
-                          CupertinoDialogAction(
-                              child: Text('Ok'),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }),
-                        ],
-                      );
-                    },
-                  );
-                  print("data not found");
-                }
+                controller.dispose();
+                Get.toNamed(
+                  Routes.ticketScreen,
+                  arguments: datauser,
+                );
               }
             });
           });
@@ -126,9 +87,7 @@ class _QRDataState extends State<QRData> {
     }).onDone(
       () {
         _panelController.close();
-
-        // Navigate to Ticket Screen
-      },
+        },
     );
   }
 
@@ -181,21 +140,22 @@ class _QRDataState extends State<QRData> {
       ),
       body: Scaffold(
         backgroundColor: Color(0xff000000),
-        body: SafeArea(
-          child: Center(
-            child: Stack(
-              children: [
-                //Qr code Scanner
-                QRView(
-                  key: _qrKey,
-                  cameraFacing: CameraFacing.back,
-                  onQRViewCreated: _qrViewCreate,
-                ),
-                Container(
-                  color: Colors.black54,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+        body: Center(
+          child: Stack(
+            children: [
+              //Qr code Scanner
+              QRView(
+                key: _qrKey,
+                cameraFacing: CameraFacing.back,
+                onQRViewCreated: _qrViewCreate,
+              ),
+              Container(
+                color: Colors.black54,
+              ),
+              Center(
+                child: Column(
+
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                     Text(
@@ -212,7 +172,8 @@ class _QRDataState extends State<QRData> {
                       children: [
                         SizedBox(height: 5),
                         Text(
-                          AppTranslation.of(context)!.text("scan the booked Qr code from"),
+                          AppTranslation.of(context)!
+                              .text("scan the booked Qr code from"),
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: FontsDisPlay.robotoLight,
@@ -221,7 +182,8 @@ class _QRDataState extends State<QRData> {
                         ),
                         SizedBox(height: 3),
                         Text(
-                          AppTranslation.of(context)!.text("Customer Booking details."),
+                          AppTranslation.of(context)!
+                              .text("Customer Booking details."),
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: FontsDisPlay.robotoLight,
@@ -241,18 +203,13 @@ class _QRDataState extends State<QRData> {
                         border: Border.all(color: Color(0xffFFEFBB)),
                       ),
                     ),
-                    Spacer(),
-                    Expanded(
-                        child: Center(
-                      child: (data != null)
-                          ? Text("Data is :=) ${data?.code}")
-                          : Text(""),
-                    )),
+
+
                     SizedBox(height: 15),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -261,7 +218,8 @@ class _QRDataState extends State<QRData> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    return _displayLoadingBottomSheet();
+    return Scaffold(
+      body: _displayLoadingBottomSheet(),
+    );
   }
 }

@@ -53,7 +53,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = List.filled(1, DataUser.fromJson(json), growable: true);
+      data = <DataUser>[];
       json['data'].forEach((v) {
         data!.add(DataUser.fromJson(v));
       });
@@ -250,7 +250,7 @@ class FiestaDetail {
   var leftStandardTicket;
   var leftVipTicket;
   int? leftNormalTicket;
-  String? clubRating;
+  int? clubRating;
   ClubDetail? clubDetail;
 
   FiestaDetail(

@@ -42,10 +42,9 @@ class _MyAppState extends State<MyApp> {
       title: 'FunFY',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
-
       localizationsDelegates: [
-
         _newLocaleDelegate!,
         const AppTranslationsDelegate(),
         // _newLocaleDelegate as AppTranslationsDelegate,
@@ -53,7 +52,6 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
       supportedLocales: application.supportedLocales(),
       initialRoute: Routes.splashScreen,
       getPages: [
@@ -76,24 +74,12 @@ class _MyAppState extends State<MyApp> {
           transition: Transition.rightToLeftWithFade,
           transitionDuration: Duration(milliseconds: 800),
         ),
-        // GetPage(
-        //   name: Routes.qrCodeScannerScreen,
-        //   page: () => QRData(),
-        //   transition: Transition.rightToLeftWithFade,
-        //   transitionDuration: Duration(milliseconds: 1500),
-        // ),
-        // GetPage(
-        //   name: Routes.qrCodeScannerScreen,
-        //   page: () => PastTicketsList(),
-        //   transition: Transition.rightToLeftWithFade,
-        //   transitionDuration: Duration(milliseconds: 1500),
-        // ),
-        // GetPage(
-        //   name: Routes.qrCodeScannerScreen,
-        //   page: () => Profilepage(),
-        //   transition: Transition.upToDown,
-        //   transitionDuration: Duration(milliseconds: 1500),
-        // ),
+        GetPage(
+          name: Routes.qrCodeScannerScreen,
+          page: () => QRData(),
+          transition: Transition.downToUp,
+          transitionDuration: Duration(milliseconds: 1200),
+        ),
         GetPage(
           name: Routes.ticketScreen,
           page: () => TicketScreen(),

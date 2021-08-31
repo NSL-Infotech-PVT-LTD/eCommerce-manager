@@ -7,7 +7,7 @@
   "forgotPassword": "Has olvidado tu contraseña?",
   "qrcode": "Código QR",
   "pastTickets": "Entradas anteriores",
-  "profile": "Perfil",
+  "profile": "Mi perfil",
   "scan QR Code": "Escanear código QR",
   "scan the booked Qr code from": "Escanee el código QR reservado desde",
   "Customer Booking details.": "Detalles de la reserva del cliente.",
@@ -26,5 +26,11 @@
   "remember your password?": "Recuerdas tu contraseña?",
   "backtoSignIn": " VOLVER A INICIAR SESIÓN",
   "scanned List": "Lista escaneada",
-  "choose Language": "Elige lengua"
+  "choose Language": "Elige lengua",
+  "clubs": "Clubs",
+  "clubsList": "Lista de clubes",
+  "already a stripe member": "Ya soy miembro de la banda",
+  "want to change the stripe": "Querías cambiar la raya?",
+  "yes": "sí",
+  "no": "No"
 }

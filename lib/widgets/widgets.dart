@@ -1,14 +1,20 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/localization/ChangeLangugage.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
+import 'package:funfy_scanner/screens/stripe_connect.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:webviewx/webviewx.dart';
 
 //for textField
 buildCustomTextField(
@@ -120,8 +126,8 @@ buildTicketTile(String type, String value) {
 }
 
 //PastTicketsListTile
-buildPastTicketsListTile(
-    Size screenSize, String name, String date, String time, getData) {
+buildPastTicketsListTile(Size screenSize, String name, String date, String time,
+    getData, String getScan) {
   return Column(
     children: [
       SizedBox(height: screenSize.height * 0.040),
@@ -164,7 +170,7 @@ buildPastTicketsListTile(
                   ),
                   SizedBox(height: screenSize.height * 0.010),
                   Text(
-                    "Thursday , $time",
+                    " $time",
                     style: TextStyle(color: Colors.grey, fontSize: 10),
                   ),
                 ],
@@ -176,28 +182,43 @@ buildPastTicketsListTile(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.black87,
-                      side: BorderSide(
-                        color: Colors.redAccent,
-                        width: 2,
-                      ),
-                    ),
-                    onPressed: () {
+                  GestureDetector(
+                    onTap: () {
                       Get.toNamed(
-                        Routes.ticketScreen,
-                        arguments: getData,
+                        Routes.qrCodeScannerScreen,
+                        arguments: getScan,
                       );
                     },
-                    child: Text(
-                      "Order Details",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Image.asset(
+                      "assets/images/qrcodescan.png",
+                      height: screenSize.width * 0.090,
+                      width: screenSize.height * 0.090,
+                      color: Colors.red,
                     ),
                   ),
+                  // SizedBox(height: screenSize.height * 0.010),
+                  // OutlinedButton(
+                  //   style: OutlinedButton.styleFrom(
+                  //     backgroundColor: Colors.black87,
+                  //     side: BorderSide(
+                  //       color: Colors.redAccent,
+                  //       width: 2,
+                  //     ),
+                  //   ),
+                  //   onPressed: () {
+                  //     Get.toNamed(
+                  //       Routes.ticketScreen,
+                  //       arguments: getData,
+                  //     );
+                  //   },
+                  //   child: Text(
+                  //     "Order Details",
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -254,10 +275,10 @@ buildProfileScreen(
                 children: [
                   Row(children: [
                     Container(
-                        alignment: Alignment.center,
-                        width: size.width * 0.045,
-                        color: Colors.grey[300],
-                        child: Image.asset("$leftIconImage")),
+                      alignment: Alignment.center,
+                      width: size.width * 0.045,
+                      child: SvgPicture.asset(leftIconImage!),
+                    ),
                     SizedBox(
                       width: size.width * 0.03,
                     ),
@@ -359,7 +380,7 @@ buildProfileScreen(
                   context: context,
                   title: AppTranslation.of(context)!.text("lang"),
 // rightIconImage: ,
-                  leftIconImage: "assets/images/expand.png",
+                  leftIconImage: "assets/images/language.svg",
                   onTapfunc: () {
                     Navigator.push(
                         context,
@@ -372,17 +393,70 @@ buildProfileScreen(
                   context: context,
                   title: AppTranslation.of(context)!.text("help"),
 // Help: ,
-                  leftIconImage: "assets/images/expand.png",
-                  onTapfunc: () {}),
+                  leftIconImage: "assets/images/help.svg",
+                  onTapfunc: () {
+                    //Help
+                  }),
 //Contact Us
               centerlistItem(
                   context: context,
                   title: AppTranslation.of(context)!.text("contact"),
 // rightIconImage: ,
-                  leftIconImage: "assets/images/expand.png",
-                  onTapfunc: () {}),
+                  leftIconImage: "assets/images/about us.svg",
+                  onTapfunc: () {
+//Contact Us
+                  }),
+              centerlistItem(
+                  context: context,
+                  title: "Stripe",
+// rightIconImage: ,
+                  leftIconImage: "assets/images/about us.svg",
+                  onTapfunc: () async{
+                    var isConnected = await UserData.getUserLanguage("connected");
+                    if(isConnected == "1"){
+                      showDialog<void>(
+                        context: context,
+                        barrierDismissible: false, // user must tap button!
+                        builder: (BuildContext context) {
+                          return CupertinoAlertDialog(
+                            title:Text(AppTranslation.of(context)!.text("already a stripe member")),
+                            content: Text(AppTranslation.of(context)!.text("want to change the stripe")),
+                            actions: <Widget>[
+                              CupertinoDialogAction(
+                                child: Text(AppTranslation.of(context)!.text("yes")),
+                                onPressed: () {
+
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebViewXPage(),
+                                      ));
+                                },
+                              ),
+                              CupertinoDialogAction(
+                                child: Text(AppTranslation.of(context)!.text("no")),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }else{
+                      print("webview");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WebViewXPage(),
+                          ));
+                    }
+
+
+                  }),
               SizedBox(
-                height: size.height * 0.18,
+                height: size.height * 0.10,
               ),
 
               InkWell(
@@ -396,7 +470,7 @@ buildProfileScreen(
                         height: size.height * 0.060,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: Colors.grey[600],
+                          color: Color(0xff3E332B),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -426,6 +500,9 @@ buildProfileScreen(
                           ],
                         ),
                       ),
+              ),
+              SizedBox(
+                height: size.height * 0.020,
               ),
             ],
           ),

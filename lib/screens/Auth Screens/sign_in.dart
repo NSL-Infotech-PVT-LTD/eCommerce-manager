@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -10,7 +12,10 @@ import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/home.dart';
+import 'package:funfy_scanner/screens/languageScreen.dart';
 import 'package:get/get.dart';
+
+import '../ticket_Screen.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -92,7 +97,7 @@ class _SignInState extends State<SignIn> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                      AppTranslation.of(context)!.text("signIn"),
+                        AppTranslation.of(context)!.text("signIn"),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xffF5F5F5),
@@ -140,7 +145,7 @@ class _SignInState extends State<SignIn> {
                             Padding(
                               padding: EdgeInsets.only(left: 33),
                               child: Text(
-                                  AppTranslation.of(context)!.text("email"),
+                                AppTranslation.of(context)!.text("email"),
                                 style: TextStyle(
                                   color: Color(0xffDBDBDB),
                                   fontSize: 12,
@@ -200,7 +205,7 @@ class _SignInState extends State<SignIn> {
                             Padding(
                               padding: EdgeInsets.only(left: 33),
                               child: Text(
-                                  AppTranslation.of(context)!.text("password"),
+                                AppTranslation.of(context)!.text("password"),
                                 style: TextStyle(
                                   color: Color(0xffDBDBDB),
                                   fontSize: 12,
@@ -292,37 +297,33 @@ class _SignInState extends State<SignIn> {
                                       context: context,
                                       email: _emailController.text,
                                       password: _passwordController.text,
-                                      deviceType: "dsfds",
+                                      deviceType: Platform.isAndroid
+                                          ? "android"
+                                          : "ios",
                                       deviceToken: "dsfdsfdsf",
                                       setInitialState: getInitialState,
                                     )
                                         .then(
-                                      (userCredential) {
-                                        print(
-                                            "=2>${userCredential!.data!.token.toString()}");
-                                        return UserData.setUserToken(
-                                          key: "USERTOKEN",
-                                          value: userCredential.data!.token
-                                              .toString(),
-                                        ).whenComplete(
-                                          () {
-                                            setState(() {
-                                              _isLoading = false;
-                                            });
-
-                                            UserData.getUserToken("USERTOKEN")
-                                                .then((value) {
-                                              print("==========>$value");
-
-                                              // Navigator.of(context)
-                                              //     .pushReplacement(
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) =>
-                                              //             Home()));
-                                              Get.offNamed(Routes.homeScreen);
-                                            });
-                                          },
-                                        );
+                                      (userCredential) async {
+                                  if(userCredential!=null){
+                                    print(
+                                        "account id  ${userCredential.data?.user?.stripeAccountId}");
+                                    await UserData.setUserToken(
+                                      key: "USERTOKEN",
+                                      value:
+                                      userCredential.data?.token ?? "",
+                                    );
+                                    var value = userCredential.data?.user
+                                        ?.stripeAccountId !=
+                                        null
+                                        ? "1"
+                                        : "0";
+                                    await UserData.setUserLanguage(
+                                      key: "connected",
+                                      value: value,
+                                    );
+                                    Get.offNamed(Routes.homeScreen);
+                                  }
                                       },
                                     );
                                   }

@@ -2,7 +2,7 @@
     package="com.funfy.scanner.funfy_scanner">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="funfy_scanner"
+        android:label="Funfy Booking Scan"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

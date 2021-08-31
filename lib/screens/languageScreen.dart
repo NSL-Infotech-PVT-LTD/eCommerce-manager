@@ -121,7 +121,7 @@ class _SigninState extends State<TranslationPage> {
                   SizedBox(
                     height: size.height * 0.15,
                   ),
-                  Image.asset("assets/images/Translationicon.png"),
+                  Image.asset("assets/images/translationicon.png"),
                   // app logo
                   SizedBox(
                     height: size.height * 0.05,

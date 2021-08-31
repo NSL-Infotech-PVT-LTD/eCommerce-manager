@@ -16,7 +16,7 @@ class LoginModel {
     data['status'] = this.status;
     data['code'] = this.code;
     if (this.data != null) {
-      data['data'] = this.data?.toJson();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
@@ -61,7 +61,7 @@ class User {
   Null? fbId;
   Null? googleId;
   String? isNotify;
-  Null? stripeAccountId;
+  String? stripeAccountId;
   Null? params;
   String? status;
   String? createdAt;
@@ -155,7 +155,7 @@ class User {
     data['card_last_four'] = this.cardLastFour;
     data['trial_ends_at'] = this.trialEndsAt;
     if (this.role != null) {
-      data['role'] = this.role?.toJson();
+      data['role'] = this.role!.toJson();
     }
     return data;
   }
@@ -164,29 +164,32 @@ class User {
 class Role {
   String? name;
   int? id;
- // List<Null>? permission;
+  // List<Null>? permission;
 
-   //Role({this.name, this.id, this.permission});
-   Role({this.name, this.id,});
+  Role({
+    this.name,
+    this.id,
+    // this.permission,
+  });
 
   Role.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     id = json['id'];
-    if (json['permission'] != null) {
-    //  permission = new List<Null>();
-      json['permission'].forEach((v) {
-    //    permission!.add(new Null.fromJson(v));
-      });
-    }
+    // if (json['permission'] != null) {
+    //   permission = new List<Null>();
+    //   json['permission'].forEach((v) {
+    //     permission.add(new Null.fromJson(v));
+    //   });
+    // }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['id'] = this.id;
-  //  if (this.permission != null) {
-  //    data['permission'] = this.permission!.map((v) => v!.toJson()).toList();
-    //}
+    // if (this.permission != null) {
+    //   data['permission'] = this.permission.map((v) => v.toJson()).toList();
+    // }
     return data;
   }
 }

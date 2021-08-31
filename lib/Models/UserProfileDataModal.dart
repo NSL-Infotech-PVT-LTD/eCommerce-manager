@@ -32,7 +32,7 @@ class Data {
   String ?status;
   String ?image;
   String? isNotify;
-  Null ?stripeAccountId;
+  String ?stripeAccountId;
   String? isAvailable;
   Role ?role;
 

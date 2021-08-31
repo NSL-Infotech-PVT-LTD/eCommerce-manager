@@ -1,15 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Helper/userData.dart';
+import 'package:funfy_scanner/Models/ApiCaller.dart';
+import 'package:funfy_scanner/Models/ClubListModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
+import 'package:funfy_scanner/screens/GetBookingList.dart';
+import 'package:funfy_scanner/screens/LoadingScreen.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
+import 'package:get/get.dart';
 
 class PastTicketsList extends StatefulWidget {
-  final BookingListModal showBookingList;
+  final ClubListModal clubList;
 
   const PastTicketsList({
     Key? key,
-    required this.showBookingList,
+    required this.clubList,
   }) : super(key: key);
 
   @override
@@ -17,22 +24,16 @@ class PastTicketsList extends StatefulWidget {
 }
 
 class _PastTicketsListState extends State<PastTicketsList> {
-  List? timeStamp = [];
-  String? forTime;
-  String? forDate;
-
   @override
   Widget build(BuildContext context) {
-    print(
-        "=============?${widget.showBookingList.data?.data?[1].fiestaBookingItems!.quantity}");
-    final screeSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         title: Text(
-          AppTranslation.of(context)!.text("scanned List"),
+          AppTranslation.of(context)!.text("clubsList"),
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w900,
@@ -49,29 +50,50 @@ class _PastTicketsListState extends State<PastTicketsList> {
       //           color: Colors.white,
       //         )))
       // :
-      body: ListView.builder(
-          itemCount: widget.showBookingList.data?.data!.length,
-          itemBuilder: (context, index) {
-            final data = widget
-                .showBookingList.data?.data?[index = index == 0 ? 1 : index];
-            var userName = data!.userDetail?.name;
-            timeStamp = data.fiestaDetail!.timestamp!.toString().split(" ");
-            print("Date And Time is ====>${timeStamp.toString()}");
-            forDate = timeStamp!.first.toString();
-            forTime = timeStamp![1].toString();
-            print("$forDate DatAndTime Is $forTime");
-
-            print(
-                "UserName =====:>>>>$index +${widget.showBookingList.data!.data!.length}");
-            print("2nd data${widget.showBookingList.data}");
-            return buildPastTicketsListTile(
-              screeSize,
-              userName.toString(),
-              forDate.toString(),
-              forTime.toString(),
-              data,
-            );
-          }),
+      body: SafeArea(
+        child: Container(
+            height: screenSize.height,
+            width: screenSize.width,
+            child: widget.clubList.data?.data == null
+                ? Center(child: LoadingScreen())
+                : ListView.builder(
+                    itemCount: widget.clubList.data?.data?.length,
+                    itemBuilder: (context, index) {
+                      final image = widget.clubList.data!.data![index].image;
+                      final clubTitle = widget.clubList.data?.data![index].name;
+                      final clubDesc =
+                          widget.clubList.data?.data![index].description;
+                      final clubID = widget.clubList.data?.data![index].id;
+                      print("PAsr Ticket is ${clubID}");
+                      return InkWell(
+                        onTap: () {
+                          // Get.toNamed(
+                          //   Routes.qrCodeScannerScreen,
+                          //   arguments: clubID,
+                          // );
+                          print("aszckxZbc ${clubID}");
+                          Get.to(GetBookingList(
+                            clubID: clubID,
+                          ));
+                        },
+                        child: Card(
+                          elevation: 10,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(image.toString()),
+                            ),
+                            title: Text(clubTitle.toString()),
+                            subtitle: Text(
+                              clubDesc.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )),
+      ),
     );
   }
 }

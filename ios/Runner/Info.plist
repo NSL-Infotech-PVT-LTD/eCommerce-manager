@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>funfy_scanner</string>
+	<string>Funfy Booking Scan</string>
 	<key>CFBundleURLTypes</key>
         <array>
             <dict>

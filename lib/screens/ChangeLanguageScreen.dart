@@ -66,32 +66,30 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                 children: [
                   SizedBox(height: screenSize.height * 0.05),
                   //LOGO
-                  Container(
-                    height: 116.21,
-                    width: 87.99,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/LOGO.png"),
-                    )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 60.21,
+                          width: 60.99,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                AssetImage("assets/images/translationicon.png"),
+                          )),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: screenSize.height * 0.05),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 25),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          AppTranslation.of(context)!.text("choose Language"),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xffF5F5F5),
-                            fontSize: 25,
-                            fontFamily: "AbrilFatface",
-                          ),
-                        ),
-                        SizedBox(height: 6),
                         Row(
                           children: [
                             Text(
@@ -115,54 +113,140 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                             ),
                           ],
                         ),
+                        SizedBox(height: 6),
+                        Text(
+                          AppTranslation.of(context)!.text("choose Language"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffF5F5F5),
+                            fontSize: 25,
+                            fontFamily: "AbrilFatface",
+                          ),
+                        ),
+
                         SizedBox(height: screenSize.height * 0.060),
-                        ListTile(
-                          title: const Text('English',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400)),
-                          leading: Radio(
-                            fillColor:
-                                MaterialStateProperty.all(Color(0xffFF5349)),
-                            value: getLang.en,
-                            groupValue: initialValue,
-                            onChanged: (value) {
-                              setState(() {
-                                initialValue = value as getLang;
-                                initialValueUse = "en";
-                                print(initialValueUse);
-                              });
-                            },
+                        // ListTile(
+                        //   title: const Text('English',
+                        //       style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.w400)),
+                        //   leading: Radio(
+                        //     fillColor:
+                        //         MaterialStateProperty.all(Color(0xffFF5349)),
+                        //     value: getLang.en,
+                        //     groupValue: initialValueUse == "es"
+                        //         ? getLang.es
+                        //         : getLang.en,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         initialValue = value as getLang;
+                        //         initialValueUse = "en";
+                        //         print(initialValueUse);
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                  // Language Choose Buttons
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3),
+                          child: Row(
+                            children: [
+                              const Text('English',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                  )),
+                              Spacer(),
+                              Radio(
+                                fillColor: MaterialStateProperty.all(
+                                    Color(0xffFF5349)),
+                                value: getLang.en,
+                                groupValue: initialValueUse == "es"
+                                    ? getLang.es
+                                    : getLang.en,
+                                onChanged: (value) {
+                                  setState(() {
+                                    initialValue = value as getLang;
+                                    initialValueUse = "en";
+                                    print(initialValueUse);
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        ListTile(
-                          title: const Text('Spanish',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400)),
-                          leading: Radio(
-                            fillColor:
-                                MaterialStateProperty.all(Color(0xffFF5349)),
-                            value: getLang.es,
-                            groupValue: initialValue,
-                            onChanged: (value) {
-                              setState(() {
-                                initialValue = value as getLang;
-                                initialValueUse = "es";
-                                print(initialValueUse);
-                              });
-                            },
+                        Container(
+                          height: 2,
+                          width: screenSize.width,
+                          color: Colors.grey,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 3),
+                          child: Row(
+                            children: [
+                              const Text('Spanish',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 18,
+                                  )),
+                              Spacer(),
+                              Radio(
+                                fillColor: MaterialStateProperty.all(
+                                    Color(0xffFF5349)),
+                                value: getLang.es,
+                                groupValue: initialValueUse == "es"
+                                    ? getLang.es
+                                    : getLang.en,
+                                onChanged: (value) {
+                                  setState(() {
+                                    initialValue = value as getLang;
+                                    initialValueUse = "es";
+                                    print(initialValueUse);
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
+
+                        // ListTile(
+                        //   title: const Text('Spanish',
+                        //       style: TextStyle(
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.w400)),
+                        //   leading: Radio(
+                        //     fillColor:
+                        //         MaterialStateProperty.all(Color(0xffFF5349)),
+                        //     value: getLang.es,
+                        //     groupValue: initialValueUse =="es"?getLang.es:getLang.en,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         initialValue = value as getLang;
+                        //         initialValueUse = "es";
+                        //         print(initialValueUse);
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 80,
                         ),
+
                         Padding(
-                          padding: const EdgeInsets.only(left: 20),
+                          padding: const EdgeInsets.only(left: 25, right: 25),
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xffFF5349),
-                              ),
+                                  primary: Color(0xffFF5349),
+                                  fixedSize: Size(screenSize.width, 50)),
                               onPressed: () {
                                 print("cvbcbcvbnv =>>initialValueUse");
                                 application
@@ -179,7 +263,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                         SizedBox(height: screenSize.height * 0.040),
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
             ],
