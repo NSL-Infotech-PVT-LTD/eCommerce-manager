@@ -25,7 +25,9 @@ class _GetBookingListState extends State<GetBookingList> {
   List? timeStamp = [];
   String? forTime;
   String? forDate;
+  bool _isLoading = false;
   BookingListModal getBookingData = BookingListModal();
+
 
   @override
   void initState() {
@@ -37,8 +39,12 @@ class _GetBookingListState extends State<GetBookingList> {
 
   //for Booking List Screen
   getBookingList() {
+    setState(() {
+      _isLoading = true;
+    });
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
+
       ApiCaller()
           .getBookingList(
         userToken,
@@ -49,6 +55,8 @@ class _GetBookingListState extends State<GetBookingList> {
 
         setState(() {
           getBookingData = getBookingListData;
+          _isLoading = false;
+
         });
       });
     });
@@ -59,7 +67,7 @@ class _GetBookingListState extends State<GetBookingList> {
   @override
   Widget build(BuildContext context) {
     final screeSize = MediaQuery.of(context).size;
-    print("========>>${getBookingData.data?.data![0].userDetail!.name}");
+    // print("========>>${getBookingData.data?.data![0].userDetail!.name}");
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -75,43 +83,40 @@ class _GetBookingListState extends State<GetBookingList> {
           ),
         ),
         backgroundColor: Colors.black87,
-        // body:buildBookingList(screeSize),
-        // body: widget.showBookingList.data?.data != null
-        // ? Center(
-        //     child: Text("Nothing to Show !",
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //         )))
-        // :
-        body: getBookingData.data?.data == null
+        body: _isLoading
             ? Center(child: LoadingScreen())
-            : ListView.builder(
-                itemCount: getBookingData.data?.data?.length,
-                itemBuilder: (context, index) {
-                  final data = getBookingData.data?.data![index];
-                  var userName = data?.userDetail?.name;
-                  timeStamp =
-                      data?.fiestaDetail!.timestamp!.toString().split(" ");
-                  print("Date And Time is ====>${timeStamp.toString()}");
-                  forDate = timeStamp!.first.toString();
-                  forTime = timeStamp![1].toString();
-                  print("$forDate DatAndTime Is $forTime");
+            : getBookingData.data!.data!.isEmpty
+                ? Center(child: Text("Nothing to show! "))
+                : ListView.builder(
+                    itemCount: getBookingData.data?.data?.length,
+                    itemBuilder: (context, index) {
+                      final data = getBookingData.data?.data![index];
+                      var userName = data?.userDetail?.name;
+                      timeStamp =
+                          data?.fiestaDetail!.timestamp!.toString().split(" ");
+                      print("Date And Time is ====>${timeStamp.toString()}");
+                      forDate = timeStamp!.first.toString();
+                      forTime = timeStamp![1].toString();
+                      var bookingId=getBookingData.data?.data![index].id;
+                      print(" Booking Id{$bookingId}");
+                      print("$forDate DatAndTime Is $forTime");
 
-                  print(
-                      "UserName =====:>>>>$index +${getBookingData.data!.data!.length}");
-                  print("2nd data${getBookingData.data}");
-                  return buildPastTicketsListTile(
-                    screeSize,
-                    userName.toString(),
-                    forDate.toString(),
-                    forTime.toString(),
-                    data,
-                    widget.clubID.toString(),
-                  );
-                  return Container(
-                    height: 20,
-                  );
-                }),
+                      print(
+                          "UserName =====:>>>>$index +${getBookingData.data!.data!.length}");
+                      print("2nd data${getBookingData.data}");
+                      return buildPastTicketsListTile(
+                        screeSize,
+                        userName.toString(),
+                        forDate.toString(),
+                        forTime.toString(),
+                        data,
+                        widget.clubID.toString(),
+
+                      );
+                      return Container(
+                        height: 20,
+                      );
+                    }),
       ),
     );
   }

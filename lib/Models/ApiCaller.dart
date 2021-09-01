@@ -86,20 +86,11 @@ class ApiCaller {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text('Login Error'),
+            title: Text('Error'),
             content: Text('Please check your connection!'),
             actions: <Widget>[
-              // CupertinoDialogAction(
-              //   child: Text('Don\'t Allow'),
-              //   onPressed: () {
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
               CupertinoDialogAction(
                   child: Text('Ok'),
-                  // onPressed: () {
-                  //   Navigator.of(context).pop();
-                  // },
                   onPressed: () {
                     Navigator.pop(context);
                   }),
@@ -131,18 +122,7 @@ class ApiCaller {
             title: Text('Login Error'),
             content: Text('Please enter the valid email !'),
             actions: <Widget>[
-              // CupertinoDialogAction(
-              //   child: Text('Don\'t Allow'),
-              //   onPressed: () {
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
-              CupertinoDialogAction(
-                  child: Text('Ok'),
-                  // onPressed: () {
-                  //   Navigator.of(context).pop();
-                  // },
-                  onPressed: onPress),
+              CupertinoDialogAction(child: Text('Ok'), onPressed: onPress),
             ],
           );
         },
@@ -161,7 +141,6 @@ class ApiCaller {
     final response = await http.post(
       Uri.parse(baseurl + signOut),
       headers: {
-        // "Content-type": "application/json",
         'Authorization': "Bearer " + token,
       },
       body: data,

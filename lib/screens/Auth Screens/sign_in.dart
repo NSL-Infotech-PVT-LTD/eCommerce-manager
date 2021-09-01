@@ -93,7 +93,7 @@ class _SignInState extends State<SignIn> {
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 25),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -240,7 +240,6 @@ class _SignInState extends State<SignIn> {
                                         MediaQuery.of(context).size.width *
                                             0.020,
                                   ),
-
                                   fillColor: Color(0xff434343),
                                   filled: true,
                                   focusedBorder: OutlineInputBorder(
@@ -306,25 +305,25 @@ class _SignInState extends State<SignIn> {
                                     )
                                         .then(
                                       (userCredential) async {
-                                  if(userCredential!=null){
-                                    print(
-                                        "account id  ${userCredential.data?.user?.stripeAccountId}");
-                                    await UserData.setUserToken(
-                                      key: "USERTOKEN",
-                                      value:
-                                      userCredential.data?.token ?? "",
-                                    );
-                                    var value = userCredential.data?.user
-                                        ?.stripeAccountId !=
-                                        null
-                                        ? "1"
-                                        : "0";
-                                    await UserData.setUserLanguage(
-                                      key: "connected",
-                                      value: value,
-                                    );
-                                    Get.offNamed(Routes.homeScreen);
-                                  }
+                                        if (userCredential != null) {
+                                          print(
+                                              "account id  ${userCredential.data?.user?.stripeAccountId}");
+                                          await UserData.setUserToken(
+                                            key: "USERTOKEN",
+                                            value: userCredential.data?.token ??
+                                                "",
+                                          );
+                                          var value = userCredential.data?.user
+                                                      ?.stripeAccountId !=
+                                                  null
+                                              ? "1"
+                                              : "0";
+                                          await UserData.setUserLanguage(
+                                            key: "connected",
+                                            value: value,
+                                          );
+                                          Get.offNamed(Routes.homeScreen);
+                                        }
                                       },
                                     );
                                   }

@@ -46,8 +46,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   getClubList() {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       ApiCaller().getClubList(userToken, context).then((getClubList) {
-        // print(
-        //     "Club Data ==>${(getClubList as ClubListModal).data!.data![0].name}");
+
         setState(() {
           clubList = getClubList;
         });
@@ -64,10 +63,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       ApiCaller().getUserProfile(userToken, context).then((userData) {
         // print((userData as GetUserProfileModal).data!.email);
-      setState(() {
-        userAddData = (userData);
-        _isLoading = false;
-      });
+        setState(() {
+          userAddData = (userData);
+          _isLoading = false;
+        });
       });
     });
   }
@@ -97,17 +96,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           title: Text('Logout'),
-          content: Text('Do want to logout or Not !'),
+          content: Text('Are you sure you want to logout.'),
           actions: <Widget>[
-            // CupertinoDialogAction(
-            //   child: Text('Don\'t Allow'),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
             CupertinoDialogAction(
               child: Text('Yes'),
-              onPressed: (){
+              onPressed: () {
                 logoutmethod();
                 Navigator.pop(context);
               },
@@ -142,7 +135,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           // ),
           //shown Past Tickets List
           PastTicketsList(
-            clubList: clubList,
+            // clubList: clubList,
           ),
           //Profile Screen
           buildProfileScreen(_isLoading, userAddData, size, context,
@@ -155,7 +148,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         color: Color(0xff3E332B),
         child: TabBar(
             indicatorColor: Colors.transparent,
-
             onTap: (value) {
               setState(() {
                 index = value;

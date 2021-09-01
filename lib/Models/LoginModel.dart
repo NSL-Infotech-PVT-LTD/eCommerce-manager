@@ -67,7 +67,7 @@ class User {
   String? createdAt;
   String? updatedAt;
   Null? deletedAt;
-  Null? stripeId;
+  String? stripeId;
   Null? cardBrand;
   Null? cardLastFour;
   Null? trialEndsAt;

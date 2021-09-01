@@ -145,7 +145,9 @@ buildPastTicketsListTile(Size screenSize, String name, String date, String time,
               decoration: BoxDecoration(
                 color: Colors.pink,
                 shape: BoxShape.circle,
+
               ),
+              child:SvgPicture.asset("assets/images/Tick.svg"),
             ),
             SizedBox(width: screenSize.width * 0.03),
             Expanded(
@@ -277,7 +279,7 @@ buildProfileScreen(
                   Row(children: [
                     Container(
                       alignment: Alignment.center,
-                      width: size.width * 0.045,
+                      width: size.width * 0.065,
                       child: SvgPicture.asset(leftIconImage!),
                     ),
                     SizedBox(
@@ -317,195 +319,197 @@ buildProfileScreen(
   }
 
   //Main thing
-  return Container(
-    color: Colors.grey[900],
-    child: SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: size.width * 0.05, vertical: size.height * 0.035),
-          child: Column(
-            children: [
+  return SafeArea(
+    child: Container(
+      color: Colors.grey[900],
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: size.width * 0.05, vertical: size.height * 0.035),
+            child: Column(
+              children: [
 // top content
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 // image
-                  CircleAvatar(
-                    radius: size.width * 0.085,
-                    backgroundImage: userImage == null
-                        ? AssetImage("assets/images/defaultImage.png")
-                        : NetworkImage(userImage) as ImageProvider,
-                    backgroundColor: Colors.white,
-                  ),
+                    CircleAvatar(
+                      radius: size.width * 0.085,
+                      backgroundImage: userImage == null
+                          ? AssetImage("assets/images/defaultImage.png")
+                          : NetworkImage(userImage) as ImageProvider,
+                      backgroundColor: Colors.white,
+                    ),
 
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
+                    SizedBox(
+                      width: size.width * 0.02,
+                    ),
 
 // name email
-                  Expanded(
-                    flex: 8,
-                    child: Container(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${userAddData.data?.name} ",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontFamily: FontsDisPlay.dmSantsBold,
-                                  color: Colors.white,
-                                  fontSize: size.width * 0.058),
-                            ),
-                            Text(
-                              "${userAddData.data?.email}",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontFamily: FontsDisPlay.dmSantsRegular,
-                                  color: Colors.grey,
-                                  fontSize: size.width * 0.046),
-                            ),
-                          ]),
+                    Expanded(
+                      flex: 8,
+                      child: Container(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${userAddData.data?.name} ",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontFamily: FontsDisPlay.dmSantsBold,
+                                    color: Colors.white,
+                                    fontSize: size.width * 0.058),
+                              ),
+                              Text(
+                                "${userAddData.data?.email}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontFamily: FontsDisPlay.dmSantsRegular,
+                                    color: Colors.grey,
+                                    fontSize: size.width * 0.046),
+                              ),
+                            ]),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
 // edit
-              ),
+                ),
 
-              SizedBox(height: size.height * 0.090),
+                SizedBox(height: size.height * 0.090),
 //Languages
-              centerlistItem(
-                  context: context,
-                  title: AppTranslation.of(context)!.text("lang"),
+                centerlistItem(
+                    context: context,
+                    title: AppTranslation.of(context)!.text("lang"),
 // rightIconImage: ,
-                  leftIconImage: "assets/images/language.svg",
-                  onTapfunc: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangeLanguageScreen(),
-                        ));
-                  }),
-//Help
-              centerlistItem(
-                  context: context,
-                  title: AppTranslation.of(context)!.text("help"),
-// Help: ,
-                  leftIconImage: "assets/images/help.svg",
-                  onTapfunc: () {
-                    //Help
-                  }),
-//Contact Us
-              centerlistItem(
-                  context: context,
-                  title: AppTranslation.of(context)!.text("contact"),
-// rightIconImage: ,
-                  leftIconImage: "assets/images/about us.svg",
-                  onTapfunc: () {
-//Contact Us
-                  }),
-              centerlistItem(
-                  context: context,
-                  title: "Stripe",
-// rightIconImage: ,
-                  leftIconImage: "assets/images/about us.svg",
-                  onTapfunc: () async{
-                    var isConnected = await UserData.getUserLanguage("connected");
-                    if(isConnected == "1"){
-                      showDialog<void>(
-                        context: context,
-                        barrierDismissible: false, // user must tap button!
-                        builder: (BuildContext context) {
-                          return CupertinoAlertDialog(
-                            title:Text(AppTranslation.of(context)!.text("already a stripe member")),
-                            content: Text(AppTranslation.of(context)!.text("want to change the stripe")),
-                            actions: <Widget>[
-                              CupertinoDialogAction(
-                                child: Text(AppTranslation.of(context)!.text("yes")),
-                                onPressed: () {
-
-                                  Navigator.of(context).pop();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => WebViewXPage(),
-                                      ));
-                                },
-                              ),
-                              CupertinoDialogAction(
-                                child: Text(AppTranslation.of(context)!.text("no")),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }else{
-                      print("webview");
+                    leftIconImage: "assets/images/language.svg",
+                    onTapfunc: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WebViewXPage(),
+                            builder: (context) => ChangeLanguageScreen(),
                           ));
-                    }
+                    }),
+//Help
+                centerlistItem(
+                    context: context,
+                    title: AppTranslation.of(context)!.text("help"),
+// Help: ,
+                    leftIconImage: "assets/images/help.svg",
+                    onTapfunc: () {
+                      //Help
+                    }),
+//Contact Us
+                centerlistItem(
+                    context: context,
+                    title: AppTranslation.of(context)!.text("contact"),
+// rightIconImage: ,
+                    leftIconImage: "assets/images/about us.svg",
+                    onTapfunc: () {
+//Contact Us
+                    }),
+                centerlistItem(
+                    context: context,
+                    title: "Stripe",
+// rightIconImage: ,
+                    leftIconImage: "assets/images/stripe.svg",
+                    onTapfunc: () async{
+                      var isConnected = await UserData.getUserLanguage("connected");
+                      if(isConnected == "1"){
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title:Text(AppTranslation.of(context)!.text("already a stripe member")),
+                              content: Text(AppTranslation.of(context)!.text("want to change the stripe")),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  child: Text(AppTranslation.of(context)!.text("yes")),
+                                  onPressed: () {
+
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => WebViewXPage(),
+                                        ));
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text(AppTranslation.of(context)!.text("no")),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }else{
+                        print("webview");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WebViewXPage(),
+                            ));
+                      }
 
 
-                  }),
-              SizedBox(
-                height: size.height * 0.10,
-              ),
+                    }),
+                SizedBox(
+                  height: size.height * 0.10,
+                ),
 
-              InkWell(
-                onTap: _logoutFunc,
-                child: _isLoading
-                    ? CircularProgressIndicator(
-                        color: Color(0xffFF5349),
-                      )
-                    : Container(
-                        width: size.width * 0.60,
-                        height: size.height * 0.060,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xff3E332B),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: size.height * 0.030,
-                              width: size.width * 0.10,
-                              margin: EdgeInsets.only(left: 10),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    "assets/images/logout.png",
+                InkWell(
+                  onTap: _logoutFunc,
+                  child: _isLoading
+                      ? CircularProgressIndicator(
+                          color: Color(0xffFF5349),
+                        )
+                      : Container(
+                          width: size.width * 0.60,
+                          height: size.height * 0.060,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Color(0xff3E332B),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: size.height * 0.030,
+                                width: size.width * 0.10,
+                                margin: EdgeInsets.only(left: 10),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      "assets/images/logout.png",
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: size.width * 0.090),
-                            Text(
-                              AppTranslation.of(context)!.text("logout"),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                              SizedBox(width: size.width * 0.090),
+                              Text(
+                                AppTranslation.of(context)!.text("logout"),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-              ),
-              SizedBox(
-                height: size.height * 0.020,
-              ),
-            ],
+                ),
+                SizedBox(
+                  height: size.height * 0.020,
+                ),
+              ],
+            ),
           ),
         ),
       ),

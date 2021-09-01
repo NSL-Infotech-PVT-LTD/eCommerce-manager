@@ -49,7 +49,8 @@ class _QRDataState extends State<QRData> {
               data!.code,
               userToken,
               clubId.toString(),
-            ).then((dataById) {
+            )
+                .then((dataById) {
               _panelController.close();
               if (dataById == null) {
                 return showDialog<void>(
@@ -60,7 +61,6 @@ class _QRDataState extends State<QRData> {
                       title: Text('WARNING'),
                       content: Text('Please scan valid QR code !'),
                       actions: <Widget>[
-
                         CupertinoDialogAction(
                             child: Text('Ok'),
                             onPressed: () {
@@ -70,7 +70,6 @@ class _QRDataState extends State<QRData> {
                     );
                   },
                 );
-
               } else {
                 DataUser datauser = dataById.data?.data?.first;
 
@@ -87,7 +86,7 @@ class _QRDataState extends State<QRData> {
     }).onDone(
       () {
         _panelController.close();
-        },
+      },
     );
   }
 
@@ -139,7 +138,7 @@ class _QRDataState extends State<QRData> {
         ),
       ),
       body: Scaffold(
-        backgroundColor: Color(0xff000000),
+        backgroundColor: Colors.black87,
         body: Center(
           child: Stack(
             children: [
@@ -154,7 +153,6 @@ class _QRDataState extends State<QRData> {
               ),
               Center(
                 child: Column(
-
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.10),
@@ -203,8 +201,6 @@ class _QRDataState extends State<QRData> {
                         border: Border.all(color: Color(0xffFFEFBB)),
                       ),
                     ),
-
-
                     SizedBox(height: 15),
                   ],
                 ),

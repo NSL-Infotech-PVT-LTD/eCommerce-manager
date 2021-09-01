@@ -249,7 +249,7 @@ class FiestaDetail {
   bool? isFavourite;
   var leftStandardTicket;
   var leftVipTicket;
-  int? leftNormalTicket;
+  var leftNormalTicket;
   int? clubRating;
   ClubDetail? clubDetail;
 
