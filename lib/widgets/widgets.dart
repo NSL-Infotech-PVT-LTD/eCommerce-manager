@@ -10,7 +10,9 @@ import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/localization/ChangeLangugage.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
+import 'package:funfy_scanner/screens/AboutUsScreen.dart';
 import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
+import 'package:funfy_scanner/screens/HelpScreen.dart';
 import 'package:funfy_scanner/screens/stripe_connect.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -145,9 +147,8 @@ buildPastTicketsListTile(Size screenSize, String name, String date, String time,
               decoration: BoxDecoration(
                 color: Colors.pink,
                 shape: BoxShape.circle,
-
               ),
-              child:SvgPicture.asset("assets/images/Tick.svg"),
+              child: SvgPicture.asset("assets/images/Tick.svg"),
             ),
             SizedBox(width: screenSize.width * 0.03),
             Expanded(
@@ -255,13 +256,6 @@ buildProfileScreen(
       String? rightIconImage,
       onTapfunc}) {
     var size = MediaQuery.of(context).size;
-    //  showImage() {
-    //   if (userImage == null) {
-    //     return AssetImage("assets/images/defaultImage.png");
-    //   } else {
-    //     return NetworkImage(userImage);
-    //   }
-    // }
 
     return InkWell(
       onTap: () {
@@ -399,7 +393,7 @@ buildProfileScreen(
 // Help: ,
                     leftIconImage: "assets/images/help.svg",
                     onTapfunc: () {
-                      //Help
+                      Get.to(()=>HelpScreen());
                     }),
 //Contact Us
                 centerlistItem(
@@ -408,28 +402,31 @@ buildProfileScreen(
 // rightIconImage: ,
                     leftIconImage: "assets/images/about us.svg",
                     onTapfunc: () {
-//Contact Us
+                      Get.to(()=>AboutUsScreen());
                     }),
                 centerlistItem(
                     context: context,
-                    title: "Stripe",
+                    title: AppTranslation.of(context)!.text("stripe"),
 // rightIconImage: ,
                     leftIconImage: "assets/images/stripe.svg",
-                    onTapfunc: () async{
-                      var isConnected = await UserData.getUserLanguage("connected");
-                      if(isConnected == "1"){
+                    onTapfunc: () async {
+                      var isConnected =
+                          await UserData.getUserLanguage("connected");
+                      if (isConnected == "1") {
                         showDialog<void>(
                           context: context,
                           barrierDismissible: false, // user must tap button!
                           builder: (BuildContext context) {
                             return CupertinoAlertDialog(
-                              title:Text(AppTranslation.of(context)!.text("already a stripe member")),
-                              content: Text(AppTranslation.of(context)!.text("want to change the stripe")),
+                              title: Text(AppTranslation.of(context)!
+                                  .text("already a stripe member")),
+                              content: Text(AppTranslation.of(context)!
+                                  .text("want to change the stripe")),
                               actions: <Widget>[
                                 CupertinoDialogAction(
-                                  child: Text(AppTranslation.of(context)!.text("yes")),
+                                  child: Text(
+                                      AppTranslation.of(context)!.text("yes")),
                                   onPressed: () {
-
                                     Navigator.of(context).pop();
                                     Navigator.push(
                                         context,
@@ -439,7 +436,8 @@ buildProfileScreen(
                                   },
                                 ),
                                 CupertinoDialogAction(
-                                  child: Text(AppTranslation.of(context)!.text("no")),
+                                  child: Text(
+                                      AppTranslation.of(context)!.text("no")),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -448,7 +446,7 @@ buildProfileScreen(
                             );
                           },
                         );
-                      }else{
+                      } else {
                         print("webview");
                         Navigator.push(
                             context,
@@ -456,8 +454,6 @@ buildProfileScreen(
                               builder: (context) => WebViewXPage(),
                             ));
                       }
-
-
                     }),
                 SizedBox(
                   height: size.height * 0.10,

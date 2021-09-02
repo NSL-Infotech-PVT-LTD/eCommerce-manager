@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ClubListModal.dart';
+import 'package:funfy_scanner/Models/GetAboutUsModal.dart';
+import 'package:funfy_scanner/Models/GetHelpModal.dart';
 import 'package:funfy_scanner/Models/GetStripeDataModal.dart';
 import 'package:funfy_scanner/Models/LoginModel.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
@@ -26,6 +28,9 @@ class ApiCaller {
   static final String getclublist = "club/list";
   static final String getStripe = "payment-config";
   static final String connectStripe = "update/account";
+  static final String aboutUs = "config/about_us";
+
+  static final String help = "config/help_and_contact_us";
 
 // Sign in User
   Future<LoginModel?> doLogin({
@@ -265,4 +270,50 @@ class ApiCaller {
       return print("errro in Stripe");
     }
   }
+//  for Contact Us
+  Future getAboutUS(BuildContext context) async {
+    {
+      final response = await http.get(Uri.parse(baseurl + aboutUs));
+
+      if (response.statusCode == 200) {
+        return GetAboutUsModal.fromJson(json.decode(response.body));
+      } else {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text('Login Error'),
+              content: Text('Please enter the valid email !'),
+              actions: <Widget>[
+                // CupertinoDialogAction(
+                //   child: Text('Don\'t Allow'),
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                // ),
+                CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
+
+  // for Help
+Future getHelpData()async{
+  final response=await  http.get(Uri.parse(baseurl+help));
+
+  if(response.statusCode ==200){
+  return   GetHelpModal.fromJson(json.decode(response.body));
+  }
+
+
+}
 }

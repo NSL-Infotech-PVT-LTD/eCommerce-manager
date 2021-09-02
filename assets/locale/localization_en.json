@@ -32,5 +32,6 @@
   "already a stripe member": "Already a stripe member",
   "want to change the stripe": "Did you want to change the Stripe?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "stripe": "Stripe"
 }
