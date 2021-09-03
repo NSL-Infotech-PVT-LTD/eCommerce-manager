@@ -117,7 +117,7 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           Text(
-                            AppTranslation.of(context)!.text("funfy party app"),
+                            AppTranslation.of(context)!.text("funfypartyapp"),
                             style: TextStyle(
                               color: Color(0xffFFFFFF),
                               fontSize: 18,

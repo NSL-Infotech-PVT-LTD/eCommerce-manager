@@ -29,7 +29,7 @@ class Data {
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  Null? nextPageUrl;
+  String? nextPageUrl;
   String? path;
   int? perPage;
   Null? prevPageUrl;
@@ -55,14 +55,14 @@ class Data {
     if (json['data'] != null) {
       data = <DataUser>[];
       json['data'].forEach((v) {
-        data!.add(DataUser.fromJson(v));
+        data!.add(new DataUser.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
     from = json['from'];
     lastPage = json['last_page'];
-    // lastPageUrl = json['last_page_url'];
-    // nextPageUrl = json['next_page_url'];
+    lastPageUrl = json['last_page_url'];
+    nextPageUrl = json['next_page_url'];
     path = json['path'];
     perPage = json['per_page'];
     prevPageUrl = json['prev_page_url'];
@@ -96,6 +96,8 @@ class DataUser {
   int? fiestaId;
   String? totalPrice;
   String? bookingStatus;
+  int? totalTickets;
+  int? grandTotal;
   FiestaBookingItems? fiestaBookingItems;
   UserDetail? userDetail;
   FiestaDetail? fiestaDetail;
@@ -106,6 +108,8 @@ class DataUser {
       this.fiestaId,
       this.totalPrice,
       this.bookingStatus,
+      this.totalTickets,
+      this.grandTotal,
       this.fiestaBookingItems,
       this.userDetail,
       this.fiestaDetail});
@@ -116,6 +120,8 @@ class DataUser {
     fiestaId = json['fiesta_id'];
     totalPrice = json['total_price'];
     bookingStatus = json['booking_status'];
+    totalTickets = json['total_tickets'];
+    grandTotal = json['grand_total'];
     fiestaBookingItems = json['fiesta_booking_items'] != null
         ? new FiestaBookingItems.fromJson(json['fiesta_booking_items'])
         : null;
@@ -134,6 +140,8 @@ class DataUser {
     data['fiesta_id'] = this.fiestaId;
     data['total_price'] = this.totalPrice;
     data['booking_status'] = this.bookingStatus;
+    data['total_tickets'] = this.totalTickets;
+    data['grand_total'] = this.grandTotal;
     if (this.fiestaBookingItems != null) {
       data['fiesta_booking_items'] = this.fiestaBookingItems!.toJson();
     }
@@ -209,7 +217,11 @@ class Role {
   int? id;
   List<Null>? permission;
 
-  Role({this.name, this.id, this.permission});
+  Role({
+    this.name,
+    this.id,
+    this.permission,
+  });
 
   Role.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -227,30 +239,27 @@ class Role {
     data['name'] = this.name;
     data['id'] = this.id;
     // if (this.permission != null) {
-    //   data['permission'] = this.permission.map((v) => v!.toJson()).toList();
+    //   data['permission'] = this.permission.map((v) => v.toJson()).toList();
     // }
     return data;
   }
 }
 
 class FiestaDetail {
-  int? id;
-  String? name;
-  int? clubId;
+  int ?id;
+  String ?name;
+  int ?clubId;
   String? timestamp;
-  String? ticketPrice;
-  String? ticketPriceStandard;
-  String? ticketPriceVip;
-  String? totalMembers;
-  String? dressCode;
-  String? partyMusic;
-  String? distanceKm;
-  String? distanceMiles;
+  String ?ticketPriceNormal;
+  String ?ticketPriceStandard;
+  String ?ticketPriceVip;
+  String ?totalMembers;
+  int ?clubRating;
+  int ?leftNormalTicket;
+  int ?leftStandardTicket;
+  int? leftVipTicket;
   bool? isFavourite;
-  var leftStandardTicket;
-  var leftVipTicket;
-  var leftNormalTicket;
-  int? clubRating;
+  String? distanceMiles;
   ClubDetail? clubDetail;
 
   FiestaDetail(
@@ -258,19 +267,16 @@ class FiestaDetail {
       this.name,
       this.clubId,
       this.timestamp,
-      this.ticketPrice,
+      this.ticketPriceNormal,
       this.ticketPriceStandard,
       this.ticketPriceVip,
       this.totalMembers,
-      this.dressCode,
-      this.partyMusic,
-      this.distanceKm,
-      this.distanceMiles,
-      this.isFavourite,
+      this.clubRating,
+      this.leftNormalTicket,
       this.leftStandardTicket,
       this.leftVipTicket,
-      this.leftNormalTicket,
-      this.clubRating,
+      this.isFavourite,
+      this.distanceMiles,
       this.clubDetail});
 
   FiestaDetail.fromJson(Map<String, dynamic> json) {
@@ -278,19 +284,16 @@ class FiestaDetail {
     name = json['name'];
     clubId = json['club_id'];
     timestamp = json['timestamp'];
-    ticketPrice = json['ticket_price'];
+    ticketPriceNormal = json['ticket_price_normal'];
     ticketPriceStandard = json['ticket_price_standard'];
     ticketPriceVip = json['ticket_price_vip'];
     totalMembers = json['total_members'];
-    dressCode = json['dress_code'];
-    partyMusic = json['party_music'];
-    distanceKm = json['distance_km'];
-    distanceMiles = json['distance_miles'];
-    isFavourite = json['is_favourite'];
+    clubRating = json['club_rating'];
+    leftNormalTicket = json['left_normal_ticket'];
     leftStandardTicket = json['left_standard_ticket'];
     leftVipTicket = json['left_vip_ticket'];
-    leftNormalTicket = json['left_normal_ticket'];
-    clubRating = json['club_rating'];
+    isFavourite = json['is_favourite'];
+    distanceMiles = json['distance_miles'];
     clubDetail = json['club_detail'] != null
         ? new ClubDetail.fromJson(json['club_detail'])
         : null;
@@ -302,19 +305,16 @@ class FiestaDetail {
     data['name'] = this.name;
     data['club_id'] = this.clubId;
     data['timestamp'] = this.timestamp;
-    data['ticket_price'] = this.ticketPrice;
+    data['ticket_price_normal'] = this.ticketPriceNormal;
     data['ticket_price_standard'] = this.ticketPriceStandard;
     data['ticket_price_vip'] = this.ticketPriceVip;
     data['total_members'] = this.totalMembers;
-    data['dress_code'] = this.dressCode;
-    data['party_music'] = this.partyMusic;
-    data['distance_km'] = this.distanceKm;
-    data['distance_miles'] = this.distanceMiles;
-    data['is_favourite'] = this.isFavourite;
+    data['club_rating'] = this.clubRating;
+    data['left_normal_ticket'] = this.leftNormalTicket;
     data['left_standard_ticket'] = this.leftStandardTicket;
     data['left_vip_ticket'] = this.leftVipTicket;
-    data['left_normal_ticket'] = this.leftNormalTicket;
-    data['club_rating'] = this.clubRating;
+    data['is_favourite'] = this.isFavourite;
+    data['distance_miles'] = this.distanceMiles;
     if (this.clubDetail != null) {
       data['club_detail'] = this.clubDetail!.toJson();
     }
@@ -325,12 +325,12 @@ class FiestaDetail {
 class ClubDetail {
   int? id;
   String? name;
-  String? image;
-  String? capacity;
-  String? description;
-  String? location;
-  String? latitude;
-  String? longitude;
+  String ?image;
+  String ?capacity;
+  String ?description;
+  String ?location;
+  String ?latitude;
+  String ?longitude;
 
   ClubDetail(
       {this.id,

@@ -1,7 +1,7 @@
 {
   "signIn": "Sign In",
   "welcome": "welcome to ",
-  "funfy party app": "Funfy party app",
+  "funfypartyapp": "Funfy Club Admin",
   "email": "Email",
   "password": "Password",
   "forgotPassword": "Forgot Password?",
@@ -35,5 +35,7 @@
   "no": "No",
   "stripe": "Stripe",
 
-  "contactUs": "Contact US"
+  "contactUs": "Contact US",
+  "outofstock": "Out of Stock",
+  "bookNow": "Book Now"
 }

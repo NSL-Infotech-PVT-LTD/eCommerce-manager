@@ -196,7 +196,7 @@ class _TicketScreenState extends State<TicketScreen> {
               ),
               //circles for decoration
               Padding(
-                padding: const EdgeInsets.only(top: 150),
+                padding: const EdgeInsets.only(top: 170),
                 child: Container(
                   width: screenSize.width,
                   height: 55,

@@ -10,6 +10,7 @@ import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/ClubList.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
+import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -23,7 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  int? index;
+  int index = 0;
   bool _isLoading = false;
   late GetUserProfileModal userAddData = GetUserProfileModal();
   late ClubListModal clubList = ClubListModal();
@@ -32,7 +33,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     // for User Profile Data
     getUserData();
     //    //for Booking List
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         setState(() {
           clubList = getClubList;
         });
-        print("Ddecdsvxcvxc${clubList.data!.data![0].location}");
+        // print("Ddecdsvxcvxc${clubList.data!.data![0].location}");
       });
     });
   }
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         controller: _tabController,
         children: [
           //Qr code Scanner
-          // QRData(),
+          QRData(),
 
           // ClubList(
           //   clubList: clubList,
@@ -157,36 +158,16 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             },
             controller: _tabController,
             tabs: [
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Image.asset(
-              //       "assets/images/camera.png",
-              //       color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-              //     ),
-              //     Text(
-              //       AppTranslation.of(context)!.text("clubs"),
-              //       style: TextStyle(
-              //         color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-              //         fontFamily: index == 0
-              //             ? FontsDisPlay.robotoMedium
-              //             : FontsDisPlay.robotoRegular,
-              //         fontSize: 10,
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    "assets/images/ticket.png",
+                    "assets/images/camera.png",
                     color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
                   ),
                   Text(
-                    AppTranslation.of(context)!.text("clubs"),
+                    AppTranslation.of(context)!.text("qrcode"),
                     style: TextStyle(
                       color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
                       fontFamily: index == 0
@@ -202,14 +183,34 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
+                    "assets/images/ticket.png",
+                    color: index == 1? Color(0xffFF0000) : Color(0xffFFFFFF),
+                  ),
+                  Text(
+                    AppTranslation.of(context)!.text("clubs"),
+                    style: TextStyle(
+                      color: index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
+                      fontFamily: index == 1
+                          ? FontsDisPlay.robotoMedium
+                          : FontsDisPlay.robotoRegular,
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
                     "assets/images/setting.png",
-                    color: index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
+                    color: index == 2 ? Color(0xffFF0000) : Color(0xffFFFFFF),
                   ),
                   Text(
                     AppTranslation.of(context)!.text("profile"),
                     style: TextStyle(
-                      color: index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                      fontFamily: index == 1
+                      color: index == 2 ? Color(0xffFF0000) : Color(0xffFFFFFF),
+                      fontFamily: index == 2
                           ? FontsDisPlay.robotoMedium
                           : FontsDisPlay.robotoRegular,
                       fontSize: 10,

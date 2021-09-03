@@ -76,39 +76,41 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          AppTranslation.of(context)!.text("forgotpassword"),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xffF5F5F5),
-                            fontSize: 25,
-                            fontFamily: "AbrilFatface",
-                          ),
+                        Row(
+                          children: [Text(
+                            AppTranslation.of(context)!.text("forgotpassword"),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF5F5F5),
+                              fontSize: 25,
+                              fontFamily: "AbrilFatface",
+                            ),
+                          ),],
                         ),
                         SizedBox(height: 6),
-                        Row(
-                          children: [
-                            Text(
-                              AppTranslation.of(context)!.text("welcome"),
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontSize: 18,
-                                fontFamily: FontsDisPlay.robotoThin,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              AppTranslation.of(context)!
-                                  .text("funfy party app"),
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontSize: 18,
-                                fontFamily: FontsDisPlay.robotoBlack,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       AppTranslation.of(context)!.text("welcome"),
+                        //       style: TextStyle(
+                        //         color: Color(0xffFFFFFF),
+                        //         fontSize: 18,
+                        //         fontFamily: FontsDisPlay.robotoThin,
+                        //         fontWeight: FontWeight.w300,
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       AppTranslation.of(context)!
+                        //           .text("funfy party app"),
+                        //       style: TextStyle(
+                        //         color: Color(0xffFFFFFF),
+                        //         fontSize: 18,
+                        //         fontFamily: FontsDisPlay.robotoBlack,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

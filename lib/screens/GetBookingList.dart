@@ -28,7 +28,6 @@ class _GetBookingListState extends State<GetBookingList> {
   bool _isLoading = false;
   BookingListModal getBookingData = BookingListModal();
 
-
   @override
   void initState() {
     //    //for Booking List
@@ -56,7 +55,6 @@ class _GetBookingListState extends State<GetBookingList> {
         setState(() {
           getBookingData = getBookingListData;
           _isLoading = false;
-
         });
       });
     });
@@ -97,22 +95,27 @@ class _GetBookingListState extends State<GetBookingList> {
                       print("Date And Time is ====>${timeStamp.toString()}");
                       forDate = timeStamp!.first.toString();
                       forTime = timeStamp![1].toString();
-                      var bookingId=getBookingData.data?.data![index].id;
+                      var bookingId = getBookingData.data?.data![index].id;
                       print(" Booking Id{$bookingId}");
                       print("$forDate DatAndTime Is $forTime");
 
                       print(
                           "UserName =====:>>>>$index +${getBookingData.data!.data!.length}");
                       print("2nd data${getBookingData.data}");
-                      return buildPastTicketsListTile(
-                        screeSize,
-                        userName.toString(),
-                        forDate.toString(),
-                        forTime.toString(),
-                        data,
-                        widget.clubID.toString(),
-
+                      return fiestasItem(
+                        context: context,
+                        postModeldata: data,
+                        getData: widget.clubID.toString(),
                       );
+                      // return buildPastTicketsListTile(
+                      //   screeSize,
+                      //   userName.toString(),
+                      //   forDate.toString(),
+                      //   forTime.toString(),
+                      //   data,
+                      //   widget.clubID.toString(),
+                      //
+                      // );
                       return Container(
                         height: 20,
                       );

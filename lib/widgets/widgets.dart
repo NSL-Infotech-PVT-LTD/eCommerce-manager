@@ -1,17 +1,23 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Constants/roundContainer.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Constants/strings.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
+import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/AboutUsScreen.dart';
 import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
 import 'package:funfy_scanner/screens/HelpScreen.dart';
 import 'package:funfy_scanner/screens/stripe_connect.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //for textField
@@ -389,7 +395,7 @@ buildProfileScreen(
 // Help: ,
                     leftIconImage: "assets/images/help.svg",
                     onTapfunc: () {
-                      Get.to(()=>HelpScreen());
+                      Get.to(() => HelpScreen());
                     }),
 //Contact Us
                 centerlistItem(
@@ -398,7 +404,7 @@ buildProfileScreen(
 // rightIconImage: ,
                     leftIconImage: "assets/images/about us.svg",
                     onTapfunc: () {
-                      Get.to(()=>AboutUsScreen());
+                      Get.to(() => AboutUsScreen());
                     }),
                 centerlistItem(
                     context: context,
@@ -550,3 +556,270 @@ buildProfileScreen(
 //   ],
 // );
 // }
+String k_m_b_generator(num) {
+  if (num > 999 && num < 99999) {
+    return "${(num / 1000).toStringAsFixed(1)} K";
+  } else if (num > 99999 && num < 999999) {
+    return "${(num / 1000).toStringAsFixed(1)} K";
+  } else if (num > 999999 && num < 999999999) {
+    return "${(num / 1000000).toStringAsFixed(1)} M";
+  } else if (num > 999999999) {
+    return "${(num / 1000000000).toStringAsFixed(1)} B";
+  } else {
+    // print(num);
+    return num.toString();
+  }
+}
+
+Widget ratingstars({size, ittempading, color, double rating = 1.0}) {
+  return RatingBar.builder(
+    itemSize: size,
+    initialRating: rating,
+    ignoreGestures: true,
+    minRating: 1,
+    direction: Axis.horizontal,
+    allowHalfRating: true,
+    itemCount: 5,
+    unratedColor: AppColors.starUnselect,
+    itemPadding: EdgeInsets.symmetric(horizontal: ittempading),
+    itemBuilder: (context, _) => Icon(
+      Icons.star,
+      color: color,
+    ),
+    onRatingUpdate: (rating) {
+      print(rating);
+    },
+  );
+}
+
+Widget fiestasItem(
+    {context, DataUser? postModeldata, required String getData}) {
+  bool available = false;
+  var size = MediaQuery.of(context).size;
+  DateTime? date = DateTime.parse("${postModeldata?.fiestaDetail!.timestamp}");
+  String month = DateFormat('MMM').format(date);
+  String price = k_m_b_generator(
+      int.parse("${postModeldata?.fiestaDetail!.ticketPriceNormal}"));
+  double rating = 0.0;
+  if (postModeldata?.fiestaDetail!.leftNormalTicket.toString() == "0" &&
+      postModeldata?.fiestaDetail!.leftStandardTicket.toString() == "0" &&
+      postModeldata?.fiestaDetail!.leftVipTicket.toString() == "0") {
+    available = true;
+  }
+  if (postModeldata?.fiestaDetail!.clubRating == null ||
+      postModeldata?.fiestaDetail!.clubRating == 0) {
+    rating = 0.0;
+  } else {
+    rating = double.parse("${postModeldata?.fiestaDetail!.clubRating}");
+  }
+  return InkWell(
+    onTap: () {
+      if (available != true) {
+        Get.toNamed(
+          Routes.qrCodeScannerScreen,
+          arguments: getData,
+        );
+      }
+    },
+    child: Container(
+      margin: EdgeInsets.only(left:15,right: 15),
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: size.width * 0.04),
+            width: size.width,
+            height: size.height * 0.3,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade400,
+                image: DecorationImage(
+                  
+                    image: postModeldata?.fiestaDetail?.clubDetail?.image == null
+                        ? AssetImage("assets/images/App iocn.png")
+                        : NetworkImage(
+                            "${postModeldata?.fiestaDetail?.clubDetail?.image}",
+                          ) as ImageProvider,
+                    fit: BoxFit.cover)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                    padding: EdgeInsets.symmetric(vertical: size.height * 0.0035),
+                    color: AppColors.homeBackground.withOpacity(0.4),
+                    width: size.width * 0.1,
+                    height: size.height * 0.055,
+                    child: Container(
+                      height: size.height * 0.047,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${date.day}",
+                              style: TextStyle(
+                                  fontSize: size.width * 0.043,
+                                  fontFamily: FontsDisPlay.dmSantsBold,
+                                  color: Color(0xffFFFFFF)),
+                            ),
+                          ),
+                          Text(
+                            "${month.toUpperCase()}",
+                            style: TextStyle(
+                                fontSize: size.width * 0.027,
+                                fontFamily: FontsDisPlay.dmSantsMedium,
+                                color: Color(0xffFFFFFF)),
+                          ),
+                        ],
+                      ),
+                    )),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.03,
+                      vertical: size.height * 0.01),
+                  height: size.height * 0.15,
+                  decoration: BoxDecoration(
+                      color: AppColors.homeBackground,
+                      border: Border(
+                        left: BorderSide(
+                            width: size.height * 0.001,
+                            color: available == false
+                                ? AppColors.tagBorder
+                                : AppColors.blackBackground),
+                        right: BorderSide(
+                            width: size.height * 0.001,
+                            color: available == false
+                                ? AppColors.tagBorder
+                                : AppColors.blackBackground),
+                        bottom: BorderSide(
+                            width: size.height * 0.001,
+                            color: available == false
+                                ? AppColors.tagBorder
+                                : AppColors.blackBackground),
+                      )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${postModeldata?.fiestaDetail?.name}",
+                            style: TextStyle(
+                                fontSize: size.width * 0.045,
+                                fontFamily: FontsDisPlay.dmSantsBold,
+                                color: AppColors.white),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.004,
+                          ),
+                          Text(
+                            "${postModeldata?.fiestaDetail?.distanceMiles}",
+                            style: TextStyle(
+                                fontSize: size.width * 0.03,
+                                fontFamily: FontsDisPlay.dmSantsMedium,
+                                color: Color(0xffFFFFFF)),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.005,
+                          ),
+                          Container(
+                              // width: size.width * 0.3,
+                              child: ratingstars(
+                                  size: size.width * 0.05,
+                                  ittempading: size.width * 0.0001,
+                                  color: AppColors.tagBorder,
+                                  rating: rating))
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            Strings.startingfrom,
+                            style: TextStyle(
+                                fontSize: size.width * 0.025,
+                                fontFamily: FontsDisPlay.dmSantsMedium,
+                                color: AppColors.white),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                Strings.euro,
+                                style: TextStyle(
+                                    fontSize: size.width * 0.04,
+                                    fontFamily: FontsDisPlay.dmSantsBold,
+                                    color: AppColors.white),
+                              ),
+                              Text(
+                                // postModeldata!.ticketPrice!.length > 9
+                                //     ? "${postModeldata.ticketPrice?.substring(0, 9)}"
+                                //     : "${postModeldata.ticketPrice}",
+                                "$price",
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                    fontSize: size.width * 0.068,
+                                    fontFamily: FontsDisPlay.dmSantsBold,
+                                    color: AppColors.white),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     if (available != true) {
+                          //       // navigatorPushFun(context,
+                          //       //     BookNowBeta(fiestasID: postModeldata?.id));
+                          //     }
+                          //   },
+                          //   child: roundedBoxR(
+                          //       width: size.width * 0.23,
+                          //       // height: size.height * 0.033,
+                          //       radius: 3.0,
+                          //       backgroundColor: available
+                          //           ? Colors.grey[800]
+                          //           : AppColors.siginbackgrond,
+                          //       child: Container(
+                          //         alignment: Alignment.center,
+                          //         padding: EdgeInsets.symmetric(
+                          //             vertical: size.height * 0.008,
+                          //             horizontal: size.width * 0.01),
+                          //         child: Text(
+                          //           // Strings.booknow,
+                          //           available
+                          //               ? "${AppTranslation.of(context)!.text("outofstock")}"
+                          //               : "${AppTranslation.of(context)!.text("bookNow")}",
+                          //           textAlign: TextAlign.center,
+                          //           style: TextStyle(
+                          //               fontSize: size.width * 0.03,
+                          //               fontFamily: FontsDisPlay.dmSantsBold,
+                          //               color: AppColors.white),
+                          //         ),
+                          //       )),
+                          // )
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          // up
+          available
+              ? Container(
+                  margin: EdgeInsets.only(top: size.width * 0.04),
+                  width: size.width,
+                  height: size.height * 0.28,
+                  color: Colors.black.withOpacity(0.4),
+                )
+              : SizedBox()
+        ],
+      ),
+    ),
+  );
+}

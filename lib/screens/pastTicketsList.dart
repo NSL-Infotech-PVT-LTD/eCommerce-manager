@@ -69,8 +69,9 @@ class _PastTicketsListState extends State<PastTicketsList> {
       onRefresh: getClubs,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
+          backgroundColor: Colors.black26,
+          elevation: 20,
+          centerTitle: true,
           title: Text(
             AppTranslation.of(context)!.text("clubsList"),
             style: TextStyle(
@@ -87,60 +88,68 @@ class _PastTicketsListState extends State<PastTicketsList> {
               width: screenSize.width,
               child: _isLoading
                   ? Center(child: LoadingScreen())
-                  : ListView.builder(
-                      itemCount: clubList.data?.data?.length,
-                      itemBuilder: (context, index) {
-                        final image = clubList.data!.data![index].image;
-                        final clubTitle = clubList.data?.data![index].name;
-                        final clubDesc =
-                            clubList.data?.data![index].description;
-                        final clunLocation =
-                            clubList.data?.data![index].location;
-                        final clubID = clubList.data?.data![index].id;
-                        print("PAsr Ticket is ${clunLocation}");
-                        print(
-                            "Ddecdsvxcvxc${clubList.data?.data?[index].name}");
-                        return InkWell(
-                          onTap: () {
-                            print("aszckxZbc ${clubID}");
-                            Get.to(GetBookingList(
-                              clubID: clubID,
-                            ));
+                  : (clubList.data!.data == null || clubList.data!.data == [])
+                      ? Center(
+                          child: Text("Nothing to Show!",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              )))
+                      : ListView.builder(
+                          itemCount: clubList.data?.data?.length,
+                          itemBuilder: (context, index) {
+                            final image = clubList.data!.data![index].image;
+                            final clubTitle = clubList.data?.data![index].name;
+                            final clubDesc =
+                                clubList.data?.data![index].description;
+                            final clunLocation =
+                                clubList.data?.data![index].location;
+                            final clubID = clubList.data?.data![index].id;
+                            print("PAsr Ticket is ${clunLocation}");
+                            print(
+                                "Ddecdsvxcvxc${clubList.data?.data?[index].name}");
+                            return InkWell(
+                              onTap: () {
+                                print("aszckxZbc ${clubID}");
+                                Get.to(GetBookingList(
+                                  clubID: clubID,
+                                ));
+                              },
+                              child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 6, left: 10, right: 10),
+                                elevation: 0.0,
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: image == null
+                                        ? AssetImage(
+                                            "assets/images/defaultImage.png")
+                                        : NetworkImage(image.toString())
+                                            as ImageProvider,
+                                  ),
+                                  title: Text(
+                                    clubTitle.toString(),
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    clubDesc.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
                           },
-                          child: Card(
-                            margin:
-                                EdgeInsets.only(top: 6, left: 10, right: 10),
-                            elevation: 0.0,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: image == null
-                                    ? AssetImage(
-                                        "assets/images/defaultImage.png")
-                                    : NetworkImage(image.toString())
-                                        as ImageProvider,
-                              ),
-                              title: Text(
-                                clubTitle.toString(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              subtitle: Text(
-                                clubDesc.toString(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )),
+                        )),
         ),
       ),
     );

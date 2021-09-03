@@ -1,7 +1,7 @@
 {
   "signIn": "Iniciar sesión",
   "welcome": "Bienvenida a ",
-  "funfy party app": "Aplicación Funfy Party",
+  "funfypartyapp": "Administrador de Funfy Club",
   "email": "Correo electrónico",
   "password": "Contraseña",
   "forgotPassword": "Has olvidado tu contraseña?",
@@ -35,5 +35,7 @@
   "no": "No",
   "stripe": "Raya",
 
-  "contactUs": "Contáctenos"
+  "contactUs": "Contáctenos",
+  "outofstock": "Agotado",
+  "bookNow": "Reservar ahora"
 }

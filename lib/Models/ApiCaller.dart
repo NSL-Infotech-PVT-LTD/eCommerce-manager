@@ -217,11 +217,16 @@ class ApiCaller {
   }
 
   //Get Scanned Data
-  Future getScannedData(String id, String userToken, String clubId) async {
-    Map<String, dynamic> data = {
+  Future getScannedData(String id, String userToken, String? clubId) async {
+    print("Clubid==>$clubId");
+    Map<String, dynamic> data = clubId == null|| clubId == "null" ?{
+      "booking_id": id,
+    }:{
       "booking_id": id,
       "club_id": clubId,
     };
+
+    print("Data==> $data");
     final response = await http.post(Uri.parse(baseUrl + getById),
         headers: {
           "Authorization": "Bearer " + userToken,
