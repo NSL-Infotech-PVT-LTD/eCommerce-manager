@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/ClubListModal.dart';
@@ -30,8 +29,8 @@ class _PastTicketsListState extends State<PastTicketsList> {
     setState(() {
       _isLoading = true;
     });
-     UserData.getUserToken("USERTOKEN").then((userToken) async {
-       ApiCaller().getClubList(userToken, context).then((getClubList) {
+    UserData.getUserToken("USERTOKEN").then((userToken) async {
+      ApiCaller().getClubList(userToken, context).then((getClubList) {
         // print(
         //     "Club Data ==>${(getClubList as ClubListModal).data!.data![0].name}");
         setState(() {
@@ -43,7 +42,7 @@ class _PastTicketsListState extends State<PastTicketsList> {
   }
 
   Future getClubs() async {
-   return  await UserData.getUserToken("USERTOKEN").then((userToken) async {
+    return await UserData.getUserToken("USERTOKEN").then((userToken) async {
       await ApiCaller().getClubList(userToken, context).then((getClubList) {
         // print(
         //     "Club Data ==>${(getClubList as ClubListModal).data!.data![0].name}");
@@ -114,7 +113,11 @@ class _PastTicketsListState extends State<PastTicketsList> {
                             elevation: 0.0,
                             child: ListTile(
                               leading: CircleAvatar(
-                                backgroundImage: NetworkImage(image.toString()),
+                                backgroundImage: image == null
+                                    ? AssetImage(
+                                        "assets/images/defaultImage.png")
+                                    : NetworkImage(image.toString())
+                                        as ImageProvider,
                               ),
                               title: Text(
                                 clubTitle.toString(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetAboutUsModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/LoadingScreen.dart';
 
 class AboutUsScreen extends StatefulWidget {
@@ -38,6 +39,19 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
         ? Center(child: LoadingScreen())
         : Scaffold(
             backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              elevation: 0.0,
+              title: Text(
+                AppTranslation.of(context)!.text("contactUs"),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20,
+                ),
+              ),
+              centerTitle: true,
+            ),
             body: (getAboutData.data == null || getAboutData.data?.config == "")
                 ? Center(
                     child: Text("Nothing to show !",

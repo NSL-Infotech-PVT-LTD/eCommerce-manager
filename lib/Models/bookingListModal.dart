@@ -329,8 +329,8 @@ class ClubDetail {
   String? capacity;
   String? description;
   String? location;
-  Null? latitude;
-  Null? longitude;
+  String? latitude;
+  String? longitude;
 
   ClubDetail(
       {this.id,

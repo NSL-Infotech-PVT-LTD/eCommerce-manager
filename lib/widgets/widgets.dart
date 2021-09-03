@@ -1,14 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
-import 'package:funfy_scanner/localization/ChangeLangugage.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/AboutUsScreen.dart';
 import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
@@ -16,7 +13,6 @@ import 'package:funfy_scanner/screens/HelpScreen.dart';
 import 'package:funfy_scanner/screens/stripe_connect.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:webviewx/webviewx.dart';
 
 //for textField
 buildCustomTextField(

@@ -53,7 +53,7 @@ class User {
   String? mobile;
   String? email;
   String? gender;
-  Null? image;
+  String? image;
   String? dob;
   Null? radius;
   String? isAvailable;
