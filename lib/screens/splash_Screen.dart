@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:get/get.dart';
@@ -19,15 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
       UserData.getUserToken("USERTOKEN").then((_token) {
         print("$_token jdfkjskfj");
         if (_token == null) {
-
           Get.offNamed(Routes.signInScreen);
         } else {
-
           Get.offNamed(Routes.homeScreen);
         }
       });
-
-
     });
     super.initState();
   }
@@ -85,12 +83,20 @@ class _SplashScreenState extends State<SplashScreen> {
             left: screenSize.width * 0.40,
             child: Column(
               children: [
-                Image.asset(
-                  "assets/images/scanner.png",
-                  height: 90.75,
+                SvgPicture.asset(
+                  "assets/images/qrcodescan.svg",
+                  height: 80.75,
                   width: 78,
                   fit: BoxFit.cover,
                 ),
+                // SizedBox(height: 3),
+                // Text(
+                //   "SCANNER",
+                //   style: TextStyle(
+                //     color: AppColors.white,
+                //
+                //   ),
+                // ),
                 SizedBox(height: screenSize.height * 0.03),
                 // SizedBox(height: 10),
                 // Text(

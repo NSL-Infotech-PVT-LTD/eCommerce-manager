@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
@@ -9,6 +10,7 @@ import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/ClubList.dart';
+import 'package:funfy_scanner/screens/TicketsList.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
@@ -33,7 +35,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     // for User Profile Data
     getUserData();
     //    //for Booking List
@@ -47,7 +49,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   getClubList() {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       ApiCaller().getClubList(userToken, context).then((getClubList) {
-
         setState(() {
           clubList = getClubList;
         });
@@ -123,103 +124,116 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-          child: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _tabController,
+      body: Stack(
         children: [
-          //Qr code Scanner
-          QRData(),
-
-          // ClubList(
-          //   clubList: clubList,
-          // ),
-          //shown Past Tickets List
-          PastTicketsList(
-            // clubList: clubList,
-          ),
-          //Profile Screen
-          buildProfileScreen(_isLoading, userAddData, size, context,
-              showpopUpForLOgout, _panelController!),
-        ],
-      )),
-      bottomNavigationBar: Container(
-        height: 65,
-        alignment: Alignment.bottomCenter,
-        color: Color(0xff3E332B),
-        child: TabBar(
-            indicatorColor: Colors.transparent,
-
-            onTap: (value) {
-              setState(() {
-                index = value;
-              });
-              print("index is $index");
-            },
+          Container(
+              child: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
-            tabs: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/camera.png",
-                    color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
+            children: [
+              //showing Ticket List
+              // TicketsList(),
+              //shown Past Tickets List
+              PastTicketsList(
+                  // clubList: clubList,
                   ),
-                  Text(
-                    AppTranslation.of(context)!.text("qrcode"),
-                    style: TextStyle(
-                      color: index == 0 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                      fontFamily: index == 0
-                          ? FontsDisPlay.robotoMedium
-                          : FontsDisPlay.robotoRegular,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/ticket.png",
-                    color: index == 1? Color(0xffFF0000) : Color(0xffFFFFFF),
-                  ),
-                  Text(
-                    AppTranslation.of(context)!.text("clubs"),
-                    style: TextStyle(
-                      color: index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                      fontFamily: index == 1
-                          ? FontsDisPlay.robotoMedium
-                          : FontsDisPlay.robotoRegular,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/setting.png",
-                    color: index == 2 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                  ),
-                  Text(
-                    AppTranslation.of(context)!.text("profile"),
-                    style: TextStyle(
-                      color: index == 2 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                      fontFamily: index == 2
-                          ? FontsDisPlay.robotoMedium
-                          : FontsDisPlay.robotoRegular,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
-            ]),
+              //Profile Screen
+              buildProfileScreen(_isLoading, userAddData, size, context,
+                  showpopUpForLOgout, _panelController!),
+            ],
+          )),
+        ],
       ),
+      bottomNavigationBar: Stack(
+        children: [
+          Container(
+            height: 65,
+            alignment: Alignment.bottomCenter,
+            color: Color(0xff3E332B),
+            child: Stack(
+              children: [
+                TabBar(
+                    indicatorColor: Colors.transparent,
+                    onTap: (value) {
+                      setState(() {
+                        index = value;
+                      });
+                      print("index is $index");
+                    },
+                    controller: _tabController,
+                    tabs: [
+                      //1st tab
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          index == 0
+                              ? Image.asset(
+                                  "assets/images/selectedticket.png",
+                                  height: 32,
+                                  width: 32,
+                                )
+                              : Image.asset(
+                                  "assets/images/ticket.png",
+                                  height: 32,
+                                  width: 32,
+                                ),
+                          Text(
+                            AppTranslation.of(context)!.text("bookings"),
+                            style: TextStyle(
+                              color: Color(0xffFFFFFF),
+                              fontFamily: index == 0
+                                  ? FontsDisPlay.robotoMedium
+                                  : FontsDisPlay.robotoRegular,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      //3rd tab
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/setting.png",
+                            height: 32,
+                            width: 32,
+                            color: index == 1
+                                ? Color(0xffFF0000)
+                                : Color(0xffFFFFFF),
+                          ),
+                          Text(
+                            AppTranslation.of(context)!.text("profile"),
+                            style: TextStyle(
+                              color: index == 1
+                                  ? Color(0xffFF0000)
+                                  : Color(0xffFFFFFF),
+                              fontFamily: index == 1
+                                  ? FontsDisPlay.robotoMedium
+                                  : FontsDisPlay.robotoRegular,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]),
+              ],
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton:index==0? GestureDetector(
+          onTap:index==0? () {
+            Get.toNamed(Routes.globalScannerScreen);
+          }:null,
+          child: Image.asset(
+            "assets/images/scanner.png",
+            height: 150,
+            width: 150,
+          )):Container(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

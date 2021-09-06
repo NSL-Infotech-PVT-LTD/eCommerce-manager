@@ -8,6 +8,9 @@ class FontsDisPlay {
   static String dmSantsMedium = "assets/fonts/DMSans-Medium.ttf";
   static String dmSantsBold = "assets/fonts/DMSans-Bold.ttf";
   static String dmSantsRegular= " assets/fonts/DMSans-Regular.ttf";
-
+  static String productsSansBold= " assets/fonts/Product Sans Bold.ttf";
+  static String productsSansBoldItalic= " assets/fonts/Product Sans Bold Italic.ttf";
+  static String productsSansItalic= " assets/fonts/Product Sans Italic.ttf";
+  static String productsSansRegular= " assets/fonts/Product Sans Regular.ttf";
 
 }

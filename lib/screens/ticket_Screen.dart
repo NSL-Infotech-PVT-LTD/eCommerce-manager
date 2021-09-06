@@ -64,6 +64,7 @@ class _TicketScreenState extends State<TicketScreen> {
         body: Container(
           child: Stack(
             children: [
+
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                 padding: EdgeInsets.only(top: 20, left: 30),

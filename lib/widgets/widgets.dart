@@ -458,7 +458,7 @@ buildProfileScreen(
                       }
                     }),
                 SizedBox(
-                  height: size.height * 0.10,
+                  height: size.height * 0.050,
                 ),
 
                 InkWell(
@@ -622,7 +622,7 @@ Widget fiestasItem(
       }
     },
     child: Container(
-      margin: EdgeInsets.only(left:15,right: 15),
+      margin: EdgeInsets.only(left: 15, right: 15),
       child: Stack(
         children: [
           Container(
@@ -632,19 +632,20 @@ Widget fiestasItem(
             decoration: BoxDecoration(
                 color: Colors.grey.shade400,
                 image: DecorationImage(
-                  
-                    image: postModeldata?.fiestaDetail?.clubDetail?.image == null
-                        ? AssetImage("assets/images/App iocn.png")
-                        : NetworkImage(
-                            "${postModeldata?.fiestaDetail?.clubDetail?.image}",
-                          ) as ImageProvider,
+                    image:
+                        postModeldata?.fiestaDetail?.clubDetail?.image == null
+                            ? AssetImage("assets/images/Appicon.png")
+                            : NetworkImage(
+                                "${postModeldata?.fiestaDetail?.clubDetail?.image}",
+                              ) as ImageProvider,
                     fit: BoxFit.cover)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: size.height * 0.0035),
+                    padding:
+                        EdgeInsets.symmetric(vertical: size.height * 0.0035),
                     color: AppColors.homeBackground.withOpacity(0.4),
                     width: size.width * 0.1,
                     height: size.height * 0.055,

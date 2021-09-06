@@ -90,28 +90,32 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              AppTranslation.of(context)!.text("welcome"),
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontSize: 18,
-                                fontFamily: FontsDisPlay.robotoThin,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              AppTranslation.of(context)!
-                                  .text("funfy party app"),
-                              style: TextStyle(
-                                color: Color(0xffFFFFFF),
-                                fontSize: 18,
-                                fontFamily: FontsDisPlay.robotoBlack,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+
+                        Container(
+                          width:MediaQuery.of(context).size.width,
+                          alignment: Alignment.centerLeft,
+                          child: RichText(
+                              text: TextSpan(
+                                  text:
+                                      AppTranslation.of(context)!.text("welcome"),
+                                  style: TextStyle(
+                                    color: Color(0xffFFFFFF),
+                                    fontSize: 18,
+                                    fontFamily: FontsDisPlay.robotoThin,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                  children: [
+                                TextSpan(
+                                  text: AppTranslation.of(context)!
+                                      .text("funfypartyapp"),
+                  style: TextStyle(
+                    color: Color(0xffFFFFFF),
+                                    fontSize: 18,
+                                    fontFamily: FontsDisPlay.robotoBlack,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ])),
                         ),
                         SizedBox(height: 6),
                         Text(
@@ -125,27 +129,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                         ),
 
                         SizedBox(height: screenSize.height * 0.060),
-                        // ListTile(
-                        //   title: const Text('English',
-                        //       style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontWeight: FontWeight.w400)),
-                        //   leading: Radio(
-                        //     fillColor:
-                        //         MaterialStateProperty.all(Color(0xffFF5349)),
-                        //     value: getLang.en,
-                        //     groupValue: initialValueUse == "es"
-                        //         ? getLang.es
-                        //         : getLang.en,
-                        //     onChanged: (value) {
-                        //       setState(() {
-                        //         initialValue = value as getLang;
-                        //         initialValueUse = "en";
-                        //         print(initialValueUse);
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
+
                       ],
                     ),
                   ),
@@ -155,7 +139,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 10,right: 5),
+                          padding: const EdgeInsets.only(left: 10, right: 5),
                           child: Row(
                             children: [
                               const Text('English',
@@ -189,7 +173,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                           color: Colors.grey,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10,right: 5),
+                          padding: const EdgeInsets.only(left: 10, right: 5),
                           child: Row(
                             children: [
                               const Text('Spanish',

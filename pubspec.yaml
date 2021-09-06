@@ -61,7 +61,7 @@ flutter_app_name:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/App iocn.png"
+  image_path: "assets/images/Appicon.png"
   flutter_test:
     sdk: flutter
 
@@ -90,6 +90,8 @@ flutter:
     - assets/images/help.svg
     - assets/images/about us.svg
     - assets/images/translationicon.png
+
+
 
 
 
@@ -122,6 +124,12 @@ flutter:
         - asset: assets/fonts/DMSans-Medium.ttf
         - asset: assets/fonts/DMSans-Regular.ttf
         - asset: assets/fonts/DMSans-Bold.ttf
+    - family: Product Sans
+      fonts:
+        - asset: assets/fonts/Product Sans Italic.ttf
+        - asset: assets/fonts/Product Sans Bold Italic.ttf
+        - asset: assets/fonts/Product Sans Bold.ttf
+        - asset: assets/fonts/Product Sans Regular.ttf
 
 
 

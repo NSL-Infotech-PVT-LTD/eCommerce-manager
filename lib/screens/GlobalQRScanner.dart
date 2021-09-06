@@ -1,15 +1,13 @@
-import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    '';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
-
-// import 'package:funfy_scanner/Models/bookingListModal.dart';
-import 'package:funfy_scanner/Models/getScannedDataModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -18,18 +16,18 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 final _qrKey = GlobalKey(debugLabel: "QR");
 QRViewController? _controller;
 
-class QRData extends StatefulWidget {
+class GlobalQrScanner extends StatefulWidget {
+  const GlobalQrScanner({Key? key}) : super(key: key);
+
   @override
-  _QRDataState createState() => _QRDataState();
+  _GlobalQrScannerState createState() => _GlobalQrScannerState();
 }
 
-int count = 0;
-
-class _QRDataState extends State<QRData> {
+class _GlobalQrScannerState extends State<GlobalQrScanner> {
   Barcode? data;
   PanelController _panelController = PanelController();
   QRViewController? controller;
-  final clubId = Get.arguments;
+  // final clubId = Get.arguments;
 
   _qrViewCreate(QRViewController controller) {
     this.controller = controller;
@@ -39,9 +37,7 @@ class _QRDataState extends State<QRData> {
         data = scannedData;
         print("scanned dat is ${data!.code}");
 // print("dsfdsgfdg${clubId[0]["clubid"]}");
-        if (data!.code.isNotEmpty &&
-            data!.code != "" &&
-            clubId[1]["bookingid"] == data!.code) {
+        if (data!.code.isNotEmpty && data!.code != "") {
           controller.resumeCamera();
           _panelController.open();
           UserData.getUserToken("USERTOKEN").then((userToken) {
@@ -51,7 +47,7 @@ class _QRDataState extends State<QRData> {
               data!.code,
               userToken,
               // clubId.toString(),
-              clubId[0]["clubid"],
+              null,
             )
                 .then((dataById) {
               _panelController.close();
@@ -112,7 +108,6 @@ class _QRDataState extends State<QRData> {
     );
   }
 
-
   @override
   void reassemble() {
     super.reassemble();
@@ -121,12 +116,6 @@ class _QRDataState extends State<QRData> {
     } else if (Platform.isIOS) {
       _controller?.resumeCamera();
     }
-  }
-  @override
-  void initState() {
-print("sdfdsg${ clubId[1]["bookingid"]}")   ;
-
-super.initState();
   }
 
   @override

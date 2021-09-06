@@ -3,6 +3,7 @@ import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/localization/Application.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
+import 'package:funfy_scanner/screens/GlobalQRScanner.dart';
 import 'package:funfy_scanner/screens/home.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/profilePage.dart';
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: Routes.splashScreen,
           page: () => SplashScreen(),
-          transition: Transition.zoom,
+          transition: Transition.native,
           transitionDuration: Duration(milliseconds: 2000),
           curve: Curves.bounceIn,
         ),
@@ -66,31 +67,37 @@ class _MyAppState extends State<MyApp> {
           name: Routes.signInScreen,
           page: () => SignIn(),
           transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 1000),
+          transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.homeScreen,
           page: () => Home(),
           transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 800),
+          transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.qrCodeScannerScreen,
           page: () => QRData(),
           transition: Transition.downToUp,
-          transitionDuration: Duration(milliseconds: 1200),
+          transitionDuration: Duration(milliseconds: 200),
+        ),
+        GetPage(
+          name: Routes.globalScannerScreen,
+          page: () => GlobalQrScanner(),
+          transition: Transition.downToUp,
+          transitionDuration: Duration(milliseconds: 100),
         ),
         GetPage(
           name: Routes.ticketScreen,
           page: () => TicketScreen(),
           transition: Transition.downToUp,
-          transitionDuration: Duration(milliseconds: 1200),
+          transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.forgotScreen,
           page: () => ForgotPassword(),
           transition: Transition.rightToLeftWithFade,
-          transitionDuration: Duration(milliseconds: 500),
+          transitionDuration: Duration(milliseconds: 400),
         ),
       ],
     );

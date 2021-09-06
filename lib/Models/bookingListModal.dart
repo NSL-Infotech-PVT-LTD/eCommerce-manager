@@ -255,9 +255,9 @@ class FiestaDetail {
   String ?ticketPriceVip;
   String ?totalMembers;
   int ?clubRating;
-  int ?leftNormalTicket;
-  int ?leftStandardTicket;
-  int? leftVipTicket;
+  var leftNormalTicket;
+  var leftStandardTicket;
+  var leftVipTicket;
   bool? isFavourite;
   String? distanceMiles;
   ClubDetail? clubDetail;

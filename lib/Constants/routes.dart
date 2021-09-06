@@ -3,9 +3,12 @@ class Routes {
   static const String signInScreen = "/signIn";
   static const String homeScreen = "/home";
   static const String qrCodeScannerScreen = "/qrCode";
+  static const String globalScannerScreen = "/globalScanner";
+
   static const String ticketScreen = "/ticket";
   static const String listViewScreen = "/listView";
   static const String profileScreen = "/profile";
   static const String forgotScreen = "/forgot";
+
 
 }

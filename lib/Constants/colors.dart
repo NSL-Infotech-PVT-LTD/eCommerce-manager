@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AppColors {
+  static Color orangeColor=HexColor("#FF5349");
+  static Color brown =HexColor("#241B1B");
   static Color inputbackgroung = HexColor("#242323");
-  static Color white = Colors.white;
+  static Color white = HexColor("#FFFFFF");
   static Color inputHint = HexColor("#797979");
   static Color radioColor = HexColor("#FFEFBB");
   static Color inputTitle = HexColor("#AEADAC");

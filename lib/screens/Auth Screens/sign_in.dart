@@ -105,27 +105,31 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Text(
-                            AppTranslation.of(context)!.text("welcome"),
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontSize: 18,
-                              fontFamily: FontsDisPlay.robotoThin,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                          Text(
-                            AppTranslation.of(context)!.text("funfypartyapp"),
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontSize: 18,
-                              fontFamily: FontsDisPlay.robotoBlack,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      Container(
+                        width:MediaQuery.of(context).size.width,
+                        alignment: Alignment.centerLeft,
+                        child: RichText(
+                            text: TextSpan(
+                                text:
+                                AppTranslation.of(context)!.text("welcome"),
+                                style: TextStyle(
+                                  color: Color(0xffFFFFFF),
+                                  fontSize: 18,
+                                  fontFamily: FontsDisPlay.robotoThin,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppTranslation.of(context)!
+                                        .text("funfypartyapp"),
+                                    style: TextStyle(
+                                      color: Color(0xffFFFFFF),
+                                      fontSize: 18,
+                                      fontFamily: FontsDisPlay.robotoBlack,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ])),
                       ),
                     ],
                   ),
