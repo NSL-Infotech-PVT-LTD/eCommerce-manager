@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
+
 import 'LoadingScreen.dart';
 
 class TicketsList extends StatefulWidget {
@@ -29,7 +31,6 @@ class _TicketsListState extends State<TicketsList> {
                       image: DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage("assets/images/BgImage.png"))),
-
                 ),
                 Column(
                   children: [
@@ -52,29 +53,33 @@ class _TicketsListState extends State<TicketsList> {
                                 onTap: () {
                                   Navigator.pop(context);
                                 },
-                                child: Row(
-                                  children: [
-                                    SizedBox(width: screeSize.width * 0.035),
-                                    Icon(
-                                      Icons.arrow_back_ios,
-                                      color: AppColors.white,
-                                      size: 15,
-                                    ),
-                                    Text(
-                                      "Back",
-                                      style: TextStyle(
+                                child: Container(
+                                  width: 60,
+                                  height: 50,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: screeSize.width * 0.035),
+                                      Icon(
+                                        Icons.arrow_back_ios,
                                         color: AppColors.white,
-                                        fontSize: 14,
-                                        fontFamily:
-                                            FontsDisPlay.productsSansRegular,
+                                        size: 15,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        AppTranslation.of(context)!.text("back"),
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 14,
+                                          fontFamily:
+                                              FontsDisPlay.productsSansRegular,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Spacer(),
                               Text(
-                                "Tickets List",
+                                AppTranslation.of(context)!.text("ticketList"),
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 24,
@@ -82,9 +87,10 @@ class _TicketsListState extends State<TicketsList> {
                                 ),
                               ),
                               Spacer(),
-                              Image.asset("assets/images/icon.png",
-                              height: 16,
-                                  width: 14.4,
+                              Image.asset(
+                                "assets/images/icon.png",
+                                height: 16,
+                                width: 14.4,
                               ),
                               SizedBox(width: screeSize.width * 0.035),
                             ],

@@ -12,5 +12,6 @@ class FontsDisPlay {
   static String productsSansBoldItalic= " assets/fonts/Product Sans Bold Italic.ttf";
   static String productsSansItalic= " assets/fonts/Product Sans Italic.ttf";
   static String productsSansRegular= " assets/fonts/Product Sans Regular.ttf";
+  static String gretarosRegular="assets/fonts/Gretaros-Regular.ttf";
 
 }

@@ -12,6 +12,7 @@ import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/Models/forgotPasswordModel.dart';
 import 'package:funfy_scanner/Models/getScannedDataModal.dart';
+import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCaller {
@@ -55,6 +56,24 @@ class ApiCaller {
       return LoginModel.fromJson(
         jsonDecode(response.body),
       );
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+          );
+        },
+      );
+      Future.delayed(Duration(seconds: 3), () {
+        UserData.clearData();
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn()),
+            (route) => false);
+      });
     } else {
       showDialog<void>(
         context: context,
@@ -157,9 +176,11 @@ class ApiCaller {
   }
 
 // get Booking List
-  Future getBookingList(String userToken, String clubID) async {
+  Future getBookingList(
+      String userToken, String clubID, String ordering) async {
     Map<String, dynamic> data = {
       "club_id": clubID,
+      "sort_by": ordering,
     };
     final response = await http.post(
       Uri.parse(baseUrl + getBookinglist),
@@ -219,12 +240,14 @@ class ApiCaller {
   //Get Scanned Data
   Future getScannedData(String id, String userToken, String? clubId) async {
     // print("Clubid==>$clubId");
-    Map<String, dynamic> data = clubId == null|| clubId == "null" ?{
-      "booking_id": id,
-    }:{
-      "booking_id": id,
-      "club_id": clubId,
-    };
+    Map<String, dynamic> data = clubId == null || clubId == "null"
+        ? {
+            "booking_id": id,
+          }
+        : {
+            "booking_id": id,
+            "club_id": clubId,
+          };
 
     // print("Data==> $data");
     final response = await http.post(Uri.parse(baseUrl + getById),
@@ -275,6 +298,7 @@ class ApiCaller {
       return print("errro in Stripe");
     }
   }
+
 //  for Contact Us
   Future getAboutUS(BuildContext context) async {
     {
@@ -312,13 +336,11 @@ class ApiCaller {
   }
 
   // for Help
-Future getHelpData()async{
-  final response=await  http.get(Uri.parse(baseurl+help));
+  Future getHelpData() async {
+    final response = await http.get(Uri.parse(baseurl + help));
 
-  if(response.statusCode ==200){
-  return   GetHelpModal.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      return GetHelpModal.fromJson(json.decode(response.body));
+    }
   }
-
-
-}
 }

@@ -144,95 +144,94 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           )),
         ],
       ),
-      bottomNavigationBar: Stack(
-        children: [
-          Container(
-            height: 65,
-            alignment: Alignment.bottomCenter,
-            color: Color(0xff3E332B),
-            child: Stack(
-              children: [
-                TabBar(
-                    indicatorColor: Colors.transparent,
-                    onTap: (value) {
-                      setState(() {
-                        index = value;
-                      });
-                      print("index is $index");
-                    },
-                    controller: _tabController,
-                    tabs: [
-                      //1st tab
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          index == 0
-                              ? Image.asset(
-                                  "assets/images/selectedticket.png",
-                                  height: 32,
-                                  width: 32,
-                                )
-                              : Image.asset(
-                                  "assets/images/ticket.png",
-                                  height: 32,
-                                  width: 32,
-                                ),
-                          Text(
-                            AppTranslation.of(context)!.text("bookings"),
-                            style: TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontFamily: index == 0
-                                  ? FontsDisPlay.robotoMedium
-                                  : FontsDisPlay.robotoRegular,
-                              fontSize: 10,
+      bottomNavigationBar: Container(
+        height: 65,
+        alignment: Alignment.bottomCenter,
+        color: Color(0xff3E332B),
+        child: Stack(
+          children: [
+            TabBar(
+                indicatorColor: Colors.transparent,
+                onTap: (value) {
+                  setState(() {
+                    index = value;
+                  });
+                  print("index is $index");
+                },
+                controller: _tabController,
+                tabs: [
+                  //1st tab
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      index == 0
+                          ? Image.asset(
+                              "assets/images/selectedticket.png",
+                              height: 32,
+                              width: 32,
+                            )
+                          : Image.asset(
+                              "assets/images/ticket.png",
+                              height: 32,
+                              width: 32,
                             ),
-                          ),
-                        ],
+                      Text(
+                        AppTranslation.of(context)!.text("bookings"),
+                        style: TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontFamily: index == 0
+                              ? FontsDisPlay.robotoMedium
+                              : FontsDisPlay.robotoRegular,
+                          fontSize: 10,
+                        ),
                       ),
+                    ],
+                  ),
 
-                      //3rd tab
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/setting.png",
-                            height: 32,
-                            width: 32,
-                            color: index == 1
-                                ? Color(0xffFF0000)
-                                : Color(0xffFFFFFF),
-                          ),
-                          Text(
-                            AppTranslation.of(context)!.text("profile"),
-                            style: TextStyle(
-                              color: index == 1
-                                  ? Color(0xffFF0000)
-                                  : Color(0xffFFFFFF),
-                              fontFamily: index == 1
-                                  ? FontsDisPlay.robotoMedium
-                                  : FontsDisPlay.robotoRegular,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
+                  //3rd tab
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/setting.png",
+                        height: 32,
+                        width: 32,
+                        color:
+                            index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
                       ),
-                    ]),
-              ],
-            ),
-          ),
-        ],
+                      Text(
+                        AppTranslation.of(context)!.text("profile"),
+                        style: TextStyle(
+                          color: index == 1
+                              ? Color(0xffFF0000)
+                              : Color(0xffFFFFFF),
+                          fontFamily: index == 1
+                              ? FontsDisPlay.robotoMedium
+                              : FontsDisPlay.robotoRegular,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+          ],
+        ),
       ),
-      floatingActionButton:index==0? GestureDetector(
-          onTap:index==0? () {
-            Get.toNamed(Routes.globalScannerScreen);
-          }:null,
-          child: Image.asset(
-            "assets/images/scanner.png",
-            height: 150,
-            width: 150,
-          )):Container(),
+      floatingActionButton: index == 0
+          ? GestureDetector(
+              onTap: index == 0
+                  ? () {
+                      Get.toNamed(Routes.globalScannerScreen);
+                    }
+                  : null,
+              child: Image.asset(
+                "assets/images/scanner.png",
+                height: 150,
+                width: 150,
+              ))
+          : Container(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

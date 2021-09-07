@@ -12,6 +12,7 @@ import 'package:funfy_scanner/screens/LoadingScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class GetBookingList extends StatefulWidget {
   final int? clubID;
@@ -30,7 +31,12 @@ class _GetBookingListState extends State<GetBookingList> {
   String? forTime;
   String? forDate;
   bool _isLoading = false;
+  String? orderChange = "desc";
+
+  final _scafKey = GlobalKey<ScaffoldState>();
   BookingListModal getBookingData = BookingListModal();
+
+  // late PersistentBottomSheetController bottomSheetController;
 
   @override
   void initState() {
@@ -42,16 +48,20 @@ class _GetBookingListState extends State<GetBookingList> {
 
   //for Booking List Screen
   getBookingList() {
+    print("getbooking LIst");
+    print("gfdhgfh$orderChange");
     setState(() {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
+      print("gfdhgfh===>>> $orderChange");
 
       ApiCaller()
           .getBookingList(
         userToken,
         widget.clubID.toString(),
+        orderChange.toString(),
       )
           .then((getBookingListData) {
         print("Booking List Data ==>$getBookingListData");
@@ -73,6 +83,7 @@ class _GetBookingListState extends State<GetBookingList> {
     return _isLoading
         ? Center(child: LoadingScreen())
         : Scaffold(
+            key: _scafKey,
             backgroundColor: Colors.black87,
             body: Stack(
               children: [
@@ -117,7 +128,8 @@ class _GetBookingListState extends State<GetBookingList> {
                                             size: 15,
                                           ),
                                           Text(
-                                            "Back",
+                                            AppTranslation.of(context)!
+                                                .text("back"),
                                             style: TextStyle(
                                               color: AppColors.white,
                                               fontSize: 14,
@@ -132,34 +144,188 @@ class _GetBookingListState extends State<GetBookingList> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      AppTranslation.of(context)!.text("fiestaList"),
+                                      AppTranslation.of(context)!
+                                          .text("fiestaList"),
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 24,
-                                        fontFamily: FontsDisPlay
-                                            .productsSansRegular,
+                                        fontFamily:
+                                            FontsDisPlay.productsSansRegular,
                                       ),
                                     ),
                                   ),
                                 ),
+                                IconButton(
+                                    onPressed: () {
+                                      _scafKey.currentState?.showBottomSheet(
+                                        (context) => Container(
+                                          height: 140,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                              color: AppColors.orangeColor,
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(15),
+                                                topLeft: Radius.circular(15),
+                                              )),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                  height:
+                                                      screeSize.height * 0.010),
+                                              Container(
+                                                height: 5,
+                                                width: screeSize.width * 0.1,
+                                                decoration: BoxDecoration(
+                                                  color: AppColors.brown,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height:
+                                                      screeSize.height * 0.002),
+                                              Text('Set Ordering',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
+                                                  )),
+                                              SizedBox(
+                                                  height:
+                                                      screeSize.height * 0.030),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        orderChange = "asd";
+                                                        getBookingList();
+                                                        print(
+                                                            "order Change is $orderChange");
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      width: screeSize.width *
+                                                          0.30,
+                                                      height: screeSize.height *
+                                                          0.080,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.brown,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "ASD",
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                              width: screeSize
+                                                                      .width *
+                                                                  0.020),
+                                                          Image.asset(
+                                                            "assets/images/assending.png",
+                                                            color:
+                                                                AppColors.white,
+                                                            width: screeSize
+                                                                    .width *
+                                                                0.050,
+                                                            height: screeSize
+                                                                    .height *
+                                                                0.050,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        orderChange = "desc";
+                                                        getBookingList();
+                                                        print(
+                                                            "order Change is $orderChange");
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      width: screeSize.width *
+                                                          0.30,
+                                                      height: screeSize.height *
+                                                          0.080,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.brown,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "DESC",
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                              width: screeSize
+                                                                      .width *
+                                                                  0.020),
+                                                          Image.asset(
+                                                            "assets/images/dessending.png",
+                                                            color:
+                                                                AppColors.white,
+                                                            width: screeSize
+                                                                    .width *
+                                                                0.050,
+                                                            height: screeSize
+                                                                    .height *
+                                                                0.050,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.sort,
+                                      color: AppColors.white,
+                                    )),
                               ],
                             ),
                           ),
                           SizedBox(height: screeSize.height * 0.010),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Text(
-                          //       "Fiestas List",
-                          //       style: TextStyle(
-                          //         color: AppColors.white,
-                          //         fontSize: 24,
-                          //         fontFamily: FontsDisPlay.productsSansRegular,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          // SizedBox(height: screeSize.width * 0.020),
                         ],
                       ),
                     ),
@@ -217,7 +383,6 @@ class FiestaTile extends StatelessWidget {
   final String? fiestaName;
   final String? fiestatiming;
   final String? fiestaDate;
-
   final String? totalAttendenes;
   final String? fiestaImage;
   final String? clubid;
@@ -252,6 +417,7 @@ class FiestaTile extends StatelessWidget {
             height: 125.21,
             width: screenSize.width * 0.35,
             decoration: BoxDecoration(
+                color: Colors.white12,
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   fit: BoxFit.cover,

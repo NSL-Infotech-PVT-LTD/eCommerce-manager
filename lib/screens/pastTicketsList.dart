@@ -47,6 +47,9 @@ class _PastTicketsListState extends State<PastTicketsList> {
 
   Future getClubs() async {
     print("dfgdfgdfg");
+    setState(() {
+      clubList.data?.data?.clear();
+    });
     await UserData.getUserToken("USERTOKEN").then((userToken) async {
       await ApiCaller().getClubList(userToken, context).then((getClubList) {
         // print(
@@ -73,65 +76,67 @@ class _PastTicketsListState extends State<PastTicketsList> {
         ? Center(child: LoadingScreen())
         : SafeArea(
             child: Scaffold(
-              body: Container(
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        //AppBar
-                        Container(
-                          width: screenSize.width,
-                          height: 96,
-                          child: Stack(
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              "assets/images/BgImage.png"))),
-                                  child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaY: 3, sigmaX: 4),
-                                      child: Container(
-                                        color:
-                                            Color(0xff242323).withOpacity(0.25),
-                                      ))),
-                            ],
+            body: RefreshIndicator(
+              onRefresh: getClubs,
+              color: AppColors.orangeColor,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          //AppBar
+                          Container(
+                            width: screenSize.width,
+                            height: 96,
+                            child: Stack(
+                              children: [
+                                Container(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(
+                                                "assets/images/BgImage.png"))),
+                                    child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaY: 3, sigmaX: 4),
+                                        child: Container(
+                                          color: Color(0xff242323)
+                                              .withOpacity(0.25),
+                                        ))),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                              child: Stack(
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              "assets/images/BgImage.png"))),
-                                  child: BackdropFilter(
-                                    filter:
-                                        ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                                    child: Container(
-                                        color: Color(0xff242323)
-                                            .withOpacity(0.35)),
-                                  )),
-                              Container(
-                                width: screenSize.width,
-                                child: clubList.data!.data!.isEmpty
-                                    ? Center(
-                                        child: Text("Nothing to Show !",
-                                            style: TextStyle(
-                                              color: AppColors.white,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15,
-                                            )))
-                                                                                                                                                                                                                                         : RefreshIndicator(
-                                  onRefresh: getClubs,
-                                  color: Colors.orange,
-                                      child: GridView.builder(
+                          Expanded(
+                            child: Container(
+                                child: Stack(
+                              children: [
+                                Container(
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(
+                                                "assets/images/BgImage.png"))),
+                                    child: BackdropFilter(
+                                      filter: ImageFilter.blur(
+                                          sigmaX: 8, sigmaY: 8),
+                                      child: Container(
+                                          color: Color(0xff242323)
+                                              .withOpacity(0.35)),
+                                    )),
+                                Container(
+                                  width: screenSize.width,
+                                  child: clubList.data!.data!.isEmpty
+                                      ? Center(
+                                          child: Text("Nothing to Show !",
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                              )))
+                                      : GridView.builder(
                                           scrollDirection: Axis.vertical,
                                           gridDelegate:
                                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -140,14 +145,15 @@ class _PastTicketsListState extends State<PastTicketsList> {
                                             mainAxisSpacing: 15,
                                           ),
                                           physics: BouncingScrollPhysics(),
-                                          itemCount: clubList.data?.data?.length,
+                                          itemCount:
+                                              clubList.data?.data?.length,
                                           padding: EdgeInsets.only(
                                               right: 8, left: 10, top: 18),
                                           itemBuilder: (context, index) {
-                                            final image =
-                                                clubList.data?.data![index].image;
-                                            final clubTitle =
-                                                clubList.data?.data![index].name;
+                                            final image = clubList
+                                                .data?.data![index].image;
+                                            final clubTitle = clubList
+                                                .data?.data![index].name;
                                             final clubDesc = clubList
                                                 .data?.data![index].description;
                                             final clubLocation = clubList
@@ -162,18 +168,14 @@ class _PastTicketsListState extends State<PastTicketsList> {
                                             );
                                           },
                                         ),
-                                    ),
-                              ),
-                            ],
-                          )),
-                        ),
-                      ],
-                    ),
+                                ),
+                              ],
+                            )),
+                          ),
+                        ],
+                      ),
 //APP Bar text
-                    Center(
-                      child: RefreshIndicator(
-                        onRefresh: getClubs,
-                        color: Colors.orange,
+                      Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,7 +186,7 @@ class _PastTicketsListState extends State<PastTicketsList> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                              AppTranslation.of(context)!.text("clubsList"),
+                                  AppTranslation.of(context)!.text("clubsList"),
                                   style: TextStyle(
                                     fontFamily: FontsDisPlay.productsSansBold,
                                     fontSize: 27,
@@ -198,7 +200,9 @@ class _PastTicketsListState extends State<PastTicketsList> {
                             SizedBox(height: screenSize.height * 0.010),
                             //subtitle
                             Text(
-                              AppTranslation.of(context)!.text("checkYourClubsAndFiestaList"),
+                              AppTranslation.of(context)!
+                                  .text("checkYourClubsAndFiestaList"),
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: FontsDisPlay.productsSansRegular,
                                 color: AppColors.white,
@@ -208,12 +212,12 @@ class _PastTicketsListState extends State<PastTicketsList> {
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          );
+          ));
   }
 }
 

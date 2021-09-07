@@ -17,7 +17,7 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   getLang initialValue = getLang.en;
-  String? initialValueUse;
+  String? initialValueUse="en";
 
   @override
   void initState() {

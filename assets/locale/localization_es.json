@@ -34,11 +34,13 @@
   "yes": "sí",
   "no": "No",
   "stripe": "Raya",
-
   "contactUs": "Contáctenos",
   "outofstock": "Agotado",
   "bookNow": "Reservar ahora",
   "bookings": "Reservaciones",
   "checkYourClubsAndFiestaList": "Compruebe las fiestas de sus clubes y escanee las entradas",
-  "fiestaList": "Fiestas List"
+  "fiestaList": "Fiestas List",
+  "ticketList": "Lista de entradas",
+  "back": "atrás",
+  "history": "Historia"
 }

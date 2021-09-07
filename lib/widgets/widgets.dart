@@ -335,7 +335,7 @@ buildProfileScreen(
                       backgroundImage: userImage == null
                           ? AssetImage("assets/images/defaultImage.png")
                           : NetworkImage(userImage) as ImageProvider,
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.grey.shade400,
                     ),
 
                     SizedBox(
@@ -374,7 +374,7 @@ buildProfileScreen(
 // edit
                 ),
 
-                SizedBox(height: size.height * 0.090),
+                SizedBox(height: size.height * 0.060),
 //Languages
                 centerlistItem(
                     context: context,
@@ -382,11 +382,16 @@ buildProfileScreen(
 // rightIconImage: ,
                     leftIconImage: "assets/images/language.svg",
                     onTapfunc: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChangeLanguageScreen(),
-                          ));
+                      Get.toNamed(Routes.languageScreen);
+                    }),
+//History of Scanned Fiestas
+                centerlistItem(
+                    context: context,
+                    title: AppTranslation.of(context)!.text("history"),
+// rightIconImage: ,
+                    leftIconImage: "assets/images/language.svg",
+                    onTapfunc: () {
+                      Get.toNamed(Routes.scannedticketScreen);
                     }),
 //Help
                 centerlistItem(
@@ -395,7 +400,7 @@ buildProfileScreen(
 // Help: ,
                     leftIconImage: "assets/images/help.svg",
                     onTapfunc: () {
-                      Get.to(() => HelpScreen());
+                      Get.toNamed(Routes.helpScreen);
                     }),
 //Contact Us
                 centerlistItem(
@@ -404,7 +409,7 @@ buildProfileScreen(
 // rightIconImage: ,
                     leftIconImage: "assets/images/about us.svg",
                     onTapfunc: () {
-                      Get.to(() => AboutUsScreen());
+                      Get.toNamed(Routes.contactUSScreen);
                     }),
                 centerlistItem(
                     context: context,

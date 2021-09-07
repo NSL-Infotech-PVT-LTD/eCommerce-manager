@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/localization/Application.dart';
+import 'package:funfy_scanner/screens/AboutUsScreen.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
+import 'package:funfy_scanner/screens/ChangeLanguageScreen.dart';
 import 'package:funfy_scanner/screens/GlobalQRScanner.dart';
+import 'package:funfy_scanner/screens/HelpScreen.dart';
+import 'package:funfy_scanner/screens/TicketsList.dart';
 import 'package:funfy_scanner/screens/home.dart';
 import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/profilePage.dart';
@@ -40,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'FunFY',
+      title: 'FunFY Club Admin',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.dark,
@@ -79,13 +83,13 @@ class _MyAppState extends State<MyApp> {
           name: Routes.qrCodeScannerScreen,
           page: () => QRData(),
           transition: Transition.downToUp,
-          transitionDuration: Duration(milliseconds: 200),
+          transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.globalScannerScreen,
           page: () => GlobalQrScanner(),
           transition: Transition.downToUp,
-          transitionDuration: Duration(milliseconds: 100),
+          transitionDuration: Duration(milliseconds: 400),
         ),
         GetPage(
           name: Routes.ticketScreen,
@@ -96,6 +100,30 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: Routes.forgotScreen,
           page: () => ForgotPassword(),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
+        GetPage(
+          name: Routes.helpScreen,
+          page: () => HelpScreen(),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
+        GetPage(
+          name: Routes.contactUSScreen,
+          page: () => AboutUsScreen(),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
+        GetPage(
+          name: Routes.scannedticketScreen,
+          page: () => TicketsList(),
+          transition: Transition.rightToLeftWithFade,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
+        GetPage(
+          name: Routes.languageScreen,
+          page: () => ChangeLanguageScreen(),
           transition: Transition.rightToLeftWithFade,
           transitionDuration: Duration(milliseconds: 400),
         ),

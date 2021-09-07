@@ -130,6 +130,10 @@ flutter:
         - asset: assets/fonts/Product Sans Bold Italic.ttf
         - asset: assets/fonts/Product Sans Bold.ttf
         - asset: assets/fonts/Product Sans Regular.ttf
+    - family: Gretaros
+      fonts:
+        - asset: assets/fonts/Gretaros-Regular.ttf
+
 
 
 

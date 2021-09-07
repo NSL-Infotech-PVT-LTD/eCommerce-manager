@@ -34,12 +34,13 @@
   "yes": "Yes",
   "no": "No",
   "stripe": "Stripe",
-
   "contactUs": "Contact US",
   "outofstock": "Out of Stock",
   "bookNow": "Book Now",
   "bookings": "Bookings",
   "checkYourClubsAndFiestaList": "Check your clubs fiestas and scan tickets",
-  "fiestaList": "Fiestas List"
-
+  "fiestaList": "Fiestas List",
+  "ticketList": "Tickets List",
+  "back": "Back",
+  "history": "History"
 }

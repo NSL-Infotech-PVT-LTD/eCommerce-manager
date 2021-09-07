@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
+import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:get/get.dart';
@@ -67,13 +68,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 154.99,
                   fit: BoxFit.cover,
                 ),
-                // Spacer(),
-                // Image.asset(
-                //   "images/LOGO.png",
-                //   height: 80,
-                //   width: 80,
-                //   fit: BoxFit.cover,
-                // ),\
               ],
             ),
           ),
@@ -81,33 +75,28 @@ class _SplashScreenState extends State<SplashScreen> {
           Positioned(
             bottom: 5.0,
             left: screenSize.width * 0.40,
-            child: Column(
-              children: [
-                SvgPicture.asset(
-                  "assets/images/qrcodescan.svg",
-                  height: 80.75,
-                  width: 78,
-                  fit: BoxFit.cover,
-                ),
-                // SizedBox(height: 3),
-                // Text(
-                //   "SCANNER",
-                //   style: TextStyle(
-                //     color: AppColors.white,
-                //
-                //   ),
-                // ),
-                SizedBox(height: screenSize.height * 0.03),
-                // SizedBox(height: 10),
-                // Text(
-                //   "SCANNER",
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontWeight: FontWeight.w900,
-                //     fontSize: 18,
-                //   ),
-                // ),
-              ],
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/qrcodescan.svg",
+                    height: 54.09,
+                    width: 54.09,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: screenSize.height * 0.02),
+                  Text(
+                    "SCANNER",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18,
+                      fontFamily: FontsDisPlay.gretarosRegular,
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],
