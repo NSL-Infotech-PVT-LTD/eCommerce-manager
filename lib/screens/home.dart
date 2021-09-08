@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
@@ -38,9 +39,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     _tabController = TabController(length: 2, vsync: this);
     // for User Profile Data
     getUserData();
-    //    //for Booking List
 
-    // //for Club List
+    //for Club List
     getClubList();
     super.initState();
   }
@@ -52,7 +52,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         setState(() {
           clubList = getClubList;
         });
-        // print("Ddecdsvxcvxc${clubList.data!.data![0].location}");
       });
     });
   }
@@ -131,8 +130,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
-              //showing Ticket List
-              // TicketsList(),
               //shown Past Tickets List
               PastTicketsList(
                   // clubList: clubList,
@@ -195,18 +192,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "assets/images/setting.png",
-                        height: 32,
-                        width: 32,
-                        color:
-                            index == 1 ? Color(0xffFF0000) : Color(0xffFFFFFF),
-                      ),
+                              "assets/images/setting.png",
+                              height: 32,
+                              width: 32,
+                              color: AppColors.white,
+                              fit: BoxFit.cover,
+                            ),
+                  //    SvgPicture.asset(
+                      //   "assets/images/Settings.svg",
+                      //   height: 32,
+                      //   width: 32,
+                      // ),
+
                       Text(
                         AppTranslation.of(context)!.text("profile"),
                         style: TextStyle(
-                          color: index == 1
-                              ? Color(0xffFF0000)
-                              : Color(0xffFFFFFF),
+                          color: Color(0xffFFFFFF),
                           fontFamily: index == 1
                               ? FontsDisPlay.robotoMedium
                               : FontsDisPlay.robotoRegular,
@@ -225,7 +226,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ? () {
                       Get.toNamed(Routes.globalScannerScreen);
                     }
-                  : null,
+                  : () {},
               child: Image.asset(
                 "assets/images/scanner.png",
                 height: 150,

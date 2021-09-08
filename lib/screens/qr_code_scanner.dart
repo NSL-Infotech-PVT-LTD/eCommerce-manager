@@ -77,10 +77,12 @@ class _QRDataState extends State<QRData> {
                 DataUser datauser = dataById.data?.data?.first;
 
                 controller.dispose();
-                Get.toNamed(
-                  Routes.ticketScreen,
-                  arguments: datauser,
-                );
+                ApiCaller().addScannedid(userToken, data!.code).then((value) {
+                  Get.toNamed(
+                    Routes.ticketScreen,
+                    arguments: datauser,
+                  );
+                });
               }
             });
           });
@@ -112,7 +114,6 @@ class _QRDataState extends State<QRData> {
     );
   }
 
-
   @override
   void reassemble() {
     super.reassemble();
@@ -122,11 +123,12 @@ class _QRDataState extends State<QRData> {
       _controller?.resumeCamera();
     }
   }
+
   @override
   void initState() {
-print("sdfdsg${ clubId[1]["bookingid"]}")   ;
+    print("sdfdsg${clubId[1]["bookingid"]}");
 
-super.initState();
+    super.initState();
   }
 
   @override

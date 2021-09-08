@@ -27,6 +27,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
   Barcode? data;
   PanelController _panelController = PanelController();
   QRViewController? controller;
+
   // final clubId = Get.arguments;
 
   _qrViewCreate(QRViewController controller) {
@@ -73,10 +74,12 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
                 DataUser datauser = dataById.data?.data?.first;
 
                 controller.dispose();
-                Get.toNamed(
-                  Routes.ticketScreen,
-                  arguments: datauser,
-                );
+                ApiCaller().addScannedid(userToken, data!.code).then((value) {
+                  Get.toNamed(
+                    Routes.ticketScreen,
+                    arguments: datauser,
+                  );
+                });
               }
             });
           });

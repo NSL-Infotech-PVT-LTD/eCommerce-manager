@@ -56,7 +56,7 @@ class _GetBookingListState extends State<GetBookingList> {
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
       print("gfdhgfh===>>> $orderChange");
-
+      print("Order Changde $orderChange");
       ApiCaller()
           .getBookingList(
         userToken,
@@ -202,7 +202,7 @@ class _GetBookingListState extends State<GetBookingList> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       setState(() {
-                                                        orderChange = "asd";
+                                                        orderChange = "asc";
                                                         getBookingList();
                                                         print(
                                                             "order Change is $orderChange");
@@ -228,7 +228,7 @@ class _GetBookingListState extends State<GetBookingList> {
                                                                 .center,
                                                         children: [
                                                           Text(
-                                                            "ASD",
+                                                            "ASC",
                                                             style: TextStyle(
                                                               fontSize: 15,
                                                               fontWeight:

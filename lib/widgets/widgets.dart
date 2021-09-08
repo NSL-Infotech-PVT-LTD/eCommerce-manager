@@ -275,8 +275,12 @@ buildProfileScreen(
                   Row(children: [
                     Container(
                       alignment: Alignment.center,
-                      width: size.width * 0.065,
-                      child: SvgPicture.asset(leftIconImage!),
+                      width: size.width * 0.090,
+                      height: size.width * 0.065,
+                      child: SvgPicture.asset(
+                        leftIconImage!,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     SizedBox(
                       width: size.width * 0.03,

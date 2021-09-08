@@ -25,38 +25,37 @@ class GetScanData {
 }
 
 class Data {
-  int ?currentPage;
+  int? currentPage;
   List<DataUser>? data;
-  String ?firstPageUrl;
-  int ?from;
-  int ?lastPage;
+  String? firstPageUrl;
+  int? from;
+  int? lastPage;
   String? lastPageUrl;
-  Null ?nextPageUrl;
+  Null? nextPageUrl;
   String? path;
-  int ?perPage;
-  Null ?prevPageUrl;
+  int? perPage;
+  Null? prevPageUrl;
   int? to;
-  int ?total;
+  int? total;
 
   Data(
       {this.currentPage,
-        this.data,
-        this.firstPageUrl,
-        this.from,
-        this.lastPage,
-        this.lastPageUrl,
-        this.nextPageUrl,
-        this.path,
-        this.perPage,
-        this.prevPageUrl,
-        this.to,
-        this.total});
+      this.data,
+      this.firstPageUrl,
+      this.from,
+      this.lastPage,
+      this.lastPageUrl,
+      this.nextPageUrl,
+      this.path,
+      this.perPage,
+      this.prevPageUrl,
+      this.to,
+      this.total});
 
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
 
     if (json['data'] != null) {
-
       data = <DataUser>[];
       // json['data'].forEach()
       // data = List.filled(1, DataUser.fromJson(json), growable: true);
@@ -95,26 +94,26 @@ class Data {
     return data;
   }
 }
-//
+
 // class DataUser {
 //   int? id;
-//   int ?userId;
-//   int ?fiestaId;
+//   int? userId;
+//   int? fiestaId;
 //   String? totalPrice;
-//   String ?bookingStatus;
-//   FiestaBookingItems ?fiestaBookingItems;
-//   UserDetail ?userDetail;
+//   String? bookingStatus;
+//   FiestaBookingItems? fiestaBookingItems;
+//   UserDetail? userDetail;
 //   FiestaDetail? fiestaDetail;
-//
+
 //   DataUser(
 //       {this.id,
-//         this.userId,
-//         this.fiestaId,
-//         this.totalPrice,
-//         this.bookingStatus,
-//         this.fiestaBookingItems,
-//         this.userDetail,
-//         this.fiestaDetail});
+//       this.userId,
+//       this.fiestaId,
+//       this.totalPrice,
+//       this.bookingStatus,
+//       this.fiestaBookingItems,
+//       this.userDetail,
+//       this.fiestaDetail});
 //
 //   DataUser.fromJson(Map<String, dynamic> json) {
 //     id = json['id'];
@@ -157,15 +156,15 @@ class FiestaBookingItems {
   int? id;
   int? bookingId;
   String? ticketType;
-  String ?ticketPrice;
-  int ?quantity;
+  String? ticketPrice;
+  int? quantity;
 
   FiestaBookingItems(
       {this.id,
-        this.bookingId,
-        this.ticketType,
-        this.ticketPrice,
-        this.quantity});
+      this.bookingId,
+      this.ticketType,
+      this.ticketPrice,
+      this.quantity});
 
   FiestaBookingItems.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -187,9 +186,9 @@ class FiestaBookingItems {
 }
 
 class UserDetail {
-  int ?id;
-  String ?name;
-  Role ?role;
+  int? id;
+  String? name;
+  Role? role;
 
   UserDetail({this.id, this.name, this.role});
 
@@ -213,7 +212,7 @@ class UserDetail {
 class Role {
   String? name;
   int? id;
-  List<Null> ?permission;
+  List<Null>? permission;
 
   Role({this.name, this.id, this.permission});
 
@@ -240,44 +239,44 @@ class Role {
 }
 
 class FiestaDetail {
-  int ?id;
+  int? id;
   String? name;
-  int ?clubId;
-  String ?timestamp;
-  String ?ticketPrice;
-  String ?ticketPriceStandard;
-  String ?ticketPriceVip;
-  String ?totalMembers;
-  String ?dressCode;
-  String ?partyMusic;
-  String ?distanceKm;
-  String ?distanceMiles;
-  bool ?isFavourite;
-  int ?leftStandardTicket;
-  String ?leftVipTicket;
-  int ?leftNormalTicket;
-  Null ?clubRating;
-  ClubDetail ?clubDetail;
+  int? clubId;
+  String? timestamp;
+  String? ticketPrice;
+  String? ticketPriceStandard;
+  String? ticketPriceVip;
+  String? totalMembers;
+  String? dressCode;
+  String? partyMusic;
+  String? distanceKm;
+  String? distanceMiles;
+  bool? isFavourite;
+  int? leftStandardTicket;
+  String? leftVipTicket;
+  int? leftNormalTicket;
+  Null? clubRating;
+  ClubDetail? clubDetail;
 
   FiestaDetail(
       {this.id,
-        this.name,
-        this.clubId,
-        this.timestamp,
-        this.ticketPrice,
-        this.ticketPriceStandard,
-        this.ticketPriceVip,
-        this.totalMembers,
-        this.dressCode,
-        this.partyMusic,
-        this.distanceKm,
-        this.distanceMiles,
-        this.isFavourite,
-        this.leftStandardTicket,
-        this.leftVipTicket,
-        this.leftNormalTicket,
-        this.clubRating,
-        this.clubDetail});
+      this.name,
+      this.clubId,
+      this.timestamp,
+      this.ticketPrice,
+      this.ticketPriceStandard,
+      this.ticketPriceVip,
+      this.totalMembers,
+      this.dressCode,
+      this.partyMusic,
+      this.distanceKm,
+      this.distanceMiles,
+      this.isFavourite,
+      this.leftStandardTicket,
+      this.leftVipTicket,
+      this.leftNormalTicket,
+      this.clubRating,
+      this.clubDetail});
 
   FiestaDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -293,7 +292,7 @@ class FiestaDetail {
     distanceKm = json['distance_km'];
     distanceMiles = json['distance_miles'];
     isFavourite = json['is_favourite'];
- //   leftStandardTicket = json['left_standard_ticket'];
+    //   leftStandardTicket = json['left_standard_ticket'];
     // leftVipTicket = json['left_vip_ticket'];
     // leftNormalTicket = json['left_normal_ticket'];
     clubRating = json['club_rating'];
@@ -331,22 +330,22 @@ class FiestaDetail {
 class ClubDetail {
   int? id;
   String? name;
-  String ?image;
-  String ?capacity;
-  String ?description;
-  String ?location;
-  Null ?latitude;
-  Null ?longitude;
+  String? image;
+  String? capacity;
+  String? description;
+  String? location;
+  Null? latitude;
+  Null? longitude;
 
   ClubDetail(
       {this.id,
-        this.name,
-        this.image,
-        this.capacity,
-        this.description,
-        this.location,
-        this.latitude,
-        this.longitude});
+      this.name,
+      this.image,
+      this.capacity,
+      this.description,
+      this.location,
+      this.latitude,
+      this.longitude});
 
   ClubDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ClubListModal.dart';
 import 'package:funfy_scanner/Models/GetAboutUsModal.dart';
 import 'package:funfy_scanner/Models/GetHelpModal.dart';
+import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
 import 'package:funfy_scanner/Models/GetStripeDataModal.dart';
 import 'package:funfy_scanner/Models/LoginModel.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
@@ -30,6 +30,8 @@ class ApiCaller {
   static final String getStripe = "payment-config";
   static final String connectStripe = "update/account";
   static final String aboutUs = "config/about_us";
+  static final String scanID = "scan/booking";
+  static final String MyScan = "scanned/bookinglist";
 
   static final String help = "config/help_and_contact_us";
 
@@ -261,6 +263,38 @@ class ApiCaller {
       return GetScanData.fromJson(json.decode(response.body));
     } else {
       return null;
+    }
+  }
+
+  //add Scanned Id
+  Future addScannedid(String userToken, String bookingID) async {
+    Map<String, dynamic> data = {
+      "booking_id": bookingID,
+    };
+    final response = await http.post(
+      Uri.parse(baseUrl + scanID),
+      body: data,
+      headers: {
+        "Authorization": "Bearer " + userToken,
+      },
+    );
+    print("Add Booking id ====>>>>${response.body}");
+  }
+
+//get Scanned History
+  Future getScannedHistory(String userToken) async {
+    final response = await http.post(
+      Uri.parse(baseUrl + MyScan),
+      headers: {
+        "Authorization": "Bearer " + userToken,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print("Get Scanned History Data${response.body}");
+      return GetScannedHistoryModal.fromJson(json.decode(response.body));
+    } else {
+      print("Getscanned Not Found");
     }
   }
 
