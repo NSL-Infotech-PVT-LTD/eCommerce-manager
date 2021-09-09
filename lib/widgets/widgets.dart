@@ -393,7 +393,7 @@ buildProfileScreen(
                     context: context,
                     title: AppTranslation.of(context)!.text("history"),
 // rightIconImage: ,
-                    leftIconImage: "assets/images/language.svg",
+                    leftIconImage: "assets/images/history.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.scannedticketScreen);
                     }),
@@ -411,7 +411,7 @@ buildProfileScreen(
                     context: context,
                     title: AppTranslation.of(context)!.text("contact"),
 // rightIconImage: ,
-                    leftIconImage: "assets/images/about us.svg",
+                    leftIconImage: "assets/images/ContactUS.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.contactUSScreen);
                     }),

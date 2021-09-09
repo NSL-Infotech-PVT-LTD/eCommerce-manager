@@ -6,6 +6,7 @@ import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({
@@ -40,6 +41,11 @@ class _TicketScreenState extends State<TicketScreen> {
     forTime = timeStamp!.first!.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
+
+    DateTime now =
+        DateTime.parse(scannedData.fiestaDetail!.timestamp.toString());
+    String formattedTime = DateFormat('kk:mm:a').format(now);
+    print("sdfdsfdsf$formattedTime");
     //get Ratting
     final rattingGet = isScanned
         ? scannedData.fiestaDetail!.clubRating
@@ -175,34 +181,73 @@ class _TicketScreenState extends State<TicketScreen> {
                       updateOnDrag: true,
                     ),
                     SizedBox(height: 10),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     buildTicketTile(
+                    //         AppTranslation.of(context)!.text("orderId"),
+                    //         scannedData.id.toString()),
+                    //     buildTicketTile(
+                    //         AppTranslation.of(context)!.text("check In Type"),
+                    //         isScanned
+                    //             ? scannedData.fiestaBookingItems?.ticketType
+                    //                     .toString() ??
+                    //                 "null"
+                    //             : scannedData.fiestaBookingDetail
+                    //                     ?.fiestaBookingItems?.ticketType
+                    //                     .toString() ??
+                    //                 "null"),
+                    //     SizedBox(width: 10),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 20),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     buildTicketTile(
+                    //         AppTranslation.of(context)!.text("time"), forDate),
+                    //     // Spacer(),
+                    //     buildTicketTile(
+                    //         AppTranslation.of(context)!.text("date"), forTime),
+                    //     SizedBox(width: 10,),
+                    //   ],
+                    // ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        buildTicketTile(
-                            AppTranslation.of(context)!.text("orderId"),
-                            scannedData.id.toString()),
-                        buildTicketTile(
-                            AppTranslation.of(context)!.text("check In Type"),
-                            isScanned
-                                ? scannedData.fiestaBookingItems?.ticketType
-                                        .toString() ??
-                                    "null"
-                                : scannedData.fiestaBookingDetail
-                                        ?.fiestaBookingItems?.ticketType
-                                        .toString() ??
-                                    "null"),
-                        SizedBox(width: 10),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildTicketTile(
-                            AppTranslation.of(context)!.text("time"), forDate),
-                        buildTicketTile(
-                            AppTranslation.of(context)!.text("date"), forTime),
-                        SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildTicketTile(
+                                AppTranslation.of(context)!.text("orderId"),
+                                scannedData.id.toString()),
+                            SizedBox(height: 20),
+                            buildTicketTile(
+                                AppTranslation.of(context)!.text("time"),
+                                formattedTime),
+                          ],
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.18),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildTicketTile(
+                                AppTranslation.of(context)!
+                                    .text("check In Type"),
+                                isScanned
+                                    ? scannedData.fiestaBookingItems?.ticketType
+                                            .toString() ??
+                                        "null"
+                                    : scannedData.fiestaBookingDetail
+                                            ?.fiestaBookingItems?.ticketType
+                                            .toString() ??
+                                        "null"),
+                            SizedBox(height: 20),
+                            buildTicketTile(
+                                AppTranslation.of(context)!.text("date"),
+                                forTime),
+                          ],
+                        ),
                       ],
                     ),
                   ],

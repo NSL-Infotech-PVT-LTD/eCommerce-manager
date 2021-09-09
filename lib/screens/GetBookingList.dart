@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
@@ -413,20 +414,38 @@ class FiestaTile extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // Container(
+          //   height: 125.21,
+          //   width: screenSize.width * 0.35,
+          //   decoration: BoxDecoration(
+          //       color: Colors.white12,
+          //       borderRadius: BorderRadius.circular(10),
+          //       image: DecorationImage(
+          //         fit: BoxFit.cover,
+          //         image: fiestaImage!.isEmpty ||
+          //                 fiestaImage == null ||
+          //                 fiestaImage == "null"
+          //             ? AssetImage("assets/images/Appicon.png")
+          //             : NetworkImage(fiestaImage!) as ImageProvider,
+          //       )),
+          // ),
+
           Container(
             height: 125.21,
-            width: screenSize.width * 0.35,
-            decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: fiestaImage!.isEmpty ||
-                          fiestaImage == null ||
-                          fiestaImage == "null"
-                      ? AssetImage("assets/images/Appicon.png")
-                      : NetworkImage(fiestaImage!) as ImageProvider,
-                )),
+              width: screenSize.width * 0.35,
+            child:ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: fiestaImage!,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress,
+                     color:AppColors.orangeColor,
+                    ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+            ),
+
           ),
           SizedBox(width: screenSize.width * 0.035),
           Column(
