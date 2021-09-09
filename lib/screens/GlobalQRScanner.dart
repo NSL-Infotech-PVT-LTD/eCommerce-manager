@@ -77,7 +77,10 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
                 ApiCaller().addScannedid(userToken, data!.code).then((value) {
                   Get.toNamed(
                     Routes.ticketScreen,
-                    arguments: datauser,
+                    arguments:  {
+                      "data": datauser,
+                      "isScanned": true
+                    },
                   );
                 });
               }

@@ -20,28 +20,36 @@ class _TicketScreenState extends State<TicketScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    print("vikas1" + Get.arguments.toJson().toString());
-    DataUser scannedData = (Get.arguments);
-    print("vikas2" + scannedData.userDetail!.name.toString());
+    DataUser scannedData = (Get.arguments["data"]);
+    bool isScanned = (Get.arguments["isScanned"]);
+    print("ISSvanne==> $isScanned");
 
     List? timeStamp = [];
     String forTime;
     String forDate;
     //get DataTime
-    timeStamp =
-        scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+    timeStamp = isScanned
+        ? scannedData
+            .fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+            .toString()
+            .split(" ")
+        : scannedData.fiestaBookingDetail?.fiestaDetail!
+            .timestamp //.data?[1].fiestaDetail!.timestamp
             .toString()
             .split(" ");
-    print(scannedData.fiestaDetail?.timestamp.toString());
-    forTime = timeStamp.first.toString();
+    forTime = timeStamp!.first!.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
     //get Ratting
-    final rattingGet = scannedData.fiestaDetail!.clubRating;
+    final rattingGet = isScanned
+        ? scannedData.fiestaDetail!.clubRating
+        : scannedData.fiestaBookingDetail?.fiestaDetail!.clubRating;
     final clubRatting = rattingGet == null ? 0 : rattingGet;
 
     //get Price
-    final price = scannedData.totalPrice ?? 0;
+    final price = isScanned
+        ? scannedData.totalPrice
+        : scannedData.fiestaBookingDetail?.totalPrice ?? 0;
 
     //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
 
@@ -64,7 +72,6 @@ class _TicketScreenState extends State<TicketScreen> {
         body: Container(
           child: Stack(
             children: [
-
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                 padding: EdgeInsets.only(top: 20, left: 30),
@@ -95,7 +102,8 @@ class _TicketScreenState extends State<TicketScreen> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Text("${scannedData.userDetail!.name}",
+                    Text(
+                        "${isScanned ? scannedData.userDetail!.name : scannedData.fiestaBookingDetail?.userDetail!.name}",
                         style: TextStyle(
                             fontWeight: FontWeight.w900,
                             fontFamily: FontsDisPlay.dmSantsBold,
@@ -138,7 +146,8 @@ class _TicketScreenState extends State<TicketScreen> {
                       ],
                     ),
                     SizedBox(height: 65),
-                    Text("${scannedData.fiestaDetail!.clubDetail!.name}",
+                    Text(
+                        "${isScanned ? scannedData.fiestaDetail!.clubDetail!.name : scannedData.fiestaBookingDetail?.fiestaDetail!.clubDetail!.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 30,
@@ -174,9 +183,14 @@ class _TicketScreenState extends State<TicketScreen> {
                             scannedData.id.toString()),
                         buildTicketTile(
                             AppTranslation.of(context)!.text("check In Type"),
-                            scannedData.fiestaBookingItems?.ticketType
-                                    .toString() ??
-                                "null"),
+                            isScanned
+                                ? scannedData.fiestaBookingItems?.ticketType
+                                        .toString() ??
+                                    "null"
+                                : scannedData.fiestaBookingDetail
+                                        ?.fiestaBookingItems?.ticketType
+                                        .toString() ??
+                                    "null"),
                         SizedBox(width: 10),
                       ],
                     ),
@@ -191,7 +205,6 @@ class _TicketScreenState extends State<TicketScreen> {
                         SizedBox(width: 10),
                       ],
                     ),
-
                   ],
                 ),
               ),

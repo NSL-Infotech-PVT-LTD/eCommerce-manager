@@ -93,6 +93,7 @@ class Data {
 class DataUser {
   int? id;
   int? userId;
+  int? bookingId;
   int? fiestaId;
   String? totalPrice;
   String? bookingStatus;
@@ -101,10 +102,12 @@ class DataUser {
   FiestaBookingItems? fiestaBookingItems;
   UserDetail? userDetail;
   FiestaDetail? fiestaDetail;
+  FiestaBookingDetail? fiestaBookingDetail;
 
   DataUser(
       {this.id,
       this.userId,
+      this.bookingId,
       this.fiestaId,
       this.totalPrice,
       this.bookingStatus,
@@ -112,7 +115,9 @@ class DataUser {
       this.grandTotal,
       this.fiestaBookingItems,
       this.userDetail,
-      this.fiestaDetail});
+        this.fiestaBookingDetail,
+
+        this.fiestaDetail});
 
   DataUser.fromJson(Map<String, dynamic> json) {
     print("IM THE MODEL id  ${json['id']}");
@@ -124,12 +129,16 @@ class DataUser {
     print("IM THE MODEL total_tickets  ${json['total_tickets']}");
     print("IM THE MODEL grand_total ${json['grand_total']}");
     id = json['id'];
+    bookingId = json['booking_id'];
     userId = json['user_id'];
     fiestaId = json['fiesta_id'];
     totalPrice = json['total_price'];
     bookingStatus = json['booking_status'];
     totalTickets = json['total_tickets'];
     grandTotal = json['grand_total'];
+    fiestaBookingDetail = json['fiesta_booking_detail'] != null
+        ? new FiestaBookingDetail.fromJson(json['fiesta_booking_detail'])
+        : null;
     fiestaBookingItems = json['fiesta_booking_items'] != null
         ? new FiestaBookingItems.fromJson(json['fiesta_booking_items'])
         : null;
@@ -146,6 +155,7 @@ class DataUser {
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['fiesta_id'] = this.fiestaId;
+    data['booking_id'] = this.bookingId;
     data['total_price'] = this.totalPrice;
     data['booking_status'] = this.bookingStatus;
     data['total_tickets'] = this.totalTickets;
@@ -155,6 +165,9 @@ class DataUser {
     }
     if (this.userDetail != null) {
       data['user_detail'] = this.userDetail!.toJson();
+    }
+    if (this.fiestaBookingDetail != null) {
+      data['fiesta_booking_detail'] = this.fiestaBookingDetail!.toJson();
     }
     if (this.fiestaDetail != null) {
       data['fiesta_detail'] = this.fiestaDetail!.toJson();
@@ -202,10 +215,9 @@ class FiestaBookingItems {
 
 class UserDetail {
   int? id;
-  String? name;
+  String name = "";
   Role? role;
 
-  UserDetail({this.id, this.name, this.role});
 
   UserDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -329,6 +341,74 @@ class FiestaDetail {
     data['distance_miles'] = this.distanceMiles;
     if (this.clubDetail != null) {
       data['club_detail'] = this.clubDetail!.toJson();
+    }
+    return data;
+  }
+}
+class FiestaBookingDetail {
+  int? id;
+  int? userId;
+  int? fiestaId;
+  String? totalPrice;
+  String? bookingStatus;
+  int? totalTickets;
+  int? grandTotal;
+  bool? readyForReview;
+  FiestaDetail? fiestaDetail;
+  UserDetail? userDetail;
+  FiestaBookingItems? fiestaBookingItems;
+
+  FiestaBookingDetail(
+      {this.id,
+        this.userId,
+        this.fiestaId,
+        this.totalPrice,
+        this.bookingStatus,
+        this.totalTickets,
+        this.grandTotal,
+        this.readyForReview,
+        this.fiestaDetail,
+        this.userDetail,
+        this.fiestaBookingItems});
+
+  FiestaBookingDetail.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    fiestaId = json['fiesta_id'];
+    totalPrice = json['total_price'];
+    bookingStatus = json['booking_status'];
+    totalTickets = json['total_tickets'];
+    grandTotal = json['grand_total'];
+    readyForReview = json['ready_for_review'];
+    fiestaDetail = json['fiesta_detail'] != null
+        ? new FiestaDetail.fromJson(json['fiesta_detail'])
+        : null;
+    userDetail = json['user_detail'] != null
+        ? new UserDetail.fromJson(json['user_detail'])
+        : null;
+    fiestaBookingItems = json['fiesta_booking_items'] != null
+        ? new FiestaBookingItems.fromJson(json['fiesta_booking_items'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['fiesta_id'] = this.fiestaId;
+    data['total_price'] = this.totalPrice;
+    data['booking_status'] = this.bookingStatus;
+    data['total_tickets'] = this.totalTickets;
+    data['grand_total'] = this.grandTotal;
+    data['ready_for_review'] = this.readyForReview;
+    if (this.fiestaDetail != null) {
+      data['fiesta_detail'] = this.fiestaDetail!.toJson();
+    }
+    if (this.userDetail != null) {
+      data['user_detail'] = this.userDetail!.toJson();
+    }
+    if (this.fiestaBookingItems != null) {
+      data['fiesta_booking_items'] = this.fiestaBookingItems!.toJson();
     }
     return data;
   }

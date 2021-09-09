@@ -80,7 +80,10 @@ class _QRDataState extends State<QRData> {
                 ApiCaller().addScannedid(userToken, data!.code).then((value) {
                   Get.toNamed(
                     Routes.ticketScreen,
-                    arguments: datauser,
+                    arguments:  {
+                      "data": datauser,
+                      "isScanned": true
+                    },
                   );
                 });
               }

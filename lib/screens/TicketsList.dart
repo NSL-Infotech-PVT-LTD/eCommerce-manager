@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
+import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
-import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
-import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
+import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
-
+import 'package:get/get.dart';
 import 'LoadingScreen.dart';
 
 class TicketsList extends StatefulWidget {
@@ -21,11 +21,16 @@ class TicketsList extends StatefulWidget {
 
 class _TicketsListState extends State<TicketsList> {
   bool _isLoading = false;
+  bool _isSearch = false;
   GetScannedHistoryModal getScannedHistoryData = GetScannedHistoryModal();
+  TextEditingController searchController = TextEditingController();
+  static List<DataUser> dataUSer = [];
+  static List<DataUser> newDataUSer = [];
 
   @override
   void initState() {
     getHistory();
+
     super.initState();
   }
 
@@ -40,11 +45,31 @@ class _TicketsListState extends State<TicketsList> {
         setState(() {
           getScannedHistoryData = scannedHistory;
           _isLoading = false;
-          print(getScannedHistoryData.data?.data?[0].fiestaBookingDetail
-              ?.fiestaBookingItems?.ticketPrice);
+          dataUSer = getScannedHistoryData.data!.data!;
+          newDataUSer = dataUSer;
         });
       });
     });
+  }
+
+  searchFillter({required String searchKeyword}) {
+    dynamic filter;
+    print("FKfks ${newDataUSer.length}");
+    newDataUSer = dataUSer;
+    if (searchKeyword.isNotEmpty) {
+      newDataUSer = newDataUSer.where((element) {
+        return (element.fiestaBookingDetail?.userDetail?.name ?? "")
+                .toLowerCase()
+                .contains(searchController.text) ||
+            (element.bookingId?.toString() ?? "")
+                .contains(searchController.text);
+      }).toList();
+      print("FKfks ${newDataUSer.length}");
+    }else{
+      newDataUSer = dataUSer;
+    }
+
+    setState(() {});
   }
 
   @override
@@ -80,7 +105,7 @@ class _TicketsListState extends State<TicketsList> {
                         children: [
                           SizedBox(height: screeSize.height * 0.060),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap: () {
@@ -111,25 +136,63 @@ class _TicketsListState extends State<TicketsList> {
                                   ),
                                 ),
                               ),
-                              Spacer(),
-                              Text(
-                                AppTranslation.of(context)!.text("ticketList"),
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 24,
-                                  fontFamily: FontsDisPlay.productsSansRegular,
-                                ),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                "assets/images/icon.png",
-                                height: 16,
-                                width: 14.4,
-                                color: AppColors.brown,
-                              ),
-                              SizedBox(width: screeSize.width * 0.035),
+                              _isSearch
+                                  ? Expanded(
+                                      child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 24.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: TextField(
+                                          controller: searchController,
+                                          cursorColor: AppColors.orangeColor,
+                                          onChanged: (value) {
+                                            print("----------+ $value");
+                                            searchFillter(searchKeyword: value);
+                                          },
+                                          decoration: InputDecoration(
+                                            hintText:
+                                                "Search name or booking id",
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        AppColors.orangeColor)),
+                                            suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _isSearch = false;
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.cancel,
+                                                  color: AppColors.orangeColor,
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                    ))
+                                  : Text(
+                                      AppTranslation.of(context)!
+                                          .text("ticketList"),
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 24,
+                                        fontFamily:
+                                            FontsDisPlay.productsSansRegular,
+                                      ),
+                                    ),
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isSearch = true;
+                                      searchController.clear();
+                                    });
+                                  },
+                                  icon: Icon(Icons.search)),
+                              // SizedBox(width: screeSize.width * 0.035),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -154,31 +217,51 @@ class _TicketsListState extends State<TicketsList> {
                           //       )),
                           // ),
                           Expanded(
-                            child: ListView.builder(
-                                itemCount:
-                                    getScannedHistoryData.data?.data?.length,
-                                padding: EdgeInsets.only(top: 10),
-                                physics: BouncingScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  final data =
-                                      getScannedHistoryData.data?.data?[index];
-                                  final ticketPrice = data?.fiestaBookingDetail
-                                      ?.fiestaBookingItems?.ticketPrice;
+                            child: newDataUSer.isEmpty
+                                ? Center(
+                                    child: Text("Nothing to Show !",
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                        )))
+                                : ListView.builder(
+                                    itemCount: newDataUSer.length,
+                                    padding: EdgeInsets.only(top: 10),
+                                    physics: BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      final data = newDataUSer[index];
+                                      final ticketPrice = data
+                                          .fiestaBookingDetail
+                                          ?.fiestaBookingItems
+                                          ?.ticketPrice;
+                                      final ticketQuantity = data
+                                          .fiestaBookingDetail?.totalTickets;
+                                      final bookingID = data.bookingId;
+                                      final ticketType = data
+                                          .fiestaBookingDetail
+                                          ?.fiestaBookingItems
+                                          ?.ticketType;
 
-                                  final ticketQuantity =
-                                      data?.fiestaBookingDetail?.totalTickets;
-                                  final bookingID = data?.bookingId;
-                                  print('dfdsv$bookingID');
-                                  final ticketType = data?.fiestaBookingDetail
-                                      ?.fiestaBookingItems?.ticketType;
-
-                                  return TicketsListTile(
-                                    ticketPrice: ticketPrice.toString(),
-                                    ticketQuantity: ticketQuantity.toString(),
-                                    bookingID: bookingID.toString(),
-                                    ticketType: ticketType.toString(),
-                                  );
-                                }),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(
+                                            Routes.ticketScreen,
+                                            arguments: {
+                                              "data": data,
+                                              "isScanned": false
+                                            },
+                                          );
+                                        },
+                                        child: TicketsListTile(
+                                          ticketPrice: ticketPrice.toString(),
+                                          ticketQuantity:
+                                              ticketQuantity.toString(),
+                                          bookingID: bookingID.toString(),
+                                          ticketType: ticketType.toString(),
+                                        ),
+                                      );
+                                    }),
                           ),
                         ],
                       ),
@@ -221,7 +304,7 @@ class TicketsListTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(bookingID,
+              Text("Booking ID : $bookingID",
                   style: TextStyle(
                       color: AppColors.white,
                       fontSize: 18,
