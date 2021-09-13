@@ -419,7 +419,7 @@ buildProfileScreen(
                     }),
                 centerlistItem(
                     context: context,
-                    title: AppTranslation.of(context)!.text("stripe"),
+                    title: AppTranslation.of(context)!.text("addABankAccount"),
 // rightIconImage: ,
                     leftIconImage: "assets/images/stripe.svg",
                     onTapfunc: () async {

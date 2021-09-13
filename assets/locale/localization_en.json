@@ -42,5 +42,6 @@
   "fiestaList": "Fiestas List",
   "ticketList": "Tickets List",
   "back": "Back",
-  "history": "History"
+  "history": "History",
+  "addABankAccount": "Add a Bank Account (Stripe)"
 }

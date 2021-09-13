@@ -33,16 +33,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppTranslationsDelegate? _newLocaleDelegate;
+  AppTranslationsDelegate _newLocaleDelegate = AppTranslationsDelegate();
 
+  bool _loading = true;
   @override
   void initState() {
-    _newLocaleDelegate =
-        AppTranslationsDelegate(newlocale: Locale("es"));
     UserData.getUserLanguage("getUserLang").then((userLanguage) {
       print("vdvdfvv$userLanguage");
 
+      _newLocaleDelegate = AppTranslationsDelegate(newlocale: Locale(userLanguage??"en"));
+
       application.onLocaleChanged = onLocaleChange;
+    }).whenComplete(() {
+      setState(() {
+        _loading = false;
+      });
     });
 
     super.initState();
@@ -50,7 +55,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return _loading?Center(
+      child: CircularProgressIndicator(),
+    ): GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FunfY Club Admin',
       theme: ThemeData(
@@ -58,7 +65,7 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
       ),
       localizationsDelegates: [
-        _newLocaleDelegate!,
+        _newLocaleDelegate,
         const AppTranslationsDelegate(),
         // _newLocaleDelegate as AppTranslationsDelegate,
         GlobalMaterialLocalizations.delegate,

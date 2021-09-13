@@ -16,10 +16,12 @@ import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCaller {
-  static final String baseUrl =
-      "https://dev.netscapelabs.com/funfy/public/api/club-admin/";
-  static final String baseurl =
-      "https://dev.netscapelabs.com/funfy/public/api/";
+  // static final String baseUrl =
+  //     "https://dev.netscapelabs.com/funfy/public/api/club-admin/";
+  // static final String baseurl =
+  //     "https://dev.netscapelabs.com/funfy/public/api/";
+  static final String baseUrl ="https://app.funfyapp.com/api/club-admin/";
+  static final String baseurl ="https://app.funfyapp.com/api/";
   static final String login = "login";
   static final String forgotPassword = "reset-password";
   static final String signOut = "logout";
