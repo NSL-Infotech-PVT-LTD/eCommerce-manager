@@ -17,13 +17,13 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   getLang initialValue = getLang.en;
-  String? initialValueUse="en";
+  String initialValueUse="en" ;
 
   @override
   void initState() {
     UserData.getUserLanguage("getUserLang").then((value) {
       setState(() {
-        initialValueUse = value;
+        initialValueUse = value ;
         print("iniState user Language ====>$initialValueUse");
       });
     });
@@ -90,14 +90,13 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         Container(
-                          width:MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width,
                           alignment: Alignment.centerLeft,
                           child: RichText(
                               text: TextSpan(
-                                  text:
-                                      AppTranslation.of(context)!.text("welcome"),
+                                  text: AppTranslation.of(context)!
+                                      .text("welcome"),
                                   style: TextStyle(
                                     color: Color(0xffFFFFFF),
                                     fontSize: 18,
@@ -108,8 +107,8 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                 TextSpan(
                                   text: AppTranslation.of(context)!
                                       .text("funfypartyapp"),
-                  style: TextStyle(
-                    color: Color(0xffFFFFFF),
+                                  style: TextStyle(
+                                    color: Color(0xffFFFFFF),
                                     fontSize: 18,
                                     fontFamily: FontsDisPlay.robotoBlack,
                                     fontWeight: FontWeight.bold,
@@ -127,9 +126,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                             fontFamily: "AbrilFatface",
                           ),
                         ),
-
                         SizedBox(height: screenSize.height * 0.060),
-
                       ],
                     ),
                   ),
@@ -201,30 +198,9 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                             ],
                           ),
                         ),
-
-                        // ListTile(
-                        //   title: const Text('Spanish',
-                        //       style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontWeight: FontWeight.w400)),
-                        //   leading: Radio(
-                        //     fillColor:
-                        //         MaterialStateProperty.all(Color(0xffFF5349)),
-                        //     value: getLang.es,
-                        //     groupValue: initialValueUse =="es"?getLang.es:getLang.en,
-                        //     onChanged: (value) {
-                        //       setState(() {
-                        //         initialValue = value as getLang;
-                        //         initialValueUse = "es";
-                        //         print(initialValueUse);
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
                         SizedBox(
                           height: 80,
                         ),
-
                         Padding(
                           padding: const EdgeInsets.only(left: 25, right: 25),
                           child: ElevatedButton(
@@ -232,12 +208,13 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                   primary: Color(0xffFF5349),
                                   fixedSize: Size(screenSize.width, 50)),
                               onPressed: () {
-                                print("cvbcbcvbnv =>>initialValueUse");
-                                application
-                                    .onLocaleChanged!(Locale(initialValueUse!));
+                                print("cvbcbcvbnv =>>$initialValueUse");
+                                application.onLocaleChanged!(
+                                    Locale(initialValueUse.toString()));
                                 UserData.setUserLanguage(
-                                    key: "getUserLang",
-                                    value: initialValueUse.toString());
+                                  key: "getUserLang",
+                                  value: initialValueUse,
+                                );
                                 Navigator.of(context).pop();
                                 print(
                                     "User Language ====>>${UserData.getUserLanguage("getUserLang")}");

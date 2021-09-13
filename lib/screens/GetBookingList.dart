@@ -35,53 +35,57 @@ class _GetBookingListState extends State<GetBookingList> {
   bool _listIsLoading = false;
   bool hasmore = true;
   int documentLimit = 10;
+  int page = 1;
+  int totalPage = 1;
+
   String? orderChange = "desc";
+
   ScrollController controller = ScrollController();
 
   final _scafKey = GlobalKey<ScaffoldState>();
-  BookingListModal getBookingData = BookingListModal();
+  List<DataUser> bookingList = [];
 
-  // getProducts() async {
-  //   if (!hasmore) {
-  //     print('No More Products');
-  //     return;
-  //   }
-  //   if (_listIsLoading) {
-  //     return;
-  //   }
-  //   setState(() {
-  //     _listIsLoading=true;
-  //   });
-  //   if()
-  // }
+  @override
+  void dispose() {
+    controller.dispose();
+    page = 1;
+    totalPage = 1;
+    super.dispose();
+  }
 
   @override
   void initState() {
-    //    //for Booking List
+    //for Booking List
     getBookingList();
+    controller.addListener(() {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        if (page <= totalPage) {
+          getBookingList();
+        }
+      }
+    });
     super.initState();
     print("Gewt Booking  Screen ====>${widget.clubID.toString()}");
   }
 
   //for Booking List Screen
   getBookingList() {
-    print("getbooking LIst");
-    print("gfdhgfh$orderChange");
     setState(() {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
-      print("gfdhgfh===>>> $orderChange");
-      print("Order Changde $orderChange");
       ApiCaller()
           .getBookingList(userToken, widget.clubID.toString(),
-              orderChange.toString(), context)
+              orderChange.toString(), page, context)
           .then((getBookingListData) {
-        print("Booking List Data ==>$getBookingListData");
+        totalPage = getBookingListData?.data?.lastPage ?? 1;
+        var list = <DataUser>[];
+        list.addAll(getBookingListData?.data?.data ?? []);
 
         setState(() {
-          getBookingData = getBookingListData;
+          page++;
+          bookingList.addAll(list);
           _isLoading = false;
         });
       });
@@ -344,51 +348,54 @@ class _GetBookingListState extends State<GetBookingList> {
                       ),
                     ),
                     Expanded(
-                      child: getBookingData.data!.data!.isEmpty
+                      child: bookingList.isEmpty
                           ? Center(child: Text("Nothing to show! "))
                           : ListView.builder(
                               controller: controller,
-                              itemCount: getBookingData.data?.data?.length,
+                              itemCount:
+                              totalPage > 1 ?   bookingList.length +  1 :   bookingList.length,
                               padding: EdgeInsets.only(top: 10),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
-                                final data = getBookingData.data?.data![index];
-                                var userName = data?.userDetail?.name;
-                                timeStamp = data?.fiestaDetail!.timestamp!
-                                    .toString()
-                                    .split(" ");
-                                print(
-                                    "Date And Time is ====>${timeStamp.toString()}");
-                                forDate = timeStamp!.first.toString();
-                                forTime = timeStamp![1].toString();
-                                DateTime now = DateTime.parse(
-                                    data!.fiestaDetail!.timestamp!.toString());
-                                String formattedTime =
-                                    DateFormat('kk:mm:a').format(now);
-                                print("dfgdfg$formattedTime");
-                                var bookingId =
-                                    getBookingData.data?.data![index].id;
+                                if (index == bookingList.length) {
+                                  return buildProgressIndicatorCenter(true);
+                                } else {
+                                  final data = bookingList[index];
 
-                                final fiestaImage =
-                                    data.fiestaDetail?.clubDetail?.image;
-                                final fiestaName =
-                                    data.fiestaDetail?.clubDetail?.name;
-                                final fiestaAttendes =
-                                    data.fiestaDetail?.totalMembers;
-                                final bookingID = data.id;
-                                print(" Booking Id{$bookingId}");
-                                print("$forDate DatAndTime Is $forTime");
-                                print("fiesta image is $fiestaImage ");
+                                  timeStamp = data.fiestaDetail!.timestamp!
+                                      .toString()
+                                      .split(" ");
+                                  // print(
+                                  // "Date And Time is ====>${timeStamp.toString()}");
+                                  forDate = timeStamp!.first.toString();
+                                  forTime = timeStamp![1].toString();
+                                  DateTime now = DateTime.parse(
+                                      data.fiestaDetail!.timestamp!.toString());
+                                  String formattedTime =
+                                      DateFormat('kk:mm:a').format(now);
+                                  // print("dfgdfg$formattedTime");
+                                  var bookingId = bookingList[index].id;
 
-                                return FiestaTile(
-                                  fiestaImage: fiestaImage.toString(),
-                                  fiestaName: fiestaName.toString(),
-                                  fiestatiming: formattedTime,
-                                  fiestaDate: forDate,
-                                  totalAttendenes: fiestaAttendes.toString(),
-                                  clubid: widget.clubID.toString(),
-                                  bookingid: bookingID.toString(),
-                                );
+                                  final fiestaImage =
+                                      data.fiestaDetail?.clubDetail?.image;
+                                  final fiestaName =
+                                      data.fiestaDetail?.clubDetail?.name;
+                                  final fiestaAttendes =
+                                      data.fiestaDetail?.totalMembers;
+                                  final bookingID = data.id;
+                                  // print(" Booking Id{$bookingId}");
+                                  // print("$forDate DatAndTime Is $forTime");
+                                  // print("fiesta image is $fiestaImage ");
+                                  return FiestaTile(
+                                    fiestaImage: fiestaImage.toString(),
+                                    fiestaName: fiestaName.toString(),
+                                    fiestatiming: formattedTime,
+                                    fiestaDate: forDate,
+                                    totalAttendenes: fiestaAttendes.toString(),
+                                    clubid: widget.clubID.toString(),
+                                    bookingid: bookingID.toString(),
+                                  );
+                                }
                               }),
                     ),
                   ],
@@ -396,6 +403,22 @@ class _GetBookingListState extends State<GetBookingList> {
               ],
             ),
           );
+  }
+
+  Widget buildProgressIndicatorCenter(bool isLoading) {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Align(
+        alignment: Alignment.center,
+        child: new Opacity(
+          opacity: isLoading ? 1.0 : 00,
+          child: new CircularProgressIndicator(
+            // backgroundColor: AppColors.orangeColor,
+            color: AppColors.orangeColor,
+          ),
+        ),
+      ),
+    );
   }
 }
 

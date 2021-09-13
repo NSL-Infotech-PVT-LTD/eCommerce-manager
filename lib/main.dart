@@ -1,5 +1,7 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
+import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/localization/Application.dart';
 import 'package:funfy_scanner/screens/AboutUsScreen.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/ForgotPassword.dart';
@@ -35,8 +37,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _newLocaleDelegate = AppTranslationsDelegate(newlocale: null);
-    application.onLocaleChanged = onLocaleChange;
+    _newLocaleDelegate =
+        AppTranslationsDelegate(newlocale: Locale("es"));
+    UserData.getUserLanguage("getUserLang").then((userLanguage) {
+      print("vdvdfvv$userLanguage");
+
+      application.onLocaleChanged = onLocaleChange;
+    });
+
     super.initState();
   }
 
@@ -44,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'FunFY Club Admin',
+      title: 'FunfY Club Admin',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.dark,

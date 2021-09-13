@@ -233,11 +233,13 @@ class ApiCaller {
   }
 
 // get Booking List
-  Future getBookingList(String userToken, String clubID, String ordering,
+  Future<BookingListModal?> getBookingList(String userToken, String clubID, String ordering,page,
       BuildContext context) async {
     Map<String, dynamic> data = {
       "club_id": clubID,
       "sort_by": ordering,
+      "limit" :"20",
+      "page" : page.toString()
     };
     final response = await http.post(
       Uri.parse(baseUrl + getBookinglist),

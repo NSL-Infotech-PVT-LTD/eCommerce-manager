@@ -31,8 +31,8 @@ class Data {
   String? lastPageUrl;
   String? nextPageUrl;
   String? path;
-  int? perPage;
-  Null? prevPageUrl;
+  String? perPage;
+  String? prevPageUrl;
   int? to;
   int? total;
 
