@@ -43,5 +43,6 @@
   "ticketList": "Tickets List",
   "back": "Back",
   "history": "History",
-  "addABankAccount": "Add a Bank Account (Stripe)"
+  "addABankAccount": "Add a Bank Account (Stripe)",
+  "terms": "Terms And Conditions"
 }

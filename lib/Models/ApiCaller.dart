@@ -7,6 +7,7 @@ import 'package:funfy_scanner/Models/GetAboutUsModal.dart';
 import 'package:funfy_scanner/Models/GetHelpModal.dart';
 import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
 import 'package:funfy_scanner/Models/GetStripeDataModal.dart';
+import 'package:funfy_scanner/Models/GetTermsAndCondition.dart';
 import 'package:funfy_scanner/Models/LoginModel.dart';
 import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
@@ -34,6 +35,7 @@ class ApiCaller {
   static final String aboutUs = "config/about_us";
   static final String scanID = "scan/booking";
   static final String MyScan = "scanned/bookinglist";
+  static final String  terms="config/terms_and_conditions";
 
   static final String help = "config/help_and_contact_us";
 
@@ -551,10 +553,10 @@ class ApiCaller {
 
   // for Help
   Future getHelpData(BuildContext context) async {
-    final response = await http.get(Uri.parse(baseurl + help));
+    final response = await http.get(Uri.parse(baseurl + terms));
 
     if (response.statusCode == 200) {
-      return GetHelpModal.fromJson(json.decode(response.body));
+      return GetTermsAndConditions.fromJson(json.decode(response.body));
     } else if (response.statusCode == 401) {
       showDialog<void>(
         context: context,

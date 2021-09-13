@@ -43,5 +43,6 @@
   "ticketList": "Lista de entradas",
   "back": "atrás",
   "history": "Historia",
-  "addABankAccount": "Agregar una cuenta bancaria (Stripe)"
+  "addABankAccount": "Agregar una cuenta bancaria (Stripe)",
+  "terms": "Términos y condiciones"
 }
