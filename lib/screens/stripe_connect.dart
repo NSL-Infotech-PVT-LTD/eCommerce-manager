@@ -53,7 +53,7 @@ class _WebViewXPageState extends State<WebViewXPage> {
     UserData.getUserToken("USERTOKEN").then((_token) {
       print("$_token");
 
-      ApiCaller().connectStripAccount(_token, accountId).then((value) {
+      ApiCaller().connectStripAccount(_token, accountId,context).then((value) {
         setState(() {
           loading = false;
         });

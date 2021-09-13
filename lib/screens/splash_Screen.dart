@@ -73,30 +73,13 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
 
           Positioned(
-            bottom: 5.0,
+            bottom: 10.0,
             left: screenSize.width * 0.40,
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    "assets/images/qrcodescan.svg",
-                    height: 54.09,
-                    width: 54.09,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: screenSize.height * 0.02),
-                  Text(
-                    "SCANNER",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 18,
-                      fontFamily: FontsDisPlay.gretarosRegular,
-                    ),
-                  ),
-                ],
-              ),
+            child: Image.asset(
+              "assets/images/qrScannerIcon.png",
+              height: 90.09,
+              width: 85.09,
+              fit: BoxFit.cover,
             ),
           )
         ],

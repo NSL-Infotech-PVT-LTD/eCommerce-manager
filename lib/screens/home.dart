@@ -78,7 +78,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then(
-      (token) => ApiCaller().logout(token).then(
+      (token) => ApiCaller().logout(token,context).then(
         (value) {
           setState(() {
             _isLoading = false;
@@ -176,7 +176,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       Text(
                         AppTranslation.of(context)!.text("bookings"),
                         style: TextStyle(
-                          color: Color(0xffFFFFFF),
+                          color: index == 0
+                              ? Color(0xffFFFFFF)
+                              : Color(0xffCDCAC8),
                           fontFamily: index == 0
                               ? FontsDisPlay.robotoMedium
                               : FontsDisPlay.robotoRegular,
@@ -191,23 +193,23 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                              "assets/images/setting.png",
+                      index == 1
+                          ? SvgPicture.asset(
+                              "assets/images/onSettings.svg",
                               height: 32,
                               width: 32,
-                              color: AppColors.white,
-                              fit: BoxFit.cover,
+                            )
+                          : SvgPicture.asset(
+                              "assets/images/offSettings.svg",
+                              height: 32,
+                              width: 32,
                             ),
-                  //    SvgPicture.asset(
-                      //   "assets/images/Settings.svg",
-                      //   height: 32,
-                      //   width: 32,
-                      // ),
-
                       Text(
                         AppTranslation.of(context)!.text("profile"),
                         style: TextStyle(
-                          color: Color(0xffFFFFFF),
+                          color: index == 1
+                              ? Color(0xffFFFFFF)
+                              : Color(0xffCDCAC8),
                           fontFamily: index == 1
                               ? FontsDisPlay.robotoMedium
                               : FontsDisPlay.robotoRegular,

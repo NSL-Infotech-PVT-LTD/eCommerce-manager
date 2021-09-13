@@ -32,12 +32,28 @@ class _GetBookingListState extends State<GetBookingList> {
   String? forTime;
   String? forDate;
   bool _isLoading = false;
+  bool _listIsLoading = false;
+  bool hasmore = true;
+  int documentLimit = 10;
   String? orderChange = "desc";
+  ScrollController controller = ScrollController();
 
   final _scafKey = GlobalKey<ScaffoldState>();
   BookingListModal getBookingData = BookingListModal();
 
-  // late PersistentBottomSheetController bottomSheetController;
+  // getProducts() async {
+  //   if (!hasmore) {
+  //     print('No More Products');
+  //     return;
+  //   }
+  //   if (_listIsLoading) {
+  //     return;
+  //   }
+  //   setState(() {
+  //     _listIsLoading=true;
+  //   });
+  //   if()
+  // }
 
   @override
   void initState() {
@@ -59,11 +75,8 @@ class _GetBookingListState extends State<GetBookingList> {
       print("gfdhgfh===>>> $orderChange");
       print("Order Changde $orderChange");
       ApiCaller()
-          .getBookingList(
-        userToken,
-        widget.clubID.toString(),
-        orderChange.toString(),
-      )
+          .getBookingList(userToken, widget.clubID.toString(),
+              orderChange.toString(), context)
           .then((getBookingListData) {
         print("Booking List Data ==>$getBookingListData");
 
@@ -334,6 +347,7 @@ class _GetBookingListState extends State<GetBookingList> {
                       child: getBookingData.data!.data!.isEmpty
                           ? Center(child: Text("Nothing to show! "))
                           : ListView.builder(
+                              controller: controller,
                               itemCount: getBookingData.data?.data?.length,
                               padding: EdgeInsets.only(top: 10),
                               physics: BouncingScrollPhysics(),
@@ -347,16 +361,21 @@ class _GetBookingListState extends State<GetBookingList> {
                                     "Date And Time is ====>${timeStamp.toString()}");
                                 forDate = timeStamp!.first.toString();
                                 forTime = timeStamp![1].toString();
+                                DateTime now = DateTime.parse(
+                                    data!.fiestaDetail!.timestamp!.toString());
+                                String formattedTime =
+                                    DateFormat('kk:mm:a').format(now);
+                                print("dfgdfg$formattedTime");
                                 var bookingId =
                                     getBookingData.data?.data![index].id;
 
                                 final fiestaImage =
-                                    data?.fiestaDetail?.clubDetail?.image;
+                                    data.fiestaDetail?.clubDetail?.image;
                                 final fiestaName =
-                                    data?.fiestaDetail?.clubDetail?.name;
+                                    data.fiestaDetail?.clubDetail?.name;
                                 final fiestaAttendes =
-                                    data?.fiestaDetail?.totalMembers;
-                                final bookingID = data?.id;
+                                    data.fiestaDetail?.totalMembers;
+                                final bookingID = data.id;
                                 print(" Booking Id{$bookingId}");
                                 print("$forDate DatAndTime Is $forTime");
                                 print("fiesta image is $fiestaImage ");
@@ -364,7 +383,7 @@ class _GetBookingListState extends State<GetBookingList> {
                                 return FiestaTile(
                                   fiestaImage: fiestaImage.toString(),
                                   fiestaName: fiestaName.toString(),
-                                  fiestatiming: forTime,
+                                  fiestatiming: formattedTime,
                                   fiestaDate: forDate,
                                   totalAttendenes: fiestaAttendes.toString(),
                                   clubid: widget.clubID.toString(),
@@ -432,20 +451,22 @@ class FiestaTile extends StatelessWidget {
 
           Container(
             height: 125.21,
-              width: screenSize.width * 0.35,
-            child:ClipRRect(
+            width: screenSize.width * 0.35,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: fiestaImage!,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    CircularProgressIndicator(value: downloadProgress.progress,
-                     color:AppColors.orangeColor,
-                    ),
+                    Center(
+                  child: CircularProgressIndicator(
+                    value: downloadProgress.progress,
+                    color: AppColors.orangeColor,
+                  ),
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
-
           ),
           SizedBox(width: screenSize.width * 0.035),
           Column(

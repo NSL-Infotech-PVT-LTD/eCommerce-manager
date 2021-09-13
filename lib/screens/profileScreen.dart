@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ElevatedButton(
         onPressed: () {
           UserData.getUserToken("USERTOKEN").then(
-            (token) => ApiCaller().logout(token).then(
+            (token) => ApiCaller().logout(token,context).then(
                   (value) => Get.toNamed(Routes.signInScreen),
                 ),
           );

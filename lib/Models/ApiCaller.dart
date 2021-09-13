@@ -52,7 +52,7 @@ class ApiCaller {
     };
 
     var response = await http.post(Uri.parse(baseUrl + login), body: data);
-    print("${response.body}");
+    print(" User Login===>>>>>${response.body}");
     // return LoginModel();
     if (response.statusCode == 200) {
       return LoginModel.fromJson(
@@ -66,16 +66,22 @@ class ApiCaller {
           return CupertinoAlertDialog(
             title: Text('Login Error'),
             content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
           );
         },
       );
-      Future.delayed(Duration(seconds: 3), () {
-        UserData.clearData();
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => SignIn()),
-            (route) => false);
-      });
     } else {
       showDialog<void>(
         context: context,
@@ -104,8 +110,33 @@ class ApiCaller {
       "Authorization": "Bearer " + userToken,
     });
     print("dbfdbs${response.body}");
+
     if (response.statusCode == 200) {
       return GetUserProfileModal.fromJson(jsonDecode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     } else {
       return showDialog<void>(
         context: context,
@@ -158,7 +189,7 @@ class ApiCaller {
   }
 
 //logout
-  Future logout(String token) async {
+  Future logout(String token, BuildContext context) async {
     Map<String, String> data = {
       "device_token": "dsvfdjfldksjfdkls",
       "device_type": "android",
@@ -173,13 +204,37 @@ class ApiCaller {
     );
     if (response.statusCode == 200) {
       UserData.clearData();
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     }
     print("===================?>${response.body}");
   }
 
 // get Booking List
-  Future getBookingList(
-      String userToken, String clubID, String ordering) async {
+  Future getBookingList(String userToken, String clubID, String ordering,
+      BuildContext context) async {
     Map<String, dynamic> data = {
       "club_id": clubID,
       "sort_by": ordering,
@@ -195,6 +250,30 @@ class ApiCaller {
     if (response.statusCode == 200) {
       print("BookingLIstModal===============>=${response.body}");
       return BookingListModal.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -211,6 +290,30 @@ class ApiCaller {
     );
     if (response.statusCode == 200) {
       return ClubListModal.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     } else {
       showDialog<void>(
         context: context,
@@ -282,7 +385,7 @@ class ApiCaller {
   }
 
 //get Scanned History
-  Future getScannedHistory(String userToken) async {
+  Future getScannedHistory(String userToken, BuildContext context) async {
     final response = await http.post(
       Uri.parse(baseUrl + MyScan),
       headers: {
@@ -293,6 +396,30 @@ class ApiCaller {
     if (response.statusCode == 200) {
       print("Get Scanned History Data${response.body}");
       return GetScannedHistoryModal.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     } else {
       print("Getscanned Not Found");
     }
@@ -313,7 +440,8 @@ class ApiCaller {
     }
   }
 
-  Future connectStripAccount(String userToken, accountId) async {
+  Future connectStripAccount(
+      String userToken, accountId, BuildContext context) async {
     Map<String, dynamic> data = {
       "account_id": accountId.toString(),
     };
@@ -328,6 +456,30 @@ class ApiCaller {
     print("response ===> ${response.body}");
     if (response.statusCode == 201) {
       return GetStripeDataModal.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     } else {
       return print("errro in Stripe");
     }
@@ -340,6 +492,30 @@ class ApiCaller {
 
       if (response.statusCode == 200) {
         return GetAboutUsModal.fromJson(json.decode(response.body));
+      } else if (response.statusCode == 401) {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text('Login Error'),
+              content: Text('Please enter the valid email and password !'),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                    child: Text('Ok'),
+                    onPressed: () {
+                      Future.delayed(Duration(seconds: 1), () {
+                        UserData.clearData();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignIn()),
+                            (route) => false);
+                      });
+                    }),
+              ],
+            );
+          },
+        );
       } else {
         showDialog<void>(
           context: context,
@@ -370,11 +546,35 @@ class ApiCaller {
   }
 
   // for Help
-  Future getHelpData() async {
+  Future getHelpData(BuildContext context) async {
     final response = await http.get(Uri.parse(baseurl + help));
 
     if (response.statusCode == 200) {
       return GetHelpModal.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 401) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Login Error'),
+            content: Text('Please enter the valid email and password !'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    Future.delayed(Duration(seconds: 1), () {
+                      UserData.clearData();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignIn()),
+                          (route) => false);
+                    });
+                  }),
+            ],
+          );
+        },
+      );
     }
   }
 }

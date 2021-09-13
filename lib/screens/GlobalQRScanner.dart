@@ -47,6 +47,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
                 .getScannedData(
               data!.code,
               userToken,
+
               // clubId.toString(),
               null,
             )
@@ -77,10 +78,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
                 ApiCaller().addScannedid(userToken, data!.code).then((value) {
                   Get.toNamed(
                     Routes.ticketScreen,
-                    arguments:  {
-                      "data": datauser,
-                      "isScanned": true
-                    },
+                    arguments: {"data": datauser, "isScanned": true},
                   );
                 });
               }

@@ -62,7 +62,7 @@ flutter_app_name:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/appicon.png"
+  image_path: "assets/images/IconApp.png"
   flutter_test:
     sdk: flutter
 
@@ -91,6 +91,7 @@ flutter:
     - assets/images/help.svg
     - assets/images/about us.svg
     - assets/images/translationicon.png
+    - assets/images/onSettings.svg
 
 
 

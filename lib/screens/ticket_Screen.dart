@@ -41,10 +41,16 @@ class _TicketScreenState extends State<TicketScreen> {
     forTime = timeStamp!.first!.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
-
+    var timeStampCheck = isScanned
+        ? scannedData
+            .fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+            .toString()
+        : scannedData.fiestaBookingDetail?.fiestaDetail!
+            .timestamp //.data?[1].fiestaDetail!.timestamp
+            .toString();
     DateTime now =
-        DateTime.parse(scannedData.fiestaDetail!.timestamp.toString());
-    String formattedTime = DateFormat('kk:mm:a').format(now);
+        DateTime.parse(timeStampCheck.toString());
+    String formattedTime = DateFormat('kk:mm a').format(now);
     print("sdfdsfdsf$formattedTime");
     //get Ratting
     final rattingGet = isScanned
@@ -58,6 +64,28 @@ class _TicketScreenState extends State<TicketScreen> {
         : scannedData.fiestaBookingDetail?.totalPrice ?? 0;
 
     //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
+
+    getTicketType() {
+      if (scannedData.fiestaBookingItems?.ticketType.toString() ==
+              "ticket_price_normal" ||
+          scannedData.fiestaBookingDetail?.fiestaBookingItems?.ticketType
+                  .toString() ==
+              "ticket_price_normal") {
+        return "Basic Ticket";
+      } else if (scannedData.fiestaBookingItems?.ticketType.toString() ==
+              "ticket_price_vip" ||
+          scannedData.fiestaBookingDetail?.fiestaBookingItems?.ticketType
+                  .toString() ==
+              "ticket_price_vip") {
+        return "VIP Ticket";
+      } else if (scannedData.fiestaBookingItems?.ticketType.toString() ==
+              "ticket_price_standard" ||
+          scannedData.fiestaBookingDetail?.fiestaBookingItems?.ticketType
+                  .toString() ==
+              "ticket_price_standard") {
+        return "Standard Ticket";
+      }
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -132,23 +160,23 @@ class _TicketScreenState extends State<TicketScreen> {
                           ),
                         ),
                         SizedBox(width: 8),
-                        Container(
-                          width: 5,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: Color(0xff3E332B),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          AppTranslation.of(context)!.text("2 person"),
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Color(0xff3E332B),
-                            fontFamily: FontsDisPlay.dmSantsMedium,
-                          ),
-                        ),
+                        // Container(
+                        //   width: 5,
+                        //   height: 5,
+                        //   decoration: BoxDecoration(
+                        //     color: Color(0xff3E332B),
+                        //     shape: BoxShape.circle,
+                        //   ),
+                        // ),
+                        // SizedBox(width: 8),
+                        // Text(
+                        //   AppTranslation.of(context)!.text("2 person"),
+                        //   style: TextStyle(
+                        //     fontSize: 17,
+                        //     color: Color(0xff3E332B),
+                        //     fontFamily: FontsDisPlay.dmSantsMedium,
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 65),
@@ -235,13 +263,8 @@ class _TicketScreenState extends State<TicketScreen> {
                                 AppTranslation.of(context)!
                                     .text("check In Type"),
                                 isScanned
-                                    ? scannedData.fiestaBookingItems?.ticketType
-                                            .toString() ??
-                                        "null"
-                                    : scannedData.fiestaBookingDetail
-                                            ?.fiestaBookingItems?.ticketType
-                                            .toString() ??
-                                        "null"),
+                                    ? getTicketType() ?? "null"
+                                    : getTicketType() ?? "null"),
                             SizedBox(height: 20),
                             buildTicketTile(
                                 AppTranslation.of(context)!.text("date"),

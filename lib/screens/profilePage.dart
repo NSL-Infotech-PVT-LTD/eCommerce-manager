@@ -294,7 +294,7 @@ class _ProfilepageState extends State<Profilepage> {
                             _isLoading = true;
                           });
                           UserData.getUserToken("USERTOKEN").then(
-                            (token) => ApiCaller().logout(token).then(
+                            (token) => ApiCaller().logout(token,context).then(
                               (value) {
                                 setState(() {
                                   _isLoading = false;

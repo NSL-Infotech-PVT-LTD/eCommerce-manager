@@ -275,11 +275,13 @@ buildProfileScreen(
                   Row(children: [
                     Container(
                       alignment: Alignment.center,
-                      width: size.width * 0.090,
-                      height: size.width * 0.065,
+                      width: size.width * 0.050,
+                      height: size.height * 0.032,
                       child: SvgPicture.asset(
                         leftIconImage!,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.contain,
+                        width: size.width * 0.050,
+                        height: size.height * 0.032,
                       ),
                     ),
                     SizedBox(
@@ -384,7 +386,7 @@ buildProfileScreen(
                     context: context,
                     title: AppTranslation.of(context)!.text("lang"),
 // rightIconImage: ,
-                    leftIconImage: "assets/images/language.svg",
+                    leftIconImage: "assets/images/Language.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.languageScreen);
                     }),
@@ -393,7 +395,7 @@ buildProfileScreen(
                     context: context,
                     title: AppTranslation.of(context)!.text("history"),
 // rightIconImage: ,
-                    leftIconImage: "assets/images/history.svg",
+                    leftIconImage: "assets/images/historyIco.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.scannedticketScreen);
                     }),
@@ -401,7 +403,7 @@ buildProfileScreen(
                 centerlistItem(
                     context: context,
                     title: AppTranslation.of(context)!.text("help"),
-// Help: ,
+// HelpIcon ,
                     leftIconImage: "assets/images/help.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.helpScreen);

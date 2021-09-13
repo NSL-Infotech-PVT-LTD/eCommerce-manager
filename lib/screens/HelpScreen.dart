@@ -24,7 +24,7 @@ class _HelpScreenState extends State<HelpScreen> {
     setState(() {
       _isLoading = true;
     });
-    ApiCaller().getHelpData().then((helpData) {
+    ApiCaller().getHelpData(context).then((helpData) {
       print(" Help Data is ${(helpData as GetHelpModal).data!.config}");
       setState(() {
         gethelpdata = helpData;

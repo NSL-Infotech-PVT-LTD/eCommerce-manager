@@ -41,7 +41,7 @@ class _TicketsListState extends State<TicketsList> {
     });
     UserData.getUserToken("USERTOKEN").then((userToken) {
       print(userToken);
-      ApiCaller().getScannedHistory(userToken).then((scannedHistory) {
+      ApiCaller().getScannedHistory(userToken,context).then((scannedHistory) {
         setState(() {
           getScannedHistoryData = scannedHistory;
           _isLoading = false;
@@ -65,7 +65,7 @@ class _TicketsListState extends State<TicketsList> {
                 .contains(searchController.text);
       }).toList();
       print("FKfks ${newDataUSer.length}");
-    }else{
+    } else {
       newDataUSer = dataUSer;
     }
 
@@ -242,6 +242,18 @@ class _TicketsListState extends State<TicketsList> {
                                           .fiestaBookingDetail
                                           ?.fiestaBookingItems
                                           ?.ticketType;
+                                      getTicketType() {
+                                        if (ticketType ==
+                                            "ticket_price_normal") {
+                                          return "Basic Ticket";
+                                        } else if (ticketType ==
+                                            "ticket_price_vip") {
+                                          return "VIP Ticket";
+                                        } else if (ticketType ==
+                                            "ticket_price_standard") {
+                                          return "Standard Ticket";
+                                        }
+                                      }
 
                                       return GestureDetector(
                                         onTap: () {
@@ -258,7 +270,7 @@ class _TicketsListState extends State<TicketsList> {
                                           ticketQuantity:
                                               ticketQuantity.toString(),
                                           bookingID: bookingID.toString(),
-                                          ticketType: ticketType.toString(),
+                                          ticketType: getTicketType,
                                         ),
                                       );
                                     }),
@@ -278,7 +290,7 @@ class TicketsListTile extends StatelessWidget {
   final String ticketPrice;
   final String ticketQuantity;
   final String bookingID;
-  final String ticketType;
+  final Function ticketType;
 
   const TicketsListTile({
     Key? key,
@@ -330,7 +342,7 @@ class TicketsListTile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(ticketType,
+                  Text(ticketType(),
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: 16,
