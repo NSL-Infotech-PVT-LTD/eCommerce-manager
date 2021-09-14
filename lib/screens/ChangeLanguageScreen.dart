@@ -17,13 +17,13 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   getLang initialValue = getLang.en;
-  String ?initialValueUse ;
+  String? initialValueUse;
 
   @override
   void initState() {
     UserData.getUserLanguage("getUserLang").then((value) {
       setState(() {
-        initialValueUse = value ;
+        initialValueUse = value;
         print("iniState user Language ====>$initialValueUse");
       });
     });
@@ -31,10 +31,14 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext clontext) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black87,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: Container(
           width: screenSize.width,

@@ -44,5 +44,7 @@
   "back": "Back",
   "history": "History",
   "addABankAccount": "Add a Bank Account (Stripe)",
-  "terms": "Terms And Conditions"
+  "terms": "Terms And Conditions",
+  "scanTicket": "SCAN TICKET",
+  "totalAttendes": "Total Attendies :"
 }

@@ -44,5 +44,7 @@
   "back": "atrás",
   "history": "Historia",
   "addABankAccount": "Agregar una cuenta bancaria (Stripe)",
-  "terms": "Términos y condiciones"
+  "terms": "Términos y condiciones",
+  "scanTicket": "BILLETE DE ESCANEO",
+  "totalAttendes": "Asistencias totales :"
 }

@@ -78,211 +78,213 @@ class _TicketsListState extends State<TicketsList> {
 
     return _isLoading
         ? Center(child: LoadingScreen())
-        : Scaffold(
-            backgroundColor: Colors.black87,
-            body: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            "assets/images/BgImage.png",
-                          ))),
-                ),
-                Column(
-                  children: [
-                    Container(
-                      width: screeSize.width,
-                      height: 90,
-                      decoration: BoxDecoration(
-                          color: AppColors.brown,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          )),
-                      child: Column(
-                        children: [
-                          SizedBox(height: screeSize.height * 0.060),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  width: 60,
-                                  height: 50,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: screeSize.width * 0.035),
-                                      Icon(
-                                        Icons.arrow_back_ios,
-                                        color: AppColors.white,
-                                        size: 15,
-                                      ),
-                                      Text(
+        : SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.black87,
+              body: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              "assets/images/BgImage.png",
+                            ))),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: screeSize.width,
+                        height: 90,
+                        decoration: BoxDecoration(
+                            color: AppColors.brown,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            )),
+                        child: Column(
+                          children: [
+                            SizedBox(height: screeSize.height * 0.060),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                    width: 60,
+                                    height: 50,
+                                    child: Row(
+                                      children: [
+                                        SizedBox(width: screeSize.width * 0.035),
+                                        Icon(
+                                          Icons.arrow_back_ios,
+                                          color: AppColors.white,
+                                          size: 15,
+                                        ),
+                                        Text(
+                                          AppTranslation.of(context)!
+                                              .text("back"),
+                                          style: TextStyle(
+                                            color: AppColors.white,
+                                            fontSize: 14,
+                                            fontFamily:
+                                                FontsDisPlay.productsSansRegular,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                _isSearch
+                                    ? Expanded(
+                                        child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 24.0),
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: TextField(
+                                            controller: searchController,
+                                            cursorColor: AppColors.orangeColor,
+                                            onChanged: (value) {
+                                              print("----------+ $value");
+                                              searchFillter(searchKeyword: value);
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Search name or booking id",
+                                              focusedBorder: UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color:
+                                                          AppColors.orangeColor)),
+                                              suffixIcon: IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      _isSearch = false;
+                                                    });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.cancel,
+                                                    color: AppColors.orangeColor,
+                                                  )),
+                                            ),
+                                          ),
+                                        ),
+                                      ))
+                                    : Text(
                                         AppTranslation.of(context)!
-                                            .text("back"),
+                                            .text("ticketList"),
                                         style: TextStyle(
                                           color: AppColors.white,
-                                          fontSize: 14,
+                                          fontSize: 24,
                                           fontFamily:
                                               FontsDisPlay.productsSansRegular,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              _isSearch
-                                  ? Expanded(
-                                      child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 24.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: TextField(
-                                          controller: searchController,
-                                          cursorColor: AppColors.orangeColor,
-                                          onChanged: (value) {
-                                            print("----------+ $value");
-                                            searchFillter(searchKeyword: value);
-                                          },
-                                          decoration: InputDecoration(
-                                            hintText:
-                                                "Search name or booking id",
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        AppColors.orangeColor)),
-                                            suffixIcon: IconButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    _isSearch = false;
-                                                  });
-                                                },
-                                                icon: Icon(
-                                                  Icons.cancel,
-                                                  color: AppColors.orangeColor,
-                                                )),
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                  : Text(
-                                      AppTranslation.of(context)!
-                                          .text("ticketList"),
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 24,
-                                        fontFamily:
-                                            FontsDisPlay.productsSansRegular,
-                                      ),
-                                    ),
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _isSearch = true;
-                                      searchController.clear();
-                                    });
-                                  },
-                                  icon: Icon(Icons.search)),
-                              // SizedBox(width: screeSize.width * 0.035),
-                            ],
-                          ),
-                        ],
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isSearch = true;
+                                        searchController.clear();
+                                      });
+                                    },
+                                    icon: Icon(Icons.search)),
+                                // SizedBox(width: screeSize.width * 0.035),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          // Container(
-                          //   margin: EdgeInsets.only(top: 15),
-                          //   width: screeSize.width * 0.60,
-                          //   height: 27,
-                          //   alignment: Alignment.center,
-                          //   decoration: BoxDecoration(
-                          //     color: Color(0xff3E332B),
-                          //     borderRadius: BorderRadius.circular(5),
-                          //   ),
-                          //   child: Text(
-                          //       "Booking on  24 July, Thursday,08:30 PM",
-                          //       style: TextStyle(
-                          //         fontSize: 10,
-                          //         fontFamily: FontsDisPlay.productsSansRegular,
-                          //         color: AppColors.white,
-                          //       )),
-                          // ),
-                          Expanded(
-                            child: newDataUSer.isEmpty
-                                ? Center(
-                                    child: Text("Nothing to Show !",
-                                        style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15,
-                                        )))
-                                : ListView.builder(
-                                    itemCount: newDataUSer.length,
-                                    padding: EdgeInsets.only(top: 10),
-                                    physics: BouncingScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      final data = newDataUSer[index];
-                                      final ticketPrice = data
-                                          .fiestaBookingDetail
-                                          ?.fiestaBookingItems
-                                          ?.ticketPrice;
-                                      final ticketQuantity = data
-                                          .fiestaBookingDetail?.totalTickets;
-                                      final bookingID = data.bookingId;
-                                      final ticketType = data
-                                          .fiestaBookingDetail
-                                          ?.fiestaBookingItems
-                                          ?.ticketType;
-                                      getTicketType() {
-                                        if (ticketType ==
-                                            "ticket_price_normal") {
-                                          return "Basic Ticket";
-                                        } else if (ticketType ==
-                                            "ticket_price_vip") {
-                                          return "VIP Ticket";
-                                        } else if (ticketType ==
-                                            "ticket_price_standard") {
-                                          return "Standard Ticket";
+                      Expanded(
+                        child: Column(
+                          children: [
+                            // Container(
+                            //   margin: EdgeInsets.only(top: 15),
+                            //   width: screeSize.width * 0.60,
+                            //   height: 27,
+                            //   alignment: Alignment.center,
+                            //   decoration: BoxDecoration(
+                            //     color: Color(0xff3E332B),
+                            //     borderRadius: BorderRadius.circular(5),
+                            //   ),
+                            //   child: Text(
+                            //       "Booking on  24 July, Thursday,08:30 PM",
+                            //       style: TextStyle(
+                            //         fontSize: 10,
+                            //         fontFamily: FontsDisPlay.productsSansRegular,
+                            //         color: AppColors.white,
+                            //       )),
+                            // ),
+                            Expanded(
+                              child: newDataUSer.isEmpty
+                                  ? Center(
+                                      child: Text("Nothing to Show !",
+                                          style: TextStyle(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                          )))
+                                  : ListView.builder(
+                                      itemCount: newDataUSer.length,
+                                      padding: EdgeInsets.only(top: 10),
+                                      physics: BouncingScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        final data = newDataUSer[index];
+                                        final ticketPrice = data
+                                            .fiestaBookingDetail
+                                            ?.fiestaBookingItems
+                                            ?.ticketPrice;
+                                        final ticketQuantity = data
+                                            .fiestaBookingDetail?.totalTickets;
+                                        final bookingID = data.bookingId;
+                                        final ticketType = data
+                                            .fiestaBookingDetail
+                                            ?.fiestaBookingItems
+                                            ?.ticketType;
+                                        getTicketType() {
+                                          if (ticketType ==
+                                              "ticket_price_normal") {
+                                            return "Basic Ticket";
+                                          } else if (ticketType ==
+                                              "ticket_price_vip") {
+                                            return "VIP Ticket";
+                                          } else if (ticketType ==
+                                              "ticket_price_standard") {
+                                            return "Standard Ticket";
+                                          }
                                         }
-                                      }
 
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Get.toNamed(
-                                            Routes.ticketScreen,
-                                            arguments: {
-                                              "data": data,
-                                              "isScanned": false
-                                            },
-                                          );
-                                        },
-                                        child: TicketsListTile(
-                                          ticketPrice: ticketPrice.toString(),
-                                          ticketQuantity:
-                                              ticketQuantity.toString(),
-                                          bookingID: bookingID.toString(),
-                                          ticketType: getTicketType,
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ],
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Get.toNamed(
+                                              Routes.ticketScreen,
+                                              arguments: {
+                                                "data": data,
+                                                "isScanned": false
+                                              },
+                                            );
+                                          },
+                                          child: TicketsListTile(
+                                            ticketPrice: ticketPrice.toString(),
+                                            ticketQuantity:
+                                                ticketQuantity.toString(),
+                                            bookingID: bookingID.toString(),
+                                            ticketType: getTicketType,
+                                          ),
+                                        );
+                                      }),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          );
+        );
   }
 }
 

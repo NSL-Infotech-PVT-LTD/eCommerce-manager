@@ -352,8 +352,9 @@ class _GetBookingListState extends State<GetBookingList> {
                           ? Center(child: Text("Nothing to show! "))
                           : ListView.builder(
                               controller: controller,
-                              itemCount:
-                              totalPage > 1 ?   bookingList.length +  1 :   bookingList.length,
+                              itemCount: totalPage > 1
+                                  ? bookingList.length + 1
+                                  : bookingList.length,
                               padding: EdgeInsets.only(top: 10),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
@@ -372,7 +373,7 @@ class _GetBookingListState extends State<GetBookingList> {
                                   DateTime now = DateTime.parse(
                                       data.fiestaDetail!.timestamp!.toString());
                                   String formattedTime =
-                                      DateFormat('kk:mm:a').format(now);
+                                      DateFormat('kk:mm a').format(now);
                                   // print("dfgdfg$formattedTime");
                                   var bookingId = bookingList[index].id;
 
@@ -515,13 +516,26 @@ class FiestaTile extends StatelessWidget {
                     fontFamily: FontsDisPlay.robotoRegular,
                   )),
               SizedBox(height: screenSize.height * 0.014),
-              Text(
-                "Total Attendies :$totalAttendenes",
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontFamily: FontsDisPlay.robotoRegular,
-                  fontSize: 12,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    AppTranslation.of(context)!.text("totalAttendes"),
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontFamily: FontsDisPlay.robotoRegular,
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    "$totalAttendenes",
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontFamily: FontsDisPlay.robotoRegular,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: screenSize.height * 0.010),
               OutlinedButton(
@@ -543,7 +557,7 @@ class FiestaTile extends StatelessWidget {
                       ],
                     );
                   },
-                  child: Text("SCAN TICKET",
+                  child: Text(AppTranslation.of(context)!.text("scanTicket"),
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: 14,
