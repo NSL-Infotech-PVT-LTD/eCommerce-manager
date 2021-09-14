@@ -42,5 +42,7 @@
   "fiestaList": "Fiestas List",
   "ticketList": "Lista de entradas",
   "back": "atrás",
-  "history": "Historia"
+  "history": "Historia",
+  "addABankAccount": "Agregar una cuenta bancaria (Stripe)",
+  "terms": "Términos y condiciones"
 }

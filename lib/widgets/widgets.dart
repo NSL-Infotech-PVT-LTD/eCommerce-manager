@@ -402,24 +402,24 @@ buildProfileScreen(
 //Help
                 centerlistItem(
                     context: context,
-                    title: AppTranslation.of(context)!.text("help"),
+                    title: AppTranslation.of(context)!.text("terms"),
 // HelpIcon ,
-                    leftIconImage: "assets/images/help.svg",
+                    leftIconImage: "assets/images/tnc.svg",
                     onTapfunc: () {
                       Get.toNamed(Routes.helpScreen);
                     }),
 //Contact Us
+//                 centerlistItem(
+//                     context: context,
+//                     title: AppTranslation.of(context)!.text("contact"),
+// // rightIconImage: ,
+//                     leftIconImage: "assets/images/ContactUS.svg",
+//                     onTapfunc: () {
+//                       Get.toNamed(Routes.contactUSScreen);
+//                     }),
                 centerlistItem(
                     context: context,
-                    title: AppTranslation.of(context)!.text("contact"),
-// rightIconImage: ,
-                    leftIconImage: "assets/images/ContactUS.svg",
-                    onTapfunc: () {
-                      Get.toNamed(Routes.contactUSScreen);
-                    }),
-                centerlistItem(
-                    context: context,
-                    title: AppTranslation.of(context)!.text("stripe"),
+                    title: AppTranslation.of(context)!.text("addABankAccount"),
 // rightIconImage: ,
                     leftIconImage: "assets/images/stripe.svg",
                     onTapfunc: () async {

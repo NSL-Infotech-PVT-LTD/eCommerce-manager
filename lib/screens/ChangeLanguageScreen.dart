@@ -17,7 +17,7 @@ class ChangeLanguageScreen extends StatefulWidget {
 
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   getLang initialValue = getLang.en;
-  String initialValueUse="en" ;
+  String ?initialValueUse ;
 
   @override
   void initState() {
@@ -213,7 +213,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                     Locale(initialValueUse.toString()));
                                 UserData.setUserLanguage(
                                   key: "getUserLang",
-                                  value: initialValueUse,
+                                  value: initialValueUse!,
                                 );
                                 Navigator.of(context).pop();
                                 print(

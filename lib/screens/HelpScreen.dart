@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetHelpModal.dart';
+import 'package:funfy_scanner/Models/GetTermsAndCondition.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/LoadingScreen.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);
@@ -12,8 +15,9 @@ class HelpScreen extends StatefulWidget {
 }
 
 class _HelpScreenState extends State<HelpScreen> {
-  GetHelpModal gethelpdata = GetHelpModal();
+  GetTermsAndConditions gethelpdata = GetTermsAndConditions();
   bool _isLoading = false;
+
   @override
   void initState() {
     getHelpData();
@@ -25,10 +29,12 @@ class _HelpScreenState extends State<HelpScreen> {
       _isLoading = true;
     });
     ApiCaller().getHelpData(context).then((helpData) {
-      print(" Help Data is ${(helpData as GetHelpModal).data!.config}");
+      print(
+          " Help Data is ${(helpData as GetTermsAndConditions).data!.config}");
       setState(() {
         gethelpdata = helpData;
         _isLoading = false;
+        print("fdsfgdg  ${gethelpdata.data?.config}");
       });
     });
   }
@@ -43,7 +49,7 @@ class _HelpScreenState extends State<HelpScreen> {
               backgroundColor: Colors.black,
               elevation: 0.0,
               title: Text(
-                "Help",
+                "Terms And Conditions",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w900,
@@ -60,8 +66,12 @@ class _HelpScreenState extends State<HelpScreen> {
                           fontSize: 15,
                         )))
                 : Container(
-                    color: Colors.red,
-                  ),
+              color: AppColors.grayFont,
+
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Html(data: gethelpdata.data!.config!))),
+
           );
   }
 }
