@@ -31,7 +31,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   }
 
   @override
-  Widget build(BuildContext clontext) {
+  Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,

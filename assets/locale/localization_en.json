@@ -15,6 +15,7 @@
   "help": "Help",
   "contact": "Contact Us",
   "logout": "LogOut",
+  "logoutText": "Are you sure you want to logout.",
   "bookingName": "Booking Name",
   "2 person": "2 persons",
   "orderId": "Order ID",

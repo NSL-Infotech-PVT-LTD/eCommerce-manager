@@ -78,7 +78,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then(
-      (token) => ApiCaller().logout(token,context).then(
+      (token) => ApiCaller().logout(token, context).then(
         (value) {
           setState(() {
             _isLoading = false;
@@ -96,8 +96,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout.'),
+          title: Text(AppTranslation.of(context)!.text("logout")),
+          content: Text(AppTranslation.of(context)!.text("logoutText")),
           actions: <Widget>[
             CupertinoDialogAction(
               child: Text('Yes'),

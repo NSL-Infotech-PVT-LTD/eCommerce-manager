@@ -15,6 +15,7 @@
   "help": "Ayudar",
   "contact": "Contacta con nosotras",
   "logout": "Cerrar sesión",
+  "logoutText": "Está seguro de que desea cerrar la sesión?",
   "bookingName": "Nombre de la reserva",
   "2 person": "2 personas",
   "orderId": "Solicitar ID",
