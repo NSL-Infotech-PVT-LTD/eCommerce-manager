@@ -49,7 +49,7 @@ class _HelpScreenState extends State<HelpScreen> {
               backgroundColor: Colors.black,
               elevation: 0.0,
               title: Text(
-                "Terms And Conditions",
+                AppTranslation.of(context)!.text("terms"),
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w900,
@@ -66,12 +66,10 @@ class _HelpScreenState extends State<HelpScreen> {
                           fontSize: 15,
                         )))
                 : Container(
-              color: AppColors.grayFont,
-
+                    color: AppColors.grayFont,
                     child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Html(data: gethelpdata.data!.config!))),
-
           );
   }
 }

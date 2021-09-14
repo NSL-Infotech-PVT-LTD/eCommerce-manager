@@ -278,7 +278,7 @@ class FiestaDetail {
   String? ticketPriceStandard;
   String? ticketPriceVip;
   String? totalMembers;
-  int? clubRating;
+  double? clubRating;
   var leftNormalTicket;
   var leftStandardTicket;
   var leftVipTicket;
