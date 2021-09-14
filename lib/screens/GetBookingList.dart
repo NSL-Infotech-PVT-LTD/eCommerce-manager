@@ -203,7 +203,9 @@ class _GetBookingListState extends State<GetBookingList> {
                                               SizedBox(
                                                   height:
                                                       screeSize.height * 0.002),
-                                              Text('Set Ordering',
+                                              Text(
+                                                  AppTranslation.of(context)!
+                                                      .text("setordering"),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w400,

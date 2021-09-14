@@ -100,14 +100,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           content: Text(AppTranslation.of(context)!.text("logoutText")),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: Text('Yes'),
+              child: Text(AppTranslation.of(context)!.text("yes")),
               onPressed: () {
                 logoutmethod();
                 Navigator.pop(context);
               },
             ),
             CupertinoDialogAction(
-                child: Text('No'),
+                child: Text(AppTranslation.of(context)!.text("no")),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
