@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetHelpModal.dart';
 import 'package:funfy_scanner/Models/GetTermsAndCondition.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/LoadingScreen.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class _HelpScreenState extends State<HelpScreen> {
 
                     child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
-                        child: Html(data: gethelpdata.data!.config!))),
+                        child: HtmlWidget(gethelpdata.data!.config!.toString()))),
 
           );
   }
