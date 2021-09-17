@@ -54,5 +54,10 @@
   "gotoSetting": "ir a la configuración",
   "later": "más tarde",
   "loginerror": "Error de inicio de sesión",
-  "loginerrorText": "Ingrese el correo electrónico y la contraseña válidos."
+  "loginerrorText": "Ingrese el correo electrónico y la contraseña válidos.",
+  "ok": "Ok",
+  "checkConnection": "¡Comprueba tu conexión!",
+  "warning": "ADVERTENCIA",
+  "qrnulltext": "¡Escanee un código QR válido!",
+  "pleasewait": "Espere por favor"
 }

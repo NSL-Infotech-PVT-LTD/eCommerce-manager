@@ -61,11 +61,11 @@ class _QRDataState extends State<QRData> {
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
                     return CupertinoAlertDialog(
-                      title: Text('WARNING'),
-                      content: Text('Please scan valid QR code !'),
+                      title: Text(AppTranslation.of(context)!.text("warning")),
+                      content: Text(AppTranslation.of(context)!.text("qrnulltext")),
                       actions: <Widget>[
                         CupertinoDialogAction(
-                            child: Text('Ok'),
+                            child: Text(AppTranslation.of(context)!.text("ok")),
                             onPressed: () {
                               Navigator.pop(context);
                             }),
@@ -95,11 +95,11 @@ class _QRDataState extends State<QRData> {
             barrierDismissible: false, // user must tap button!
             builder: (BuildContext context) {
               return CupertinoAlertDialog(
-                title: Text('WARNING'),
-                content: Text('Please scan valid QR code !'),
+                title: Text(AppTranslation.of(context)!.text("warning")),
+                content: Text(AppTranslation.of(context)!.text("qrnulltext")),
                 actions: <Widget>[
                   CupertinoDialogAction(
-                      child: Text('Ok'),
+                      child: Text(AppTranslation.of(context)!.text("ok")),
                       onPressed: () {
                         controller.resumeCamera();
                         Navigator.pop(context);
@@ -161,7 +161,7 @@ class _QRDataState extends State<QRData> {
             ),
             SizedBox(width: 15),
             Text(
-              "Please Wait",
+              AppTranslation.of(context)!.text("pleasewait"),
               style: TextStyle(
                 color: Color(0xffFFFFFF),
                 fontSize: 21,

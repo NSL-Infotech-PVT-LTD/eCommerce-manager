@@ -55,5 +55,9 @@
   "later": "later",
   "loginerror": "Login Error",
   "loginerrorText": "Please enter the valid email and password !",
-  "ok": "Ok"
+  "ok": "Ok",
+  "checkConnection": "Please check your connection!",
+  "warning": "WARNING",
+  "qrnulltext": "Please scan valid QR code !",
+  "pleasewait": "Please Wait"
 }
