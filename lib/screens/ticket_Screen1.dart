@@ -5,66 +5,65 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:funfy_scanner/Constants/colors.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
-import 'package:funfy_scanner/Models/bookingListModal.dart';
+import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
+
+// import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TicketScreen extends StatefulWidget {
-  const TicketScreen({
+class TicketScreen1 extends StatefulWidget {
+  const TicketScreen1({
     Key? key,
   }) : super(key: key);
 
   @override
-  _TicketScreenState createState() => _TicketScreenState();
+  _TicketScreen1State createState() => _TicketScreen1State();
 }
 
-class _TicketScreenState extends State<TicketScreen> {
+class _TicketScreen1State extends State<TicketScreen1> {
   int caroselSliderIndex = 0;
   CarouselPageChangedReason? carouselPageChangedReason;
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    DataUser scannedData = (Get.arguments["data"]);
-    bool isScanned = (Get.arguments["isScanned"]);
-    print("ISSvanne==> $isScanned");
+    DataUser scannedData = Get.arguments;
+    // bool isScanned = (Get.arguments["isScanned"]);
+    // print("ISSvanne==> $isScanned");
 
     List? timeStamp = [];
     String forTime;
     String forDate;
     //get DataTime
     timeStamp =
-        scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+        // scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+        //     .toString()
+        //     .split(" ");
+        scannedData.fiestaBookingDetail?.fiestaDetail!
+            .timestamp //.data?[1].fiestaDetail!.timestamp
             .toString()
             .split(" ");
-    // : scannedData.fiestaBookingDetail?.fiestaDetail!
-    //     .timestamp //.data?[1].fiestaDetail!.timestamp
-    //     .toString()
-    //     .split(" ");
-    forTime = timeStamp.first!.toString();
+    forTime = timeStamp!.first!.toString();
     forDate = timeStamp[1].toString();
     print("$forDate DatAndTime $forTime");
     var timeStampCheck =
-        scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+        // scannedData.fiestaDetail!.timestamp //.data?[1].fiestaDetail!.timestamp
+        //     .toString();
+        scannedData.fiestaBookingDetail?.fiestaDetail!
+            .timestamp //.data?[1].fiestaDetail!.timestamp
             .toString();
-    // : scannedData.fiestaBookingDetail?.fiestaDetail!
-    //     .timestamp //.data?[1].fiestaDetail!.timestamp
-    //     .toString();
     DateTime now = DateTime.parse(timeStampCheck.toString());
     String formattedTime = DateFormat('kk:mm a').format(now);
     print("sdfdsfdsf$formattedTime");
     //get Ratting
-    final rattingGet = isScanned
-        ? scannedData.fiestaDetail!.clubRating
-        : scannedData.fiestaBookingDetail?.fiestaDetail!.clubRating;
+    final rattingGet =
+        scannedData.fiestaBookingDetail?.fiestaDetail!.clubRating;
     final clubRatting = rattingGet == null ? 0 : rattingGet;
 
     //get Price
-    final price = isScanned
-        ? scannedData.totalPrice
-        : scannedData.fiestaBookingDetail?.totalPrice ?? 0;
+    final price = scannedData.fiestaBookingDetail?.totalPrice ?? 0;
 
     //  final date = DateFormat.jms().format(scannedData.data?.timestamp);
 
@@ -97,7 +96,8 @@ class _TicketScreenState extends State<TicketScreen> {
                 });
               },
             ),
-            items: scannedData.fiestaBookingItems!.map((ticketType) {
+            items: scannedData.fiestaBookingDetail?.fiestaBookingItems
+                ?.map((ticketType) {
               getTicketTypeScanned() {
                 if (ticketType.ticketType.toString() == "ticket_price_normal") {
                   return "Basic Ticket";
@@ -145,7 +145,8 @@ class _TicketScreenState extends State<TicketScreen> {
                                 ),
                               ),
                               SizedBox(height: 15),
-                              Text("${scannedData.userDetail!.name}",
+                              Text(
+                                  "${scannedData.fiestaBookingDetail?.userDetail?.name}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w900,
                                       fontFamily: FontsDisPlay.dmSantsBold,
@@ -189,7 +190,7 @@ class _TicketScreenState extends State<TicketScreen> {
                               ),
                               SizedBox(height: 65),
                               Text(
-                                  "${scannedData.fiestaDetail!.clubDetail!.name}",
+                                  "${scannedData.fiestaBookingDetail?.fiestaDetail?.clubDetail?.name}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 30,
@@ -258,20 +259,26 @@ class _TicketScreenState extends State<TicketScreen> {
                               ),
                               SizedBox(height: screenSize.height * 0.030),
                               Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    DotsIndicator(
-                                      dotsCount: scannedData
-                                          .fiestaBookingItems!.length,
-                                      position: caroselSliderIndex.toDouble(),
-                                      decorator: DotsDecorator(
-                                        color: Colors.grey, // Inactive color
-                                        activeColor: AppColors.orangeColor,
+                                child:  Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          DotsIndicator(
+                                            dotsCount: scannedData
+                                                .fiestaBookingDetail!
+                                                .fiestaBookingItems!
+                                                .length,
+                                            position:
+                                                caroselSliderIndex.toDouble(),
+                                            decorator: DotsDecorator(
+                                              color:
+                                                  Colors.grey, // Inactive color
+                                              activeColor:
+                                                  AppColors.orangeColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ],
                           ),

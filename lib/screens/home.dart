@@ -16,6 +16,7 @@ import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatefulWidget {
@@ -225,8 +226,46 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       floatingActionButton: index == 0
           ? GestureDetector(
               onTap: index == 0
-                  ? () {
-                      Get.toNamed(Routes.globalScannerScreen);
+                  ? () async {
+                      var status = await Permission.camera.status;
+                      var request = await Permission.camera.request();
+                      print("dsfdsv${request.isPermanentlyDenied}");
+
+                      if (status.isGranted) {
+                        return Get.toNamed(Routes.globalScannerScreen);
+                      }
+                      if (status.isDenied && !request.isPermanentlyDenied) {
+                        await Permission.camera.request();
+                        return;
+                      }
+                      if (request.isPermanentlyDenied) {
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: Text(AppTranslation.of(context)!.text("permissionerror")),
+                              content: Text(
+                                  AppTranslation.of(context)!.text("permissionText")),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                    child: Text(AppTranslation.of(context)!.text("gotoSetting")),
+                                    onPressed: () async {
+                                      Navigator.pop(context);
+                                      await openAppSettings();
+                                    }),
+                                CupertinoDialogAction(
+                                    child: Text(AppTranslation.of(context)!.text("later")),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    }),
+                              ],
+                            );
+                          },
+                        );
+                        //
+                        return;
+                      }
                     }
                   : () {},
               child: Image.asset(

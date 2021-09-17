@@ -6,6 +6,7 @@ class Routes {
   static const String globalScannerScreen = "/globalScanner";
   static const String scannedticketScreen = "/scannedticket";
   static const String ticketScreen = "/ticket";
+  static const String ticket1Screen = "/ticket1";
   static const String listViewScreen = "/listView";
   static const String profileScreen = "/profile";
   static const String forgotScreen = "/forgot";

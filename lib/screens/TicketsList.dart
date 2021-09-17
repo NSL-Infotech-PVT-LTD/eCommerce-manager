@@ -7,7 +7,8 @@ import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetScannedHistoryModal.dart';
-import 'package:funfy_scanner/Models/bookingListModal.dart';
+
+// import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:get/get.dart';
 import 'LoadingScreen.dart';
@@ -40,10 +41,12 @@ class _TicketsListState extends State<TicketsList> {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then((userToken) {
-      print(userToken);
-      ApiCaller().getScannedHistory(userToken,context).then((scannedHistory) {
+      print("$userToken");
+      ApiCaller().getScannedHistory(userToken, context).then((scannedHistory) {
         setState(() {
           getScannedHistoryData = scannedHistory;
+          print(
+              "sxanned History modal ${getScannedHistoryData.data?.data?[0].fiestaBookingDetail?.totalTickets}");
           _isLoading = false;
           dataUSer = getScannedHistoryData.data!.data!;
           newDataUSer = dataUSer;
@@ -79,7 +82,7 @@ class _TicketsListState extends State<TicketsList> {
     return _isLoading
         ? Center(child: LoadingScreen())
         : SafeArea(
-          child: Scaffold(
+            child: Scaffold(
               backgroundColor: Colors.black87,
               body: Stack(
                 children: [
@@ -117,7 +120,8 @@ class _TicketsListState extends State<TicketsList> {
                                     height: 50,
                                     child: Row(
                                       children: [
-                                        SizedBox(width: screeSize.width * 0.035),
+                                        SizedBox(
+                                            width: screeSize.width * 0.035),
                                         Icon(
                                           Icons.arrow_back_ios,
                                           color: AppColors.white,
@@ -129,8 +133,8 @@ class _TicketsListState extends State<TicketsList> {
                                           style: TextStyle(
                                             color: AppColors.white,
                                             fontSize: 14,
-                                            fontFamily:
-                                                FontsDisPlay.productsSansRegular,
+                                            fontFamily: FontsDisPlay
+                                                .productsSansRegular,
                                           ),
                                         ),
                                       ],
@@ -150,15 +154,17 @@ class _TicketsListState extends State<TicketsList> {
                                             cursorColor: AppColors.orangeColor,
                                             onChanged: (value) {
                                               print("----------+ $value");
-                                              searchFillter(searchKeyword: value);
+                                              searchFillter(
+                                                  searchKeyword: value);
                                             },
                                             decoration: InputDecoration(
                                               hintText:
                                                   "Search name or booking id",
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color:
-                                                          AppColors.orangeColor)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: AppColors
+                                                              .orangeColor)),
                                               suffixIcon: IconButton(
                                                   onPressed: () {
                                                     setState(() {
@@ -167,7 +173,8 @@ class _TicketsListState extends State<TicketsList> {
                                                   },
                                                   icon: Icon(
                                                     Icons.cancel,
-                                                    color: AppColors.orangeColor,
+                                                    color:
+                                                        AppColors.orangeColor,
                                                   )),
                                             ),
                                           ),
@@ -234,15 +241,15 @@ class _TicketsListState extends State<TicketsList> {
                                         final data = newDataUSer[index];
                                         final ticketPrice = data
                                             .fiestaBookingDetail
-                                            ?.fiestaBookingItems
-                                            ?.ticketPrice;
+                                            ?.fiestaBookingItems![0]
+                                            .ticketPrice;
                                         final ticketQuantity = data
                                             .fiestaBookingDetail?.totalTickets;
                                         final bookingID = data.bookingId;
                                         final ticketType = data
                                             .fiestaBookingDetail
-                                            ?.fiestaBookingItems
-                                            ?.ticketType;
+                                            ?.fiestaBookingItems![0]
+                                            .ticketType;
                                         getTicketType() {
                                           if (ticketType ==
                                               "ticket_price_normal") {
@@ -256,14 +263,13 @@ class _TicketsListState extends State<TicketsList> {
                                           }
                                         }
 
+                                        print(
+                                            "asdscds${data.fiestaBookingDetail?.userDetail?.name}");
                                         return GestureDetector(
                                           onTap: () {
                                             Get.toNamed(
-                                              Routes.ticketScreen,
-                                              arguments: {
-                                                "data": data,
-                                                "isScanned": false
-                                              },
+                                              Routes.ticket1Screen,
+                                              arguments: data,
                                             );
                                           },
                                           child: TicketsListTile(
@@ -284,7 +290,7 @@ class _TicketsListState extends State<TicketsList> {
                 ],
               ),
             ),
-        );
+          );
   }
 }
 

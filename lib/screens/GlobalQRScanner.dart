@@ -30,6 +30,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
 
   _qrViewCreate(QRViewController controller) {
     this.controller = controller;
+
     controller.scannedDataStream.listen((scannedData) {
       controller.pauseCamera();
       setState(() {

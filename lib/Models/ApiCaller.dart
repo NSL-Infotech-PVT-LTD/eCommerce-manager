@@ -13,16 +13,17 @@ import 'package:funfy_scanner/Models/UserProfileDataModal.dart';
 import 'package:funfy_scanner/Models/bookingListModal.dart';
 import 'package:funfy_scanner/Models/forgotPasswordModel.dart';
 import 'package:funfy_scanner/Models/getScannedDataModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:funfy_scanner/screens/Auth%20Screens/sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class ApiCaller {
-  // static final String baseUrl =
-  //     "https://dev.netscapelabs.com/funfy/public/api/club-admin/";
-  // static final String baseurl =
-  //     "https://dev.netscapelabs.com/funfy/public/api/";
-  static final String baseUrl ="https://app.funfyapp.com/api/club-admin/";
-  static final String baseurl ="https://app.funfyapp.com/api/";
+  static final String baseUrl =
+      "https://dev.netscapelabs.com/funfy/public/api/club-admin/";
+  static final String baseurl =
+      "https://dev.netscapelabs.com/funfy/public/api/";
+  // static final String baseUrl ="https://app.funfyapp.com/api/club-admin/";
+  // static final String baseurl ="https://app.funfyapp.com/api/";
   static final String login = "login";
   static final String forgotPassword = "reset-password";
   static final String signOut = "logout";
@@ -68,11 +69,11 @@ class ApiCaller {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: Text('Login Error'),
-            content: Text('Please enter the valid email and password !'),
+            title: Text(AppTranslation.of(context)!.text("loginerror")),
+            content: Text(AppTranslation.of(context)!.text("loginerrorText")),
             actions: <Widget>[
               CupertinoDialogAction(
-                  child: Text('Ok'),
+                  child: Text(AppTranslation.of(context)!.text("ok")),
                   onPressed: () {
                     Future.delayed(Duration(seconds: 1), () {
                       UserData.clearData();
