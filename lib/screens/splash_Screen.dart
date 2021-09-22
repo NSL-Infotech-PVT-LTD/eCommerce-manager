@@ -75,8 +75,8 @@ class _SplashScreenState extends State<SplashScreen> {
           Positioned(
             bottom: 10.0,
             left: screenSize.width * 0.40,
-            child: Image.asset(
-              "assets/images/qrScannerIcon.png",
+            child: SvgPicture.asset(
+              "assets/images/funfyPro.svg",
               height: 90.09,
               width: 85.09,
               fit: BoxFit.cover,

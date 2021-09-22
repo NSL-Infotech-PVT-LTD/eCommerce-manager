@@ -61,19 +61,20 @@ dev_dependencies:
   flutter_html: 2.1.2
   flutter_app_name: ^0.1.0
 flutter_app_name:
-  name: "Funfy Booking Scan"
+  name: "Funfy Pro"
 
   flutter_launcher_icons: ^0.9.2
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/IconApp.png"
+  image_path: "assets/images/SpalshScanner.png"
   flutter_test:
     sdk: flutter
 
 
 # For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+# following page: htflutter pub get
+#flutter pub run flutter_app_nametps://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:

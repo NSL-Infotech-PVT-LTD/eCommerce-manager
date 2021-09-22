@@ -45,8 +45,8 @@ class _TicketsListState extends State<TicketsList> {
       ApiCaller().getScannedHistory(userToken, context).then((scannedHistory) {
         setState(() {
           getScannedHistoryData = scannedHistory;
-          print(
-              "sxanned History modal ${getScannedHistoryData.data?.data?[0].fiestaBookingDetail?.totalTickets}");
+          // print(
+          //     "sxanned History modal ${getScannedHistoryData.data?.data?[0].fiestaBookingDetail?.totalTickets}");
           _isLoading = false;
           dataUSer = getScannedHistoryData.data!.data!;
           newDataUSer = dataUSer;
@@ -263,8 +263,8 @@ class _TicketsListState extends State<TicketsList> {
                                           }
                                         }
 
-                                        print(
-                                            "asdscds${data.fiestaBookingDetail?.userDetail?.name}");
+                                        // print(
+                                        //     "asdscds${data.fiestaBookingDetail?.userDetail?.name}");
                                         return GestureDetector(
                                           onTap: () {
                                             Get.toNamed(
@@ -350,7 +350,7 @@ class TicketsListTile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(ticketType(),
+                  Text(ticketType()??"",
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: 16,
