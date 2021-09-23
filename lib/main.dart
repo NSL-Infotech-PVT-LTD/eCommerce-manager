@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
           )
         : GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'FunfY Club Admin',
+            title: 'FunfY Pro',
             theme: ThemeData(
               primarySwatch: Colors.blue,
               brightness: Brightness.dark,
