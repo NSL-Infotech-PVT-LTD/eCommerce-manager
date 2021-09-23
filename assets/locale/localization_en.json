@@ -15,6 +15,7 @@
   "help": "Help",
   "contact": "Contact Us",
   "logout": "LogOut",
+  "logoutText": "Are you sure you want to logout ?",
   "bookingName": "Booking Name",
   "2 person": "2 persons",
   "orderId": "Order ID",
@@ -30,7 +31,7 @@
   "clubs": "Clubs",
   "clubsList": "Clubs List",
   "already a stripe member": "Already a stripe member",
-  "want to change the stripe": "Did you want to change the Stripe?",
+  "want to change the stripe": "Do you want to change the Stripe?",
   "yes": "Yes",
   "no": "No",
   "stripe": "Stripe",
@@ -44,5 +45,15 @@
   "back": "Back",
   "history": "History",
   "addABankAccount": "Add a Bank Account (Stripe)",
-  "terms": "Terms And Conditions"
+  "terms": "Terms And Conditions",
+  "scanTicket": "SCAN TICKET",
+  "totalAttendes": "Total Attendies :",
+  "setordering": "Set Ordering",
+  "permissionerror": "Permission Error",
+  "permissionText": "Camera Permission is required. Please go to the setting to enable the camera permission",
+  "gotoSetting": "go to setting",
+  "later": "later",
+  "loginerror": "Login Error",
+  "loginerrorText": "Please enter the valid email and password !",
+  "ok": "Ok"
 }

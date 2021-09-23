@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
@@ -17,12 +18,16 @@ import 'package:funfy_scanner/screens/profileScreen.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/screens/splash_Screen.dart';
 import 'package:funfy_scanner/screens/ticket_Screen.dart';
+import 'package:funfy_scanner/screens/ticket_Screen1.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'localization/appTranslationDelegate.dart';
 
-void main() {
+void main() async {
+
+
   runApp(MyApp());
 }
 
@@ -36,12 +41,14 @@ class _MyAppState extends State<MyApp> {
   AppTranslationsDelegate _newLocaleDelegate = AppTranslationsDelegate();
 
   bool _loading = true;
+
   @override
   void initState() {
     UserData.getUserLanguage("getUserLang").then((userLanguage) {
       print("vdvdfvv$userLanguage");
 
-      _newLocaleDelegate = AppTranslationsDelegate(newlocale: Locale(userLanguage??"en"));
+      _newLocaleDelegate =
+          AppTranslationsDelegate(newlocale: Locale(userLanguage ?? "en"));
 
       application.onLocaleChanged = onLocaleChange;
     }).whenComplete(() {
@@ -55,9 +62,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return _loading?Center(
+    return _loading
+        ? Center(
       child: CircularProgressIndicator(),
-    ): GetMaterialApp(
+    )
+        : GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FunfY Club Admin',
       theme: ThemeData(
@@ -109,6 +118,12 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: Routes.ticketScreen,
           page: () => TicketScreen(),
+          transition: Transition.downToUp,
+          transitionDuration: Duration(milliseconds: 400),
+        ),
+        GetPage(
+          name: Routes.ticket1Screen,
+          page: () => TicketScreen1(),
           transition: Transition.downToUp,
           transitionDuration: Duration(milliseconds: 400),
         ),

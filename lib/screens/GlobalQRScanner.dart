@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart'
-    '';
+import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/fontsDisplay.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
@@ -32,12 +30,13 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
 
   _qrViewCreate(QRViewController controller) {
     this.controller = controller;
+
     controller.scannedDataStream.listen((scannedData) {
       controller.pauseCamera();
       setState(() {
         data = scannedData;
         print("scanned dat is ${data!.code}");
-// print("dsfdsgfdg${clubId[0]["clubid"]}");
+
         if (data!.code.isNotEmpty && data!.code != "") {
           controller.resumeCamera();
           _panelController.open();
@@ -160,7 +159,11 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
         ),
       ),
       body: Scaffold(
-        backgroundColor: Colors.black87,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
         body: Center(
           child: Stack(
             children: [

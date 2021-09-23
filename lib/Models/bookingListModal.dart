@@ -99,7 +99,7 @@ class DataUser {
   String? bookingStatus;
   int? totalTickets;
   int? grandTotal;
-  FiestaBookingItems? fiestaBookingItems;
+  List<FiestaBookingItems>? fiestaBookingItems;
   UserDetail? userDetail;
   FiestaDetail? fiestaDetail;
   FiestaBookingDetail? fiestaBookingDetail;
@@ -115,9 +115,8 @@ class DataUser {
       this.grandTotal,
       this.fiestaBookingItems,
       this.userDetail,
-        this.fiestaBookingDetail,
-
-        this.fiestaDetail});
+      this.fiestaBookingDetail,
+      this.fiestaDetail});
 
   DataUser.fromJson(Map<String, dynamic> json) {
     print("IM THE MODEL id  ${json['id']}");
@@ -139,9 +138,12 @@ class DataUser {
     fiestaBookingDetail = json['fiesta_booking_detail'] != null
         ? new FiestaBookingDetail.fromJson(json['fiesta_booking_detail'])
         : null;
-    fiestaBookingItems = json['fiesta_booking_items'] != null
-        ? new FiestaBookingItems.fromJson(json['fiesta_booking_items'])
-        : null;
+    if (json['fiesta_booking_items'] != null) {
+      fiestaBookingItems = <FiestaBookingItems>[];
+      json['fiesta_booking_items'].forEach((v) {
+        fiestaBookingItems!.add(new FiestaBookingItems.fromJson(v));
+      });
+    }
     userDetail = json['user_detail'] != null
         ? new UserDetail.fromJson(json['user_detail'])
         : null;
@@ -161,7 +163,8 @@ class DataUser {
     data['total_tickets'] = this.totalTickets;
     data['grand_total'] = this.grandTotal;
     if (this.fiestaBookingItems != null) {
-      data['fiesta_booking_items'] = this.fiestaBookingItems!.toJson();
+      data['fiesta_booking_items'] =
+          this.fiestaBookingItems!.map((v) => v.toJson()).toList();
     }
     if (this.userDetail != null) {
       data['user_detail'] = this.userDetail!.toJson();
@@ -217,7 +220,6 @@ class UserDetail {
   int? id;
   String name = "";
   Role? role;
-
 
   UserDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -345,6 +347,7 @@ class FiestaDetail {
     return data;
   }
 }
+
 class FiestaBookingDetail {
   int? id;
   int? userId;
@@ -360,16 +363,16 @@ class FiestaBookingDetail {
 
   FiestaBookingDetail(
       {this.id,
-        this.userId,
-        this.fiestaId,
-        this.totalPrice,
-        this.bookingStatus,
-        this.totalTickets,
-        this.grandTotal,
-        this.readyForReview,
-        this.fiestaDetail,
-        this.userDetail,
-        this.fiestaBookingItems});
+      this.userId,
+      this.fiestaId,
+      this.totalPrice,
+      this.bookingStatus,
+      this.totalTickets,
+      this.grandTotal,
+      this.readyForReview,
+      this.fiestaDetail,
+      this.userDetail,
+      this.fiestaBookingItems});
 
   FiestaBookingDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];

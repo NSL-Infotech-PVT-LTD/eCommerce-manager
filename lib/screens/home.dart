@@ -16,6 +16,7 @@ import 'package:funfy_scanner/screens/pastTicketsList.dart';
 import 'package:funfy_scanner/screens/qr_code_scanner.dart';
 import 'package:funfy_scanner/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Home extends StatefulWidget {
@@ -78,8 +79,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     UserData.getUserToken("USERTOKEN").then(
-      (token) => ApiCaller().logout(token,context).then(
-        (value) {
+          (token) => ApiCaller().logout(token, context).then(
+            (value) {
           setState(() {
             _isLoading = false;
           });
@@ -96,18 +97,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout.'),
+          title: Text(AppTranslation.of(context)!.text("logout")),
+          content: Text(AppTranslation.of(context)!.text("logoutText")),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: Text('Yes'),
+              child: Text(AppTranslation.of(context)!.text("yes")),
               onPressed: () {
                 logoutmethod();
                 Navigator.pop(context);
               },
             ),
             CupertinoDialogAction(
-                child: Text('No'),
+                child: Text(AppTranslation.of(context)!.text("no")),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
@@ -127,18 +128,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         children: [
           Container(
               child: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: [
-              //shown Past Tickets List
-              PastTicketsList(
-                  // clubList: clubList,
+                physics: NeverScrollableScrollPhysics(),
+                controller: _tabController,
+                children: [
+                  //shown Past Tickets List
+                  PastTicketsList(
+                    // clubList: clubList,
                   ),
-              //Profile Screen
-              buildProfileScreen(_isLoading, userAddData, size, context,
-                  showpopUpForLOgout, _panelController!),
-            ],
-          )),
+                  //Profile Screen
+                  buildProfileScreen(_isLoading, userAddData, size, context,
+                      showpopUpForLOgout, _panelController!),
+                ],
+              )),
         ],
       ),
       bottomNavigationBar: Container(
@@ -164,15 +165,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     children: [
                       index == 0
                           ? Image.asset(
-                              "assets/images/selectedticket.png",
-                              height: 32,
-                              width: 32,
-                            )
+                        "assets/images/selectedticket.png",
+                        height: 32,
+                        width: 32,
+                      )
                           : Image.asset(
-                              "assets/images/ticket.png",
-                              height: 32,
-                              width: 32,
-                            ),
+                        "assets/images/ticket.png",
+                        height: 32,
+                        width: 32,
+                      ),
                       Text(
                         AppTranslation.of(context)!.text("bookings"),
                         style: TextStyle(
@@ -195,15 +196,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     children: [
                       index == 1
                           ? SvgPicture.asset(
-                              "assets/images/onSettings.svg",
-                              height: 32,
-                              width: 32,
-                            )
+                        "assets/images/onSettings.svg",
+                        height: 32,
+                        width: 32,
+                      )
                           : SvgPicture.asset(
-                              "assets/images/offSettings.svg",
-                              height: 32,
-                              width: 32,
-                            ),
+                        "assets/images/offSettings.svg",
+                        height: 32,
+                        width: 32,
+                      ),
                       Text(
                         AppTranslation.of(context)!.text("profile"),
                         style: TextStyle(
@@ -224,16 +225,54 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
       floatingActionButton: index == 0
           ? GestureDetector(
-              onTap: index == 0
-                  ? () {
-                      Get.toNamed(Routes.globalScannerScreen);
-                    }
-                  : () {},
-              child: Image.asset(
-                "assets/images/scanner.png",
-                height: 150,
-                width: 150,
-              ))
+          onTap: index == 0
+              ? () async {
+            var status = await Permission.camera.status;
+            var request = await Permission.camera.request();
+            print("dsfdsv${request.isPermanentlyDenied}");
+
+            if (status.isGranted) {
+              return Get.toNamed(Routes.globalScannerScreen);
+            }
+            if (status.isDenied && !request.isPermanentlyDenied) {
+              await Permission.camera.request();
+              return;
+            }
+            if (request.isPermanentlyDenied) {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext context) {
+                  return CupertinoAlertDialog(
+                    title: Text(AppTranslation.of(context)!.text("permissionerror")),
+                    content: Text(
+                        AppTranslation.of(context)!.text("permissionText")),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                          child: Text(AppTranslation.of(context)!.text("gotoSetting")),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            await openAppSettings();
+                          }),
+                      CupertinoDialogAction(
+                          child: Text(AppTranslation.of(context)!.text("later")),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ],
+                  );
+                },
+              );
+              //
+              return;
+            }
+          }
+              : () {},
+          child: Image.asset(
+            "assets/images/scanner.png",
+            height: 150,
+            width: 150,
+          ))
           : Container(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
