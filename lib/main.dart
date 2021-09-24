@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Constants/routes.dart';
@@ -24,9 +25,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'localization/appTranslationDelegate.dart';
+List<CameraDescription> ?cameras;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  cameras = await availableCameras();
 
   runApp(MyApp());
 }

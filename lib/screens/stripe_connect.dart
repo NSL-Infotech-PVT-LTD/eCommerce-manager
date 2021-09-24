@@ -121,7 +121,7 @@ class _WebViewXPageState extends State<WebViewXPage> {
           });
           getData();
         }
-      },
+      }, height: screenSize.height, width: screenSize.width,
     );
   }
 

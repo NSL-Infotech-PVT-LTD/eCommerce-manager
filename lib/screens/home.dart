@@ -230,7 +230,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       var status = await Permission.camera.status;
                       var request = await Permission.camera.request();
                       print("dsfdsv${request.isPermanentlyDenied}");
-
+                      // await Permission.camera.request();
                       if (status.isGranted) {
                         return Get.toNamed(Routes.globalScannerScreen);
                       }
