@@ -59,5 +59,13 @@
   "checkConnection": "¡Comprueba tu conexión!",
   "warning": "ADVERTENCIA",
   "qrnulltext": "¡Escanee un código QR válido!",
-  "pleasewait": "Espere por favor"
+  "pleasewait": "Espere por favor",
+  "emailvalid": "¡Por favor introduzca una dirección de correo electrónico válida!",
+  "passValid": "Se requieren 6 caracteres como mínimo.",
+  "nodataFound": "¡Aún no tiene datos!",
+  "searchbyname": "Por nombre o id",
+  "open": "ABIERTA",
+  "changelanguage": "Cambiar idioma",
+  "sucess": "ÉXITO",
+  "sucessText": "¡Conectado con éxito con raya!"
 }

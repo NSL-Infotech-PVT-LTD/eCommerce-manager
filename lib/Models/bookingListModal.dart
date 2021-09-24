@@ -98,7 +98,7 @@ class DataUser {
   String? totalPrice;
   String? bookingStatus;
   int? totalTickets;
-  int? grandTotal;
+  double? grandTotal;
   List<FiestaBookingItems>? fiestaBookingItems;
   UserDetail? userDetail;
   FiestaDetail? fiestaDetail;
@@ -219,21 +219,21 @@ class FiestaBookingItems {
 class UserDetail {
   int? id;
   String name = "";
-  Role? role;
+  // Role? role;
 
   UserDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    role = json['role'] != null ? new Role.fromJson(json['role']) : null;
+    // role = json['role'] != null ? new Role.fromJson(json['role']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    if (this.role != null) {
-      data['role'] = this.role!.toJson();
-    }
+    // if (this.role != null) {
+    //   data['role'] = this.role!.toJson();
+    // }
     return data;
   }
 }

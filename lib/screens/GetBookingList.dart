@@ -351,7 +351,9 @@ class _GetBookingListState extends State<GetBookingList> {
                     ),
                     Expanded(
                       child: bookingList.isEmpty
-                          ? Center(child: Text("Nothing to show! "))
+                          ? Center(
+                              child: Text(AppTranslation.of(context)!
+                                  .text("nodataFound")))
                           : ListView.builder(
                               controller: controller,
                               itemCount: totalPage > 1

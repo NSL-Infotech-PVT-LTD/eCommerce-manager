@@ -59,5 +59,13 @@
   "checkConnection": "Please check your connection!",
   "warning": "WARNING",
   "qrnulltext": "Please scan valid QR code !",
-  "pleasewait": "Please Wait"
+  "pleasewait": "Please Wait",
+  "emailvalid": "Please enter a valid email!",
+  "passValid": "minimum 6 characters required.",
+  "nodataFound": "Doesnot have any data yet!",
+  "searchbyname": "By name or id",
+  "open": "OPEN",
+  "changelanguage": "Change Language",
+  "sucess": "SUCCESS",
+  "sucessText": "Sucessfully connected with stripe!"
 }

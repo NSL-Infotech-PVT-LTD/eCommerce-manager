@@ -167,7 +167,7 @@ class _SignInState extends State<SignIn> {
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: (value) => (value!.isEmpty)
-                                    ? "Please enter a valid email !"
+                                    ? AppTranslation.of(context)!.text("emailvalid")
                                     : null,
                                 style: TextStyle(
                                   color: Color(0xffC5C5C5),
@@ -227,7 +227,7 @@ class _SignInState extends State<SignIn> {
                                 keyboardType: TextInputType.visiblePassword,
                                 validator: (value) => (value!.length < 6 ||
                                         value.isEmpty)
-                                    ? "Please enter a 6+ characters password !"
+                                    ? AppTranslation.of(context)!.text("passValid")
                                     : null,
                                 style: TextStyle(
                                   color: Color(0xffC5C5C5),
