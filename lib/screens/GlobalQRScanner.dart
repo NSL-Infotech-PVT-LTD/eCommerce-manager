@@ -59,7 +59,8 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
                   builder: (BuildContext context) {
                     return CupertinoAlertDialog(
                       title: Text(AppTranslation.of(context)!.text("warning")),
-                      content: Text(AppTranslation.of(context)!.text("qrnulltext")),
+                      content:
+                          Text(AppTranslation.of(context)!.text("qrnulltext")),
                       actions: <Widget>[
                         CupertinoDialogAction(
                             child: Text(AppTranslation.of(context)!.text("ok")),
@@ -238,6 +239,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: _displayLoadingBottomSheet(),
     );
   }

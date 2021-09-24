@@ -213,13 +213,26 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                   fixedSize: Size(screenSize.width, 50)),
                               onPressed: () {
                                 print("cvbcbcvbnv =>>$initialValueUse");
-                                application.onLocaleChanged!(
-                                    Locale(initialValueUse.toString()));
+
                                 UserData.setUserLanguage(
                                   key: "getUserLang",
                                   value: initialValueUse!,
-                                );
-                                Navigator.of(context).pop();
+                                ).then((value) {
+                                  application.onLocaleChanged!(
+                                      Locale(initialValueUse.toString()));
+                                  UserData.getUserToken("USERTOKEN")
+                                      .then((userToken) {
+                                    if (userToken == null) {
+
+                                      Get.offNamed(Routes.signInScreen);
+                                    } else {
+                                      Get.offNamed(Routes.homeScreen);
+                                    }
+                                  });
+                                });
+
+                                // Navigator.of(context).pop();
+
                                 print(
                                     "User Language ====>>${UserData.getUserLanguage("getUserLang")}");
                               },

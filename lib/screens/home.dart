@@ -84,7 +84,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           setState(() {
             _isLoading = false;
           });
-          return Get.offNamed(Routes.signInScreen);
+          return Get.offNamed(Routes.languageScreen);
         },
       ),
     );

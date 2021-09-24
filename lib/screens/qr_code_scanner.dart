@@ -62,7 +62,8 @@ class _QRDataState extends State<QRData> {
                   builder: (BuildContext context) {
                     return CupertinoAlertDialog(
                       title: Text(AppTranslation.of(context)!.text("warning")),
-                      content: Text(AppTranslation.of(context)!.text("qrnulltext")),
+                      content:
+                          Text(AppTranslation.of(context)!.text("qrnulltext")),
                       actions: <Widget>[
                         CupertinoDialogAction(
                             child: Text(AppTranslation.of(context)!.text("ok")),
@@ -80,10 +81,7 @@ class _QRDataState extends State<QRData> {
                 ApiCaller().addScannedid(userToken, data!.code).then((value) {
                   Get.toNamed(
                     Routes.ticketScreen,
-                    arguments:  {
-                      "data": datauser,
-                      "isScanned": true
-                    },
+                    arguments: {"data": datauser, "isScanned": true},
                   );
                 });
               }
@@ -173,6 +171,11 @@ class _QRDataState extends State<QRData> {
       ),
       body: Scaffold(
         backgroundColor: Colors.black87,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
         body: Center(
           child: Stack(
             children: [

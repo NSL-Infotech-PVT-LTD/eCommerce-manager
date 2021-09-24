@@ -116,7 +116,7 @@ class _TicketsListState extends State<TicketsList> {
                                     Navigator.pop(context);
                                   },
                                   child: Container(
-                                    width: 60,
+                                    width: 70,
                                     height: 50,
                                     child: Row(
                                       children: [
@@ -159,7 +159,7 @@ class _TicketsListState extends State<TicketsList> {
                                             },
                                             decoration: InputDecoration(
                                               hintText:
-                                                  "Search name or booking id",
+                                                  AppTranslation.of(context)!.text("searchbyname"),
                                               focusedBorder:
                                                   UnderlineInputBorder(
                                                       borderSide: BorderSide(
@@ -227,7 +227,7 @@ class _TicketsListState extends State<TicketsList> {
                             Expanded(
                               child: newDataUSer.isEmpty
                                   ? Center(
-                                      child: Text("Nothing to Show !",
+                                      child: Text(AppTranslation.of(context)!.text("nodataFound"),
                                           style: TextStyle(
                                             color: AppColors.white,
                                             fontWeight: FontWeight.w500,

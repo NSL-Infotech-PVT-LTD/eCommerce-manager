@@ -22,7 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
       UserData.getUserToken("USERTOKEN").then((_token) {
         print("$_token jdfkjskfj");
         if (_token == null) {
-          Get.offNamed(Routes.signInScreen);
+          Get.offNamed(Routes.languageScreen);
+          // Get.offNamed(Routes.signInScreen);
         } else {
           Get.offNamed(Routes.homeScreen);
         }

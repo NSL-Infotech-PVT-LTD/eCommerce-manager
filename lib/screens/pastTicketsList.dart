@@ -130,7 +130,7 @@ class _PastTicketsListState extends State<PastTicketsList> {
                                   width: screenSize.width,
                                   child: clubList.data!.data!.isEmpty
                                       ? Center(
-                                          child: Text("Nothing to Show !",
+                                          child: Text(AppTranslation.of(context)!.text("nodataFound"),
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontWeight: FontWeight.w500,
@@ -331,7 +331,7 @@ class ClubTile extends StatelessWidget {
                   color: AppColors.orangeColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text("OPEN",
+                child: Text(AppTranslation.of(context)!.text("open"),
                     style: TextStyle(
                       fontFamily: FontsDisPlay.robotoBold,
                       fontSize: 14,
