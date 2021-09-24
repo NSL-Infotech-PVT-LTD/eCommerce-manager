@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:funfy_scanner/Helper/userData.dart';
 import 'package:funfy_scanner/Models/ApiCaller.dart';
 import 'package:funfy_scanner/Models/GetStripeDataModal.dart';
+import 'package:funfy_scanner/localization/localaProvider.dart';
 import 'package:webviewx/webviewx.dart';
 
 class WebViewXPage extends StatefulWidget {
@@ -64,11 +65,11 @@ class _WebViewXPageState extends State<WebViewXPage> {
           barrierDismissible: false, // user must tap button!
           builder: (BuildContext context) {
             return CupertinoAlertDialog(
-              title: Text('SUCCESS'),
-              content: Text('Sucessfully connected with stripe !'),
+              title: Text(AppTranslation.of(context)!.text("sucess")),
+              content: Text(AppTranslation.of(context)!.text("sucessText")),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: Text('Ok'),
+                    child: Text(AppTranslation.of(context)!.text("ok")),
                     onPressed: () {
                       Navigator.pop(context);
                     }),

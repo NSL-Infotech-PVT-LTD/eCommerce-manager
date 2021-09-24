@@ -223,7 +223,6 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                   UserData.getUserToken("USERTOKEN")
                                       .then((userToken) {
                                     if (userToken == null) {
-
                                       Get.offNamed(Routes.signInScreen);
                                     } else {
                                       Get.offNamed(Routes.homeScreen);
@@ -236,7 +235,8 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                                 print(
                                     "User Language ====>>${UserData.getUserLanguage("getUserLang")}");
                               },
-                              child: Text("Change Language")),
+                              child: Text(AppTranslation.of(context)!
+                                  .text("changelanguage"))),
                         ),
                         SizedBox(height: screenSize.height * 0.040),
                       ],

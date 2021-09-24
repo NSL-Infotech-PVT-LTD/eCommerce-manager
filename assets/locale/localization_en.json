@@ -64,5 +64,8 @@
   "passValid": "minimum 6 characters required.",
   "nodataFound": "Doesnot have any data yet!",
   "searchbyname": "By name or id",
-  "open": "OPEN"
+  "open": "OPEN",
+  "changelanguage": "Change Language",
+  "sucess": "SUCCESS",
+  "sucessText": "Sucessfully connected with stripe!"
 }

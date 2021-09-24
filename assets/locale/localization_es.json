@@ -64,5 +64,8 @@
   "passValid": "Se requieren 6 caracteres como mínimo.",
   "nodataFound": "¡Aún no tiene datos!",
   "searchbyname": "Por nombre o id",
-  "open": "ABIERTA"
+  "open": "ABIERTA",
+  "changelanguage": "Cambiar idioma",
+  "sucess": "ÉXITO",
+  "sucessText": "¡Conectado con éxito con raya!"
 }
