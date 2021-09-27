@@ -134,13 +134,13 @@ class _WebViewXPageState extends State<WebViewXPage> {
       setState(() {
         loading = false;
       });
-      if (decodedJSON.toString().isNotEmpty) {
-        Map<String, dynamic> responseJSON = jsonDecode(decodedJSON);
-        if (responseJSON["status"] == true) {
-          var accountId = responseJSON["data"]["stripe_user_id"];
+      if (decodedJSON.isNotEmpty) {
+        if (decodedJSON["status"] == true) {
+          var accountId = decodedJSON["data"]["stripe_user_id"];
           saveStripeAcctKey(accountId);
         }
       }
+
     });
   }
 }

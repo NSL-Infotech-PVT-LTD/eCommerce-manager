@@ -39,10 +39,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs camera access to scan QR codes</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>App need Local network permission to work properly</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>App need microphone permission to work properly</string>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>App need Local network permission to work properly</string>
+	<string>App need microphone permission to work properly</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

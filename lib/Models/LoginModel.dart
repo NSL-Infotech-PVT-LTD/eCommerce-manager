@@ -55,22 +55,22 @@ class User {
   String? gender;
   String? image;
   String? dob;
-  Null? radius;
+  String? radius;
   String? isAvailable;
-  Null? appleId;
-  Null? fbId;
-  Null? googleId;
+  String? appleId;
+  String? fbId;
+  String? googleId;
   String? isNotify;
   String? stripeAccountId;
-  Null? params;
+  String? params;
   String? status;
   String? createdAt;
   String? updatedAt;
-  Null? deletedAt;
+  String? deletedAt;
   String? stripeId;
-  Null? cardBrand;
-  Null? cardLastFour;
-  Null? trialEndsAt;
+  String? cardBrand;
+  String? cardLastFour;
+  String? trialEndsAt;
   Role? role;
 
   User(
