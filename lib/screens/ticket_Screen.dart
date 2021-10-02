@@ -257,22 +257,30 @@ class _TicketScreenState extends State<TicketScreen> {
                                 ],
                               ),
                               SizedBox(height: screenSize.height * 0.030),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    DotsIndicator(
-                                      dotsCount: scannedData
-                                          .fiestaBookingItems!.length,
-                                      position: caroselSliderIndex.toDouble(),
-                                      decorator: DotsDecorator(
-                                        color: Colors.grey, // Inactive color
-                                        activeColor: AppColors.orangeColor,
+
+                               Visibility(
+                                 visible: scannedData.fiestaBookingItems!.length>0,
+                                 child: Expanded(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            DotsIndicator(
+                                              dotsCount: scannedData
+                                                  .fiestaBookingItems!.length,
+                                              position:
+                                                  caroselSliderIndex.toDouble(),
+                                              decorator: DotsDecorator(
+                                                color:
+                                                    Colors.grey, // Inactive color
+                                                activeColor:
+                                                    AppColors.orangeColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                               ),
                             ],
                           ),
                         ),

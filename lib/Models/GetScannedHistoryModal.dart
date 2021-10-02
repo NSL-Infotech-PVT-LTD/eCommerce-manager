@@ -139,10 +139,10 @@ class FiestaBookingDetail {
   int? id;
   int? userId;
   int? fiestaId;
-  String ?totalPrice;
+  String? totalPrice;
   int? totalTickets;
 
-  int? grandTotal;
+  double? grandTotal;
   bool? readyForReview;
   FiestaDetail? fiestaDetail;
   UserDetail? userDetail;
@@ -216,7 +216,7 @@ class FiestaDetail {
   String? totalMembers;
   int? filterMusicId;
   int? filterClothingId;
-  int? clubRating;
+  double? clubRating;
   var leftNormalTicket;
   var leftStandardTicket;
   var leftVipTicket;
@@ -471,18 +471,19 @@ class UserDetail {
   String? name;
   String? gender;
   String? email;
-  Null? mobile;
+  String? mobile;
   String? dob;
   Role? role;
 
-  UserDetail(
-      {this.id,
-      this.name,
-      this.gender,
-      this.email,
-      this.mobile,
-      this.dob,
-      this.role});
+  UserDetail({
+    this.id,
+    this.name,
+    this.gender,
+    this.email,
+    this.mobile,
+    this.dob,
+    this.role,
+  });
 
   UserDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -491,7 +492,7 @@ class UserDetail {
     email = json['email'];
     mobile = json['mobile'];
     dob = json['dob'];
-    role = json['role'] != null ? new Role.fromJson(json['role']) : null;
+    // role = json['role'] != null ? new Role.fromJson(json['role']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -502,9 +503,9 @@ class UserDetail {
     data['email'] = this.email;
     data['mobile'] = this.mobile;
     data['dob'] = this.dob;
-    if (this.role != null) {
-      data['role'] = this.role!.toJson();
-    }
+    // if (this.role != null) {
+    //   data['role'] = this.role!.toJson();
+    // }
     return data;
   }
 }

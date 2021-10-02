@@ -258,27 +258,28 @@ class _TicketScreen1State extends State<TicketScreen1> {
                                 ],
                               ),
                               SizedBox(height: screenSize.height * 0.030),
-                              Expanded(
-                                child:  Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          DotsIndicator(
-                                            dotsCount: scannedData
-                                                .fiestaBookingDetail!
-                                                .fiestaBookingItems!
-                                                .length,
-                                            position:
-                                                caroselSliderIndex.toDouble(),
-                                            decorator: DotsDecorator(
-                                              color:
-                                                  Colors.grey, // Inactive color
-                                              activeColor:
-                                                  AppColors.orangeColor,
-                                            ),
-                                          ),
-                                        ],
+                              Visibility(
+                                visible: scannedData.fiestaBookingDetail!
+                                        .fiestaBookingItems!.length >
+                                    0,
+                                child: Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      DotsIndicator(
+                                        dotsCount: scannedData
+                                            .fiestaBookingDetail!
+                                            .fiestaBookingItems!
+                                            .length,
+                                        position: caroselSliderIndex.toDouble(),
+                                        decorator: DotsDecorator(
+                                          color: Colors.grey, // Inactive color
+                                          activeColor: AppColors.orangeColor,
+                                        ),
                                       ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ],
                           ),

@@ -31,10 +31,10 @@ class Data {
   int? from;
   int? lastPage;
   String? lastPageUrl;
-  Null? nextPageUrl;
+  String? nextPageUrl;
   String? path;
   int? perPage;
-  Null? prevPageUrl;
+  String? prevPageUrl;
   int? to;
   int? total;
 
@@ -252,10 +252,10 @@ class FiestaDetail {
   String? distanceKm;
   String? distanceMiles;
   bool? isFavourite;
-  int? leftStandardTicket;
+  String? leftStandardTicket;
   String? leftVipTicket;
-  int? leftNormalTicket;
-  Null? clubRating;
+  String? leftNormalTicket;
+  double? clubRating;
   ClubDetail? clubDetail;
 
   FiestaDetail(
@@ -334,8 +334,8 @@ class ClubDetail {
   String? capacity;
   String? description;
   String? location;
-  Null? latitude;
-  Null? longitude;
+  var latitude;
+  var longitude;
 
   ClubDetail(
       {this.id,

@@ -25,7 +25,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'localization/appTranslationDelegate.dart';
-List<CameraDescription> ?cameras;
+
+List<CameraDescription>? cameras;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

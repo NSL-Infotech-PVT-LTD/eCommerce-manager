@@ -219,6 +219,7 @@ class FiestaBookingItems {
 class UserDetail {
   int? id;
   String name = "";
+
   // Role? role;
 
   UserDetail.fromJson(Map<String, dynamic> json) {
@@ -280,7 +281,7 @@ class FiestaDetail {
   String? ticketPriceStandard;
   String? ticketPriceVip;
   String? totalMembers;
-  int? clubRating;
+  double? clubRating;
   var leftNormalTicket;
   var leftStandardTicket;
   var leftVipTicket;

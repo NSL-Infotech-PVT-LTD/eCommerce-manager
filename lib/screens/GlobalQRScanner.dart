@@ -33,6 +33,7 @@ class _GlobalQrScannerState extends State<GlobalQrScanner> {
 
     controller.scannedDataStream.listen((scannedData) {
       controller.pauseCamera();
+
       setState(() {
         data = scannedData;
         print("scanned dat is ${data!.code}");
